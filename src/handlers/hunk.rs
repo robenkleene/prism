@@ -3,8 +3,8 @@ use std::cmp::min;
 use lazy_static::lazy_static;
 
 use crate::cli;
-use crate::config::{delta_unreachable, Config};
-use crate::delta::{DiffType, InMergeConflict, MergeParents, State, StateMachine};
+use crate::config::{prism_unreachable, Config};
+use crate::prism::{DiffType, InMergeConflict, MergeParents, State, StateMachine};
 use crate::paint::{expand_tabs, prepare, prepare_raw_line};
 use crate::style;
 use crate::utils::process::{self, CallingProcess};
@@ -131,7 +131,7 @@ impl<'a> StateMachine<'a> {
     }
 }
 
-// Return Some(prepared_raw_line) if delta should emit this line raw.
+// Return Some(prepared_raw_line) if prism should emit this line raw.
 fn maybe_raw_line(
     raw_line: &str,
     state_style_is_raw: bool,
@@ -195,7 +195,7 @@ fn new_line_state(
         | HunkPlus(Combined(Number(n), in_merge_conflict), _) => {
             Combined(Number(*n), in_merge_conflict.clone())
         }
-        _ => delta_unreachable(&format!(
+        _ => prism_unreachable(&format!(
             "Unexpected state in new_line_state: {:?}",
             prev_state
         )),
@@ -219,7 +219,7 @@ fn new_line_state(
                 Some(in_merge_conflict),
             )
         }
-        _ => delta_unreachable(""),
+        _ => prism_unreachable(""),
     };
 
     let maybe_minus_raw_line = || {

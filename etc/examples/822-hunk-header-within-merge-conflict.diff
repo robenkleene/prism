@@ -1,7 +1,7 @@
-diff --cc src/delta.rs
+diff --cc src/prism.rs
 index 9a65aaa,ab08d84..0000000
---- a/src/delta.rs
-+++ b/src/delta.rs
+--- a/src/prism.rs
++++ b/src/prism.rs
 @@@ -21,7 -21,7 +21,13 @@@ pub enum State 
       HunkZero(DiffType),   // In hunk; unchanged line (prefix)
       HunkMinus(DiffType, Option<String>), // In hunk; removed line (diff_type, raw_line)
@@ -38,7 +38,7 @@ index 26cb288,7df74ae..0000000
  +        | HunkPlus(Combined(Prefix(prefix), in_merge_conflict), _) => {
  +            Combined(Number(prefix.len()), in_merge_conflict.clone())
  +        }
- +        _ => delta_unreachable(&format!(
+ +        _ => prism_unreachable(&format!(
  +            "Unexpected state in new_line_state: {:?}",
  +            prev_state
  +        )),
@@ -47,7 +47,7 @@ index 26cb288,7df74ae..0000000
 ++        HunkMinus(Combined(Prefix(prefix)), _)
 ++        | HunkZero(Combined(Prefix(prefix)))
 ++        | HunkPlus(Combined(Prefix(prefix)), _) => Combined(Number(prefix.len())),
-++        _ => delta_unreachable(&format!("diff_type: unexpected state: {:?}", prev_state)),
+++        _ => prism_unreachable(&format!("diff_type: unexpected state: {:?}", prev_state)),
 ++=======
 +         HunkHeader(Combined(Number(n)), _, _) => Combined(Number(*n)),
 +         // The prefixes are specific to the previous line, but the number of merge parents remains
@@ -56,7 +56,7 @@ index 26cb288,7df74ae..0000000
 +         | HunkMinus(Combined(Prefix(prefix)), _)
 +         | HunkZero(Combined(Prefix(prefix)))
 +         | HunkPlus(Combined(Prefix(prefix)), _) => Combined(Number(prefix.len())),
-+         _ => delta_unreachable(&format!("diff_type: unexpected state: {:?}", prev_state)),
++         _ => prism_unreachable(&format!("diff_type: unexpected state: {:?}", prev_state)),
 ++>>>>>>> b2b28c8... Display merge conflict branches
       };
   
@@ -80,15 +80,15 @@ index a956f2e,3a7e7b9..0000000
 ++<<<<<<< HEAD
   use super::draw;
   use crate::cli;
-  use crate::config::{self, delta_unreachable};
- +use crate::delta::{DiffType, InMergeConflict, MergeParents, State, StateMachine};
+  use crate::config::{self, prism_unreachable};
+ +use crate::prism::{DiffType, InMergeConflict, MergeParents, State, StateMachine};
 ++||||||| parent of b2b28c8... Display merge conflict branches
-+ use crate::delta::{DiffType, MergeParents, State, StateMachine};
++ use crate::prism::{DiffType, MergeParents, State, StateMachine};
 ++=======
 ++use super::draw;
 ++use crate::cli;
-++use crate::config::{self, delta_unreachable};
-++use crate::delta::{DiffType, MergeParents, State, StateMachine};
+++use crate::config::{self, prism_unreachable};
+++use crate::prism::{DiffType, MergeParents, State, StateMachine};
 ++>>>>>>> b2b28c8... Display merge conflict branches
   use crate::minusplus::MinusPlus;
   use crate::paint;
@@ -277,7 +277,7 @@ index a956f2e,3a7e7b9..0000000
  +            self.painter.merge_conflict_lines[commit].push((line, state));
  +            true
  +        } else {
- +            delta_unreachable(&format!("Invalid state: {:?}", state))
+ +            prism_unreachable(&format!("Invalid state: {:?}", state))
  +        }
  +    }
  +
@@ -339,7 +339,7 @@ index a956f2e,3a7e7b9..0000000
 +             self.painter.merge_conflict_lines[commit].push((line, state));
 +             true
 +         } else {
-+             delta_unreachable(&format!("Invalid state: {:?}", state))
++             prism_unreachable(&format!("Invalid state: {:?}", state))
 +         }
 +     }
 + 

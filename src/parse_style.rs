@@ -1,7 +1,7 @@
 use bitflags::bitflags;
 
 use crate::color;
-use crate::config::delta_unreachable;
+use crate::config::prism_unreachable;
 use crate::fatal;
 use crate::git_config::GitConfig;
 use crate::style::{DecorationStyle, Style};
@@ -9,7 +9,7 @@ use crate::style::{DecorationStyle, Style};
 impl Style {
     /// Construct Style from style and decoration-style strings supplied on command line, together
     /// with defaults. A style string is a space-separated string containing 0, 1, or 2 colors
-    /// (foreground and then background) and an arbitrary number of style attributes. See `delta
+    /// (foreground and then background) and an arbitrary number of style attributes. See `prism
     /// --help` for more precise spec.
     pub fn from_str(
         style_string: &str,
@@ -103,7 +103,7 @@ impl DecorationStyle {
             bits if bits == BOX | OL => DecorationStyle::BoxWithOverline(style),
             bits if bits == BOX | UL | OL => DecorationStyle::BoxWithUnderOverline(style),
             _ if is_omitted => DecorationStyle::NoDecoration,
-            _ => delta_unreachable("Unreachable code path reached in parse_decoration_style."),
+            _ => prism_unreachable("Unreachable code path reached in parse_decoration_style."),
         }
     }
 
@@ -214,7 +214,7 @@ fn parse_ansi_term_style(
             seen_background = true;
         } else {
             fatal(format!(
-                "Invalid style string: {}. See the STYLES section of delta --help.",
+                "Invalid style string: {}. See the STYLES section of prism --help.",
                 s
             ));
         }

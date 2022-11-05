@@ -353,17 +353,17 @@ trait ProcessInterface {
     {
         /*
 
-        $ start_blame_of.sh src/main.rs | delta
+        $ start_blame_of.sh src/main.rs | prism
 
         \_ /usr/bin/some-terminal-emulator
-        |   \_ common_git_and_delta_ancestor
+        |   \_ common_git_and_prism_ancestor
         |       \_ /bin/sh /opt/git/start_blame_of.sh src/main.rs
         |       |   \_ /bin/sh /opt/some/wrapper git blame src/main.rs
         |       |       \_ /usr/bin/git blame src/main.rs
-        |       \_ /bin/sh /opt/some/wrapper delta
-        |           \_ delta
+        |       \_ /bin/sh /opt/some/wrapper prism
+        |           \_ prism
 
-        Walk up the process tree of delta and of every matching other process, counting the steps
+        Walk up the process tree of prism and of every matching other process, counting the steps
         along the way.
         Find the common ancestor processes, calculate the distance, and select the one with the shortest.
 
@@ -454,8 +454,8 @@ where
 
     let my_pid = info.my_pid();
 
-    // 1) Try the parent process(es). If delta is set as the pager in git, then git is the parent process.
-    // If delta is started by a script check the parent's parent as well.
+    // 1) Try the parent process(es). If prism is set as the pager in git, then git is the parent process.
+    // If prism is started by a script check the parent's parent as well.
     let mut current_pid = my_pid;
     'parent_iter: for depth in [1, 2, 3] {
         let parent = match info.parent_process(current_pid) {
@@ -470,8 +470,8 @@ where
             ProcessArgs::Args(result) => return Some(result),
             ProcessArgs::ArgError => return None,
 
-            // 2) The 1st parent process was something else, this can happen if git output is piped into delta, e.g.
-            // `git blame foo.txt | delta`. When the shell sets up the pipe it creates the two processes, the pids
+            // 2) The 1st parent process was something else, this can happen if git output is piped into prism, e.g.
+            // `git blame foo.txt | prism`. When the shell sets up the pipe it creates the two processes, the pids
             // are usually consecutive, so naively check if the process with `my_pid - 1` matches.
             ProcessArgs::OtherProcess if depth == 1 => {
                 let sibling = info.naive_sibling_process(current_pid);
@@ -489,7 +489,7 @@ where
 
     /*
     3) Neither parent(s) nor the direct sibling were a match.
-    The most likely case is that the input program of the pipe wrote all its data and exited before delta
+    The most likely case is that the input program of the pipe wrote all its data and exited before prism
     started, so no command line can be parsed. Same if the data was piped from an input file.
 
     There might also be intermediary scripts in between or piped input with a gap in pids or (rarely)
@@ -499,22 +499,22 @@ where
     100 /usr/bin/some-terminal-emulator
     124  \_ -shell
     301  |   \_ /usr/bin/git blame src/main.rs
-    302  |       \_ wraps_delta.sh
-    303  |           \_ delta
+    302  |       \_ wraps_prism.sh
+    303  |           \_ prism
     304  |               \_ less --RAW-CONTROL-CHARS --quit-if-one-screen
     125  \_ -shell
     800  |   \_ /usr/bin/git blame src/main.rs
-    200  |   \_ delta
+    200  |   \_ prism
     400  |       \_ less --RAW-CONTROL-CHARS --quit-if-one-screen
     126  \_ -shell
     501  |   \_ /bin/sh /wrapper/for/git blame src/main.rs
     555  |   |   \_ /usr/bin/git blame src/main.rs
-    502  |   \_ delta
+    502  |   \_ prism
     567  |       \_ less --RAW-CONTROL-CHARS --quit-if-one-screen
 
     */
 
-    // Also `add` because `A_has_pid101 | delta_has_pid102`, but if A is a wrapper which then calls
+    // Also `add` because `A_has_pid101 | prism_has_pid102`, but if A is a wrapper which then calls
     // git (no `exec`), then the final pid of the git process might be 103 or greater.
     let pid_range = my_pid.saturating_sub(10)..my_pid.saturating_add(10);
     for p in pid_range {
@@ -792,13 +792,13 @@ pub mod tests {
 
     #[derive(Debug)]
     struct MockProcInfo {
-        delta_pid: PrismPid,
+        prism_pid: PrismPid,
         info: HashMap<Pid, FakeProc>,
     }
     impl Default for MockProcInfo {
         fn default() -> Self {
             Self {
-                delta_pid: 0,
+                prism_pid: 0,
                 info: HashMap::new(),
             }
         }
@@ -806,7 +806,7 @@ pub mod tests {
     impl MockProcInfo {
         fn with(processes: &[(PrismPid, u64, &str, Option<PrismPid>)]) -> Self {
             MockProcInfo {
-                delta_pid: processes.last().map(|p| p.0).unwrap_or(1),
+                prism_pid: processes.last().map(|p| p.0).unwrap_or(1),
                 info: processes
                     .iter()
                     .map(|(pid, start_time, cmd, ppid)| {
@@ -825,7 +825,7 @@ pub mod tests {
         type Out = FakeProc;
 
         fn my_pid(&self) -> PrismPid {
-            self.delta_pid
+            self.prism_pid
         }
         fn process(&self, pid: PrismPid) -> Option<&Self::Out> {
             self.info.get(&Pid::from_u32(pid))
@@ -948,8 +948,8 @@ pub mod tests {
         let two_trees = MockProcInfo::with(&[
             (2, 100, "-shell", None),
             (3, 100, "git blame src/main.rs", Some(2)),
-            (4, 100, "call_delta.sh", None),
-            (5, 100, "delta", Some(4)),
+            (4, 100, "call_prism.sh", None),
+            (5, 100, "prism", Some(4)),
         ]);
         assert_eq!(
             calling_process_cmdline(two_trees, guess_git_blame_filename_extension),
@@ -968,7 +968,7 @@ pub mod tests {
         let parent = MockProcInfo::with(&[
             (2, 100, "-shell", None),
             (3, 100, "git blame hello.txt", Some(2)),
-            (4, 100, "delta", Some(3)),
+            (4, 100, "prism", Some(3)),
         ]);
         assert_eq!(
             calling_process_cmdline(parent, guess_git_blame_filename_extension),
@@ -978,8 +978,8 @@ pub mod tests {
         let grandparent = MockProcInfo::with(&[
             (2, 100, "-shell", None),
             (3, 100, "git blame src/main.rs", Some(2)),
-            (4, 100, "call_delta.sh", Some(3)),
-            (5, 100, "delta", Some(4)),
+            (4, 100, "call_prism.sh", Some(3)),
+            (5, 100, "prism", Some(4)),
         ]);
         assert_eq!(
             calling_process_cmdline(grandparent, guess_git_blame_filename_extension),
@@ -993,7 +993,7 @@ pub mod tests {
             (2, 100, "-xterm", None),
             (3, 100, "-shell", Some(2)),
             (4, 100, "git blame src/main.rs", Some(3)),
-            (5, 100, "delta", Some(3)),
+            (5, 100, "prism", Some(3)),
         ]);
         assert_eq!(
             calling_process_cmdline(sibling, guess_git_blame_filename_extension),
@@ -1010,8 +1010,8 @@ pub mod tests {
                 "Git.exe blame --ignored-child src/main.def",
                 Some(4),
             ),
-            (5, 100, "delta.sh", Some(3)),
-            (20, 100, "delta", Some(5)),
+            (5, 100, "prism.sh", Some(3)),
+            (20, 100, "prism", Some(5)),
         ]);
         assert_eq!(
             calling_process_cmdline(indirect_sibling, guess_git_blame_filename_extension),
@@ -1023,8 +1023,8 @@ pub mod tests {
             (3, 100, "-shell", Some(2)),
             (4, 100, "git wrap src/main.abc", Some(3)),
             (10, 100, "git blame src/main.def", Some(4)),
-            (5, 100, "delta.sh", Some(3)),
-            (20, 100, "delta", Some(5)),
+            (5, 100, "prism.sh", Some(3)),
+            (20, 100, "prism", Some(5)),
         ]);
         assert_eq!(
             calling_process_cmdline(indirect_sibling2, guess_git_blame_filename_extension),
@@ -1042,8 +1042,8 @@ pub mod tests {
             (21, 100, "git wrap2 src/main.def", Some(20)),
             (22, 101, "git blame src/main.not", Some(21)),
             (23, 102, "git blame src/main.this", Some(20)),
-            (5, 100, "delta.sh", Some(3)),
-            (20, 100, "delta", Some(5)),
+            (5, 100, "prism.sh", Some(3)),
+            (20, 100, "prism", Some(5)),
         ]);
         assert_eq!(
             calling_process_cmdline(
@@ -1070,7 +1070,7 @@ pub mod tests {
         let parent = MockProcInfo::with(&[
             (2, 100, "-shell", None),
             (3, 100, "git grep pattern hello.txt", Some(2)),
-            (4, 100, "delta", Some(3)),
+            (4, 100, "prism", Some(3)),
         ]);
         assert_eq!(
             calling_process_cmdline(parent, describe_calling_process),
@@ -1080,7 +1080,7 @@ pub mod tests {
         let parent = MockProcInfo::with(&[
             (2, 100, "-shell", None),
             (3, 100, "Git.exe grep pattern hello.txt", Some(2)),
-            (4, 100, "delta", Some(3)),
+            (4, 100, "prism", Some(3)),
         ]);
         assert_eq!(
             calling_process_cmdline(parent, describe_calling_process),
@@ -1096,7 +1096,7 @@ pub mod tests {
             let parent = MockProcInfo::with(&[
                 (2, 100, "-shell", None),
                 (3, 100, grep_command, Some(2)),
-                (4, 100, "delta", Some(3)),
+                (4, 100, "prism", Some(3)),
             ]);
             assert_eq!(
                 calling_process_cmdline(parent, describe_calling_process),
@@ -1116,7 +1116,7 @@ pub mod tests {
         let parent = MockProcInfo::with(&[
             (2, 100, "-shell", None),
             (3, 100, git_grep_command, Some(2)),
-            (4, 100, "delta", Some(3)),
+            (4, 100, "prism", Some(3)),
         ]);
         assert_eq!(
             calling_process_cmdline(parent, describe_calling_process),
@@ -1126,8 +1126,8 @@ pub mod tests {
         let grandparent = MockProcInfo::with(&[
             (2, 100, "-shell", None),
             (3, 100, git_grep_command, Some(2)),
-            (4, 100, "call_delta.sh", Some(3)),
-            (5, 100, "delta", Some(4)),
+            (4, 100, "call_prism.sh", Some(3)),
+            (5, 100, "prism", Some(4)),
         ]);
         assert_eq!(
             calling_process_cmdline(grandparent, describe_calling_process),
@@ -1154,7 +1154,7 @@ pub mod tests {
             let parent = MockProcInfo::with(&[
                 (2, 100, "-shell", None),
                 (3, 100, command, Some(2)),
-                (4, 100, "delta", Some(3)),
+                (4, 100, "prism", Some(3)),
             ]);
             if let Some(CallingProcess::GitShow(cmd_line, ext)) =
                 calling_process_cmdline(parent, describe_calling_process)

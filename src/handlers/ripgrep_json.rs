@@ -53,7 +53,7 @@ pub fn parse_line(line: &str) -> Option<grep::GrepLine> {
                 }
                 _ => {
                     // Failed to interpret the line as ripgrep output; allow
-                    // another delta handler to try.
+                    // another prism handler to try.
                     None
                 }
             }

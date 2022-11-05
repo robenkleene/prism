@@ -1,6 +1,6 @@
-# Notes on contributing to delta
+# Notes on contributing to prism
 
-First off, thank you for considering contributing to delta.
+First off, thank you for considering contributing to prism.
 
 If your contribution is not straightforward, please first discuss the change you
 wish to make by creating a new issue before making the change.
@@ -14,12 +14,12 @@ Take a look at [ARCHITECTURE.md](./ARCHITECTURE.md).
 This is no different than other Rust projects.
 
 ```shell
-git clone https://github.com/dandavison/delta/
-cd delta
+git clone https://github.com/dandavison/prism/
+cd prism
 cargo build --release
 ```
 
-The executable is then at `./target/release/delta`.
+The executable is then at `./target/release/prism`.
 
 ## Useful Commands
 
@@ -50,5 +50,5 @@ The executable is then at `./target/release/delta`.
 - Debug build
 
 A "debug" build can be built using `cargo build` and
-`./target/debug/delta`. This is faster to compile, but has much worse
+`./target/debug/prism`. This is faster to compile, but has much worse
 performance than the release build.

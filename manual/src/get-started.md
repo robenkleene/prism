@@ -1,15 +1,15 @@
 # Get started
 
-[Install](./installation.md) delta and add this to your `~/.gitconfig`:
+[Install](./installation.md) prism and add this to your `~/.gitconfig`:
 
 ```gitconfig
 [core]
-    pager = delta
+    pager = prism
 
 [interactive]
-    diffFilter = delta --color-only
+    diffFilter = prism --color-only
 
-[delta]
+[prism]
     navigate = true
 
 [merge]

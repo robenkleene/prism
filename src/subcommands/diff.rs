@@ -4,8 +4,8 @@ use std::process;
 
 use bytelines::ByteLinesReader;
 
-use crate::config::{self, delta_unreachable};
-use crate::delta;
+use crate::config::{self, prism_unreachable};
+use crate::prism;
 
 /// Run `git diff` on the files provided on the command line and display the output.
 pub fn diff(
@@ -16,7 +16,7 @@ pub fn diff(
 ) -> i32 {
     use std::io::BufReader;
 
-    // When called as `delta <(echo foo) <(echo bar)`, then git as of version 2.34 just prints the
+    // When called as `prism <(echo foo) <(echo bar)`, then git as of version 2.34 just prints the
     // diff of the filenames which were created by the process substitution and does not read their
     // content, so fall back to plain `diff` which simply opens the given input as files.
     // This fallback ignores git settings, but is better than nothing.
@@ -50,7 +50,7 @@ pub fn diff(
     }
     let mut diff_process = diff_process.unwrap();
 
-    if let Err(error) = delta::delta(
+    if let Err(error) = prism::prism(
         BufReader::new(diff_process.stdout.take().unwrap()).byte_lines(),
         writer,
         config,
@@ -65,12 +65,12 @@ pub fn diff(
     };
 
     // Return the exit code from the diff process, so that the exit code
-    // contract of `delta file_A file_B` is the same as that of `diff file_A
+    // contract of `prism file_A file_B` is the same as that of `diff file_A
     // file_B` (i.e. 0 if same, 1 if different, 2 if error).
     diff_process
         .wait()
         .unwrap_or_else(|_| {
-            delta_unreachable(&format!("'{}' process not running.", diff_bin));
+            prism_unreachable(&format!("'{}' process not running.", diff_bin));
         })
         .code()
         .unwrap_or_else(|| {
@@ -88,7 +88,7 @@ mod main_tests {
     use crate::tests::integration_test_utils;
 
     #[test]
-    #[ignore] // https://github.com/dandavison/delta/pull/546
+    #[ignore] // https://github.com/dandavison/prism/pull/546
     fn test_diff_same_empty_file() {
         _do_diff_test("/dev/null", "/dev/null", false);
     }

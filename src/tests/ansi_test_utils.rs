@@ -4,7 +4,7 @@ pub mod ansi_test_utils {
 
     use crate::ansi;
     use crate::config::Config;
-    use crate::delta::State;
+    use crate::prism::State;
     use crate::paint;
     use crate::style::Style;
 

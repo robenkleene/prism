@@ -1,20 +1,20 @@
 # Full --help output
 
 ```
-delta 0.14.0
+prism 0.14.0
 A viewer for git and diff output
 
 USAGE:
-    delta [OPTIONS] [ARGS]
+    prism [OPTIONS] [ARGS]
 
 ARGS:
     <MINUS_FILE>
-            First file to be compared when delta is being used in diff mode
+            First file to be compared when prism is being used in diff mode
 
-            `delta file_1 file_2` is equivalent to `diff -u file_1 file_2 | delta`.
+            `prism file_1 file_2` is equivalent to `diff -u file_1 file_2 | prism`.
 
     <PLUS_FILE>
-            Second file to be compared when delta is being used in diff mode
+            Second file to be compared when prism is being used in diff mode
 
 OPTIONS:
         --blame-code-style <STYLE>
@@ -45,7 +45,7 @@ OPTIONS:
             Style string for the blame-separator-format
 
         --blame-timestamp-format <FMT>
-            Format of `git blame` timestamp in raw git output received by delta
+            Format of `git blame` timestamp in raw git output received by prism
 
             [default: "%Y-%m-%d %H:%M:%S %z"]
 
@@ -59,7 +59,7 @@ OPTIONS:
         --color-only
             Do not alter the input structurally in any way.
 
-            But color and highlight hunk lines according to your delta configuration. This is mainly intended for other tools that use delta.
+            But color and highlight hunk lines according to your prism configuration. This is mainly intended for other tools that use prism.
 
         --commit-decoration-style <STYLE>
             Style string for the commit hash decoration.
@@ -108,9 +108,9 @@ OPTIONS:
             [default: 48]
 
         --features <FEATURES>
-            Names of delta features to activate (space-separated).
+            Names of prism features to activate (space-separated).
 
-            A feature is a named collection of delta options in ~/.gitconfig. See FEATURES section. The environment variable DELTA_FEATURES can be set to a space-separated list of feature names. If this is preceded with a + character, the features from the environment variable will be added to those specified in git config. E.g. DELTA_FEATURES=+side-by-side can be used to activate side-by-side temporarily (use DELTA_FEATURES=+ to go back to just the features from git config).
+            A feature is a named collection of prism options in ~/.gitconfig. See FEATURES section. The environment variable DELTA_FEATURES can be set to a space-separated list of feature names. If this is preceded with a + character, the features from the environment variable will be added to those specified in git config. E.g. DELTA_FEATURES=+side-by-side can be used to activate side-by-side temporarily (use DELTA_FEATURES=+ to go back to just the features from git config).
 
         --file-added-label <STRING>
             Text to display before an added file path.
@@ -249,7 +249,7 @@ OPTIONS:
         --inline-hint-style <STYLE>
             Style string for short inline hint text.
 
-            This styles certain content added by delta to the original diff such as special characters to highlight tabs, and the symbols used to indicate wrapped lines. See STYLES section.
+            This styles certain content added by prism to the original diff such as special characters to highlight tabs, and the symbols used to indicate wrapped lines. See STYLES section.
 
             [default: blue]
 
@@ -263,7 +263,7 @@ OPTIONS:
         --keep-plus-minus-markers
             Prefix added/removed lines with a +/- character, as git does.
 
-            By default, delta does not emit any prefix, so code can be copied directly from delta's output.
+            By default, prism does not emit any prefix, so code can be copied directly from prism's output.
 
         --light
             Use default colors appropriate for a light terminal background.
@@ -273,7 +273,7 @@ OPTIONS:
         --line-buffer-size <N>
             Size of internal line buffer.
 
-            Prism compares the added and removed versions of nearby lines in order to detect and highlight changes at the level of individual words/tokens. Therefore, nearby lines must be buffered internally before they are painted and emitted. Increasing this value might improve highlighting of some large diff hunks. However, setting this to a high value will adversely affect delta's performance when entire files are added/removed.
+            Prism compares the added and removed versions of nearby lines in order to detect and highlight changes at the level of individual words/tokens. Therefore, nearby lines must be buffered internally before they are painted and emitted. Increasing this value might improve highlighting of some large diff hunks. However, setting this to a high value will adversely affect prism's performance when entire files are added/removed.
 
             [default: 32]
 
@@ -357,7 +357,7 @@ OPTIONS:
         --max-line-length <N>
             Truncate lines longer than this.
 
-            To prevent any truncation, set to zero. Note that delta will be slow on very long lines (e.g. minified .js) if truncation is disabled. When wrapping lines it is automatically set to fit at least all visible characters.
+            To prevent any truncation, set to zero. Note that prism will be slow on very long lines (e.g. minified .js) if truncation is disabled. When wrapping lines it is automatically set to fit at least all visible characters.
 
             [default: 512]
 
@@ -459,7 +459,7 @@ OPTIONS:
         --parse-ansi
             Display ANSI color escape sequences in human-readable form.
 
-            Example usage: git show --color=always | delta --parse-ansi This can be used to help identify input style strings to use with map-styles.
+            Example usage: git show --color=always | prism --parse-ansi This can be used to help identify input style strings to use with map-styles.
 
         --plus-emph-style <STYLE>
             Style string for emphasized sections of added lines.
@@ -492,7 +492,7 @@ OPTIONS:
         --raw
             Do not alter the input in any way.
 
-            This is mainly intended for testing delta.
+            This is mainly intended for testing prism.
 
         --relative-paths
             Output all file paths relative to the current directory.
@@ -519,12 +519,12 @@ OPTIONS:
         --show-syntax-themes
             Show example diff for available syntax-highlighting themes.
 
-            If diff output is supplied on standard input then this will be used for the demo. For example: `git show | delta --show-syntax-themes`.
+            If diff output is supplied on standard input then this will be used for the demo. For example: `git show | prism --show-syntax-themes`.
 
         --show-themes
-            Show example diff for available delta themes.
+            Show example diff for available prism themes.
 
-            A delta theme is a delta named feature (see --features) that sets either `light` or `dark`. See https://github.com/dandavison/delta#custom-color-themes. If diff output is supplied on standard input then this will be used for the demo. For example: `git show | delta --show-themes`. By default shows dark or light themes only, according to whether delta is in dark or light mode (as set by the user or inferred from BAT_THEME). To control the themes shown, use --dark or --light, or both, on the command line together with this option.
+            A prism theme is a prism named feature (see --features) that sets either `light` or `dark`. See https://github.com/dandavison/prism#custom-color-themes. If diff output is supplied on standard input then this will be used for the demo. For example: `git show | prism --show-themes`. By default shows dark or light themes only, according to whether prism is in dark or light mode (as set by the user or inferred from BAT_THEME). To control the themes shown, use --dark or --light, or both, on the command line together with this option.
 
     -s, --side-by-side
             Display diffs in side-by-side layout
@@ -537,14 +537,14 @@ OPTIONS:
         --tabs <N>
             The number of spaces to replace tab characters with.
 
-            Use --tabs=0 to pass tab characters through directly, but note that in that case delta will calculate line widths assuming tabs occupy one character's width on the screen: if your terminal renders tabs as more than than one character wide then delta's output will look incorrect.
+            Use --tabs=0 to pass tab characters through directly, but note that in that case prism will calculate line widths assuming tabs occupy one character's width on the screen: if your terminal renders tabs as more than than one character wide then prism's output will look incorrect.
 
             [default: 4]
 
         --true-color <auto|always|never>
             Whether to emit 24-bit ("true color") RGB color codes.
 
-            Options are auto, always, and never. "auto" means that delta will emit 24-bit color codes if the environment variable COLORTERM has the value "truecolor" or "24bit". If your terminal application (the application you use to enter commands at a shell prompt) supports 24 bit colors, then it probably already sets this environment variable, in which case you don't need to do anything.
+            Options are auto, always, and never. "auto" means that prism will emit 24-bit color codes if the environment variable COLORTERM has the value "truecolor" or "24bit". If your terminal application (the application you use to enter commands at a shell prompt) supports 24 bit colors, then it probably already sets this environment variable, in which case you don't need to do anything.
 
             [default: auto]
 
@@ -621,31 +621,31 @@ OPTIONS:
 GIT CONFIG
 ----------
 
-By default, delta takes settings from a section named "delta" in git config files, if one is
-present. The git config file to use for delta options will usually be ~/.gitconfig, but delta
-follows the rules given in https://git-scm.com/docs/git-config#FILES. Most delta options can be
+By default, prism takes settings from a section named "prism" in git config files, if one is
+present. The git config file to use for prism options will usually be ~/.gitconfig, but prism
+follows the rules given in https://git-scm.com/docs/git-config#FILES. Most prism options can be
 given in a git config file, using the usual option names but without the initial '--'. An example
 is
 
-[delta]
+[prism]
     line-numbers = true
     zero-style = dim syntax
 
 FEATURES
 --------
-A feature is a named collection of delta options in git config. An example is:
+A feature is a named collection of prism options in git config. An example is:
 
-[delta "my-delta-feature"]
+[prism "my-prism-feature"]
     syntax-theme = Dracula
     plus-style = bold syntax "#002800"
 
 To activate those options, you would use:
 
-delta --features my-delta-feature
+prism --features my-prism-feature
 
 A feature name may not contain whitespace. You can activate multiple features:
 
-[delta]
+[prism]
     features = my-highlight-styles-colors-feature my-line-number-styles-feature
 
 If more than one feature sets the same option, the last one wins.
@@ -671,7 +671,7 @@ Here is an example of using special color names together with a single attribute
 
 --minus-style 'syntax bold auto'
 
-That means: For removed lines, syntax-highlight the text, and make it bold, and do whatever delta
+That means: For removed lines, syntax-highlight the text, and make it bold, and do whatever prism
             normally does for the background.
 
 The available attributes are: 'blink', 'bold', 'dim', 'hidden', 'italic', 'reverse', 'strike',
@@ -682,8 +682,8 @@ remove the element entirely from the output.
 
 A complete description of the style string syntax follows:
 
-- If the input that delta is receiving already has colors, and you want delta to output those
-  colors unchanged, then use the special style string 'raw'. Otherwise, delta will strip any colors
+- If the input that prism is receiving already has colors, and you want prism to output those
+  colors unchanged, then use the special style string 'raw'. Otherwise, prism will strip any colors
   from its input.
 
 - A style string consists of 0, 1, or 2 colors, together with an arbitrary number of style
@@ -695,7 +695,7 @@ A complete description of the style string syntax follows:
 - This means that in order to specify a background color you must also specify a foreground (text)
   color.
 
-- If you want delta to choose one of the colors automatically, then use the special color 'auto'.
+- If you want prism to choose one of the colors automatically, then use the special color 'auto'.
   This can be used for both foreground and background.
 
 - If you want the foreground/background color to be your terminal's foreground/background color,
@@ -736,8 +736,8 @@ within a style string):
    Unlike RGB hex codes, ANSI color names are just names: you can choose the exact color that each
    name corresponds to in the settings of your terminal application (the application you use to
    enter commands at a shell prompt). This means that if you use ANSI color names, and you change
-   the color theme used by your terminal, then delta's colors will respond automatically, without
-   needing to change the delta command line.
+   the color theme used by your terminal, then prism's colors will respond automatically, without
+   needing to change the prism command line.
 
    "purple" is accepted as a synonym for "magenta". Color names and codes are case-insensitive.
 
@@ -796,7 +796,7 @@ Use '<' for left-align, '^' for center-align, and '>' for right-align.
 
 
 If something isn't working correctly, or you have a feature request, please open an issue at
-https://github.com/dandavison/delta/issues.
+https://github.com/dandavison/prism/issues.
 
-For a short help summary, please use delta -h.
+For a short help summary, please use prism -h.
 ```

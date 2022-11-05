@@ -1,4 +1,4 @@
-use crate::delta::{DiffType, InMergeConflict, MergeParents, State, StateMachine};
+use crate::prism::{DiffType, InMergeConflict, MergeParents, State, StateMachine};
 
 impl<'a> StateMachine<'a> {
     #[inline]

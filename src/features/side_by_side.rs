@@ -4,9 +4,9 @@ use unicode_segmentation::UnicodeSegmentation;
 
 use crate::ansi;
 use crate::cli;
-use crate::config::{self, delta_unreachable, Config};
-use crate::delta::DiffType;
-use crate::delta::State;
+use crate::config::{self, prism_unreachable, Config};
+use crate::prism::DiffType;
+use crate::prism::State;
 use crate::edits;
 use crate::features::{line_numbers, OptionValueFunction};
 use crate::minusplus::*;
@@ -129,7 +129,7 @@ pub fn paint_minus_and_plus_lines_side_by_side(
 
     let line_numbers_data = line_numbers_data
         .as_mut()
-        .unwrap_or_else(|| delta_unreachable("side-by-side requires Some(line_numbers_data)"));
+        .unwrap_or_else(|| prism_unreachable("side-by-side requires Some(line_numbers_data)"));
 
     let bg_should_fill = LeftRight::new(
         // Using an ANSI sequence to fill the left panel would not work.
@@ -155,7 +155,7 @@ pub fn paint_minus_and_plus_lines_side_by_side(
     };
 
     let (line_alignment, line_states, syntax_sections, diff_sections) = if should_wrap {
-        // Calculated for syntect::highlighting::style::Style and delta::Style
+        // Calculated for syntect::highlighting::style::Style and prism::Style
         wrap_minusplus_block(
             config,
             syntax_sections,
@@ -594,7 +594,7 @@ pub mod ansifill {
 pub mod tests {
     use crate::ansi::strip_ansi_codes;
     use crate::features::line_numbers::tests::*;
-    use crate::tests::integration_test_utils::{make_config_from_args, run_delta, PrismTest};
+    use crate::tests::integration_test_utils::{make_config_from_args, run_prism, PrismTest};
 
     #[test]
     fn test_two_minus_lines() {
@@ -681,7 +681,7 @@ pub mod tests {
         ]);
         config.truncation_symbol = ">".into();
 
-        let output = run_delta(TWO_PLUS_LINES_DIFF, &config);
+        let output = run_prism(TWO_PLUS_LINES_DIFF, &config);
         let mut lines = output.lines().skip(crate::config::HEADER_LEN);
         let (line_1, line_2) = (lines.next().unwrap(), lines.next().unwrap());
         assert_eq!("│    │         │  1 │a = 1    ", strip_ansi_codes(line_1));
@@ -692,7 +692,7 @@ pub mod tests {
     fn test_two_plus_lines_exact_fit() {
         let config =
             make_config_from_args(&["--side-by-side", "--width", "33", "--line-fill-method=ansi"]);
-        let output = run_delta(TWO_PLUS_LINES_DIFF, &config);
+        let output = run_prism(TWO_PLUS_LINES_DIFF, &config);
         let mut lines = output.lines().skip(crate::config::HEADER_LEN);
         let (line_1, line_2) = (lines.next().unwrap(), lines.next().unwrap());
         let sac = strip_ansi_codes; // alias to help with `cargo fmt`-ing:

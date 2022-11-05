@@ -9,7 +9,7 @@ use syntect::parsing::SyntaxSet;
 use crate::ansi;
 use crate::cli;
 use crate::color;
-use crate::delta::State;
+use crate::prism::State;
 use crate::fatal;
 use crate::features::navigate;
 use crate::features::side_by_side::{self, ansifill, LeftRight};
@@ -44,7 +44,7 @@ pub struct Config {
     pub color_only: bool,
     pub commit_regex: Regex,
     pub commit_style: Style,
-    pub cwd_of_delta_process: Option<PathBuf>,
+    pub cwd_of_prism_process: Option<PathBuf>,
     pub cwd_of_user_shell_process: Option<PathBuf>,
     pub cwd_relative_to_repo_root: Option<String>,
     pub decorations_width: cli::Width,
@@ -139,7 +139,7 @@ impl Config {
             State::DiffHeader(_) => &self.file_style,
             State::HunkHeader(_, _, _, _) => &self.hunk_header_style,
             State::SubmoduleLog => &self.file_style,
-            _ => delta_unreachable("Unreachable code reached in get_style."),
+            _ => prism_unreachable("Unreachable code reached in get_style."),
         }
     }
 }
@@ -219,14 +219,14 @@ impl From<cli::Opt> for Config {
         };
 
         #[cfg(not(test))]
-        let cwd_of_delta_process = opt.env.current_dir;
+        let cwd_of_prism_process = opt.env.current_dir;
         #[cfg(test)]
-        let cwd_of_delta_process = Some(utils::path::fake_delta_cwd_for_tests());
+        let cwd_of_prism_process = Some(utils::path::fake_prism_cwd_for_tests());
 
         let cwd_relative_to_repo_root = opt.env.git_prefix;
 
         let cwd_of_user_shell_process = utils::path::cwd_of_user_shell_process(
-            cwd_of_delta_process.as_ref(),
+            cwd_of_prism_process.as_ref(),
             cwd_relative_to_repo_root.as_deref(),
         );
 
@@ -245,7 +245,7 @@ impl From<cli::Opt> for Config {
             commit_style: styles["commit-style"],
             color_only: opt.color_only,
             commit_regex,
-            cwd_of_delta_process,
+            cwd_of_prism_process,
             cwd_of_user_shell_process,
             cwd_relative_to_repo_root,
             decorations_width: opt.computed.decorations_width,
@@ -387,16 +387,16 @@ pub fn user_supplied_option(option: &str, arg_matches: &clap::ArgMatches) -> boo
     arg_matches.occurrences_of(option) > 0
 }
 
-pub fn delta_unreachable(message: &str) -> ! {
+pub fn prism_unreachable(message: &str) -> ! {
     fatal(format!(
         "{} This should not be possible. \
-         Please report the bug at https://github.com/dandavison/delta/issues.",
+         Please report the bug at https://github.com/dandavison/prism/issues.",
         message
     ));
 }
 
 #[cfg(test)]
-// Usual length of the header returned by `run_delta()`, often `skip()`-ed.
+// Usual length of the header returned by `run_prism()`, often `skip()`-ed.
 pub const HEADER_LEN: usize = 7;
 
 #[cfg(test)]
@@ -409,14 +409,14 @@ pub mod tests {
     #[test]
     fn test_get_computed_values_from_config() {
         let git_config_contents = b"
-[delta]
+[prism]
     true-color = never
     width = 100
     inspect-raw-lines = true
     paging = never
     syntax-theme = None
 ";
-        let git_config_path = "delta__test_get_true_color_from_config.gitconfig";
+        let git_config_path = "prism__test_get_true_color_from_config.gitconfig";
         let config = integration_test_utils::make_config_from_args_and_git_config(
             &[],
             Some(git_config_contents),

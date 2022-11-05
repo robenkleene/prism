@@ -79,7 +79,7 @@ pub mod tests {
     new = green bold
     whitespace = red reverse
 ";
-        let git_config_path = "delta__test_diff_so_fancy.gitconfig";
+        let git_config_path = "prism__test_diff_so_fancy.gitconfig";
 
         let opt = integration_test_utils::make_options_from_args_and_git_config(
             &["--features", "diff-so-fancy some-other-feature"],
@@ -108,12 +108,12 @@ pub mod tests {
     new = green bold
     whitespace = red reverse
 
-[delta \"decorations\"]
+[prism \"decorations\"]
     commit-decoration-style = bold box ul
     file-style = bold 19 ul
     file-decoration-style = none
 ";
-        let git_config_path = "delta__test_diff_so_fancy_obeys_feature_precedence_rules.gitconfig";
+        let git_config_path = "prism__test_diff_so_fancy_obeys_feature_precedence_rules.gitconfig";
 
         let opt = integration_test_utils::make_options_from_args_and_git_config(
             &["--features", "decorations diff-so-fancy"],

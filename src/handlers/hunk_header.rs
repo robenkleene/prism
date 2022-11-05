@@ -1,6 +1,6 @@
 // A module for constructing and writing the hunk header.
 //
-// The structure of the hunk header output by delta is
+// The structure of the hunk header output by prism is
 // ```
 // (file):(line-number): (code-fragment)
 // ```
@@ -11,7 +11,7 @@
 // ```
 //
 // Whether or not file and line-number are included is controlled by the presence of the special
-// style attributes 'file' and 'line-number' in the hunk-header-style string. For example, delta
+// style attributes 'file' and 'line-number' in the hunk-header-style string. For example, prism
 // might output the above hunk header as
 // ```
 // ───────────────────────────────────────────────────┐
@@ -26,7 +26,7 @@ use regex::Regex;
 
 use super::draw;
 use crate::config::Config;
-use crate::delta::{self, DiffType, InMergeConflict, MergeParents, State, StateMachine};
+use crate::prism::{self, DiffType, InMergeConflict, MergeParents, State, StateMachine};
 use crate::paint::{self, BgShouldFill, Painter, StyleSectionSpecifier};
 use crate::style::DecorationStyle;
 
@@ -150,8 +150,8 @@ lazy_static! {
 }
 
 /// Given input like
-/// "@@ -74,15 +74,14 @@ pub fn delta("
-/// Return " pub fn delta(" and a vector of (line_number, hunk_length) tuples.
+/// "@@ -74,15 +74,14 @@ pub fn prism("
+/// Return " pub fn prism(" and a vector of (line_number, hunk_length) tuples.
 fn parse_hunk_header(line: &str) -> Option<ParsedHunkHeader> {
     if let Some(caps) = HUNK_HEADER_REGEX.captures(line) {
         let file_coordinates = &caps[1];
@@ -300,7 +300,7 @@ fn write_to_output_buffer(
         painter.syntax_highlight_and_paint_line(
             &line,
             StyleSectionSpecifier::Style(config.hunk_header_style),
-            delta::State::HunkHeader(
+            prism::State::HunkHeader(
                 DiffType::Unified,
                 ParsedHunkHeader::default(),
                 "".to_owned(),
@@ -323,8 +323,8 @@ pub mod tests {
         let ParsedHunkHeader {
             code_fragment,
             line_numbers_and_hunk_lengths,
-        } = parse_hunk_header("@@ -74,15 +75,14 @@ pub fn delta(\n").unwrap();
-        assert_eq!(code_fragment, " pub fn delta(\n");
+        } = parse_hunk_header("@@ -74,15 +75,14 @@ pub fn prism(\n").unwrap();
+        assert_eq!(code_fragment, " pub fn prism(\n");
         assert_eq!(line_numbers_and_hunk_lengths[0], (74, 15),);
         assert_eq!(line_numbers_and_hunk_lengths[1], (75, 14),);
     }
@@ -334,8 +334,8 @@ pub mod tests {
         let ParsedHunkHeader {
             code_fragment,
             line_numbers_and_hunk_lengths,
-        } = parse_hunk_header("@@ -74 +75,2 @@ pub fn delta(\n").unwrap();
-        assert_eq!(code_fragment, " pub fn delta(\n");
+        } = parse_hunk_header("@@ -74 +75,2 @@ pub fn prism(\n").unwrap();
+        assert_eq!(code_fragment, " pub fn prism(\n");
         assert_eq!(line_numbers_and_hunk_lengths[0], (74, 1),);
         assert_eq!(line_numbers_and_hunk_lengths[1], (75, 2),);
     }
@@ -406,7 +406,7 @@ pub mod tests {
 
         // hunk-header-style (by default) includes 'line-number' but not 'file'.
         // Normally, `paint_file_path_with_line_number` would return a painted line number.
-        // But in this test hyperlinks are activated, and the test ensures that delta.__workdir__ is
+        // But in this test hyperlinks are activated, and the test ensures that prism.__workdir__ is
         // present in git_config_entries.
         // This test confirms that, under those circumstances, `paint_file_path_with_line_number`
         // returns a hyperlinked file path with line number.
@@ -421,7 +421,7 @@ pub mod tests {
             result,
             format!(
                 "\u{1b}]8;;file://{}\u{1b}\\\u{1b}[34m3\u{1b}[0m\u{1b}]8;;\u{1b}\\",
-                utils::path::fake_delta_cwd_for_tests()
+                utils::path::fake_prism_cwd_for_tests()
                     .join(relative_path)
                     .to_string_lossy()
             )
@@ -483,7 +483,7 @@ pub mod tests {
     fn test_not_a_hunk_header_is_handled_gracefully() {
         let config = integration_test_utils::make_config_from_args(&[]);
         let output =
-            integration_test_utils::run_delta(GIT_LOG_OUTPUT_WITH_NOT_A_HUNK_HEADER, &config);
+            integration_test_utils::run_prism(GIT_LOG_OUTPUT_WITH_NOT_A_HUNK_HEADER, &config);
         let output = strip_ansi_codes(&output);
         assert!(output.contains("@@@2021-12-05"));
     }
@@ -492,7 +492,7 @@ pub mod tests {
 @@@2021-12-05
 
 src/config.rs                  |   2 +-
-src/delta.rs                   |   3 ++-
+src/prism.rs                   |   3 ++-
 src/handlers/hunk.rs           |  12 ++++++------
 src/handlers/hunk_header.rs    | 119 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------------------------------------------
 src/handlers/merge_conflict.rs |   2 +-

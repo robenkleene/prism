@@ -130,7 +130,7 @@ impl vte::Perform for Performer {
         let element = if is_sgr {
             if params.is_empty() {
                 // Attr::Reset
-                // Probably doesn't need to be handled: https://github.com/dandavison/delta/pull/431#discussion_r536883568
+                // Probably doesn't need to be handled: https://github.com/dandavison/prism/pull/431#discussion_r536883568
                 None
             } else {
                 let style = ansi_term_style_from_sgr_parameters(&mut params.iter());
@@ -452,11 +452,11 @@ mod tests {
 
     #[test]
     fn test_iterator_osc_hyperlinks_styled_non_ascii() {
-        let s = "\x1b[38;5;4m\x1b]8;;file:///Users/dan/src/delta/src/ansi/mod.rs\x1b\\src/ansi/modバー.rs\x1b]8;;\x1b\\\x1b[0m\n";
+        let s = "\x1b[38;5;4m\x1b]8;;file:///Users/dan/src/prism/src/ansi/mod.rs\x1b\\src/ansi/modバー.rs\x1b]8;;\x1b\\\x1b[0m\n";
         assert_eq!(&s[0..9], "\x1b[38;5;4m");
         assert_eq!(
             &s[9..58],
-            "\x1b]8;;file:///Users/dan/src/delta/src/ansi/mod.rs\x1b"
+            "\x1b]8;;file:///Users/dan/src/prism/src/ansi/mod.rs\x1b"
         );
         assert_eq!(&s[58..59], "\\");
         assert_eq!(&s[59..80], "src/ansi/modバー.rs");

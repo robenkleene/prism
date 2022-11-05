@@ -2,7 +2,7 @@ use crate::cli;
 use crate::color;
 use crate::colors;
 use crate::config;
-use crate::delta;
+use crate::prism;
 use crate::env::PrismEnv;
 use crate::git_config;
 use crate::paint;
@@ -14,7 +14,7 @@ use crate::utils::bat::output::{OutputType, PagingMode};
 pub fn show_colors() -> std::io::Result<()> {
     use itertools::Itertools;
 
-    use crate::{delta::DiffType, utils};
+    use crate::{prism::DiffType, utils};
 
     let assets = utils::bat::assets::load_highlighting_assets();
     let env = PrismEnv::default();
@@ -50,7 +50,7 @@ pub fn show_colors() -> std::io::Result<()> {
                 painter.syntax_highlight_and_paint_line(
                     line,
                     paint::StyleSectionSpecifier::Style(style),
-                    delta::State::HunkZero(DiffType::Unified, None),
+                    prism::State::HunkZero(DiffType::Unified, None),
                     BgShouldFill::default(),
                 )
             }
@@ -69,7 +69,7 @@ pub fn show_colors() -> std::io::Result<()> {
                 painter.syntax_highlight_and_paint_line(
                     line,
                     paint::StyleSectionSpecifier::Style(style),
-                    delta::State::HunkZero(DiffType::Unified, None),
+                    prism::State::HunkZero(DiffType::Unified, None),
                     BgShouldFill::default(),
                 )
             }

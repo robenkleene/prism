@@ -5,8 +5,8 @@ use unicode_segmentation::UnicodeSegmentation;
 
 use super::draw;
 use crate::cli;
-use crate::config::{self, delta_unreachable};
-use crate::delta::{DiffType, InMergeConflict, MergeParents, State, StateMachine};
+use crate::config::{self, prism_unreachable};
+use crate::prism::{DiffType, InMergeConflict, MergeParents, State, StateMachine};
 use crate::minusplus::MinusPlus;
 use crate::paint::{self, prepare};
 use crate::style::Style;
@@ -125,7 +125,7 @@ impl<'a> StateMachine<'a> {
             self.painter.merge_conflict_lines[commit].push((line, state));
             true
         } else {
-            delta_unreachable(&format!("Invalid state: {:?}", state))
+            prism_unreachable(&format!("Invalid state: {:?}", state))
         }
     }
 
@@ -307,7 +307,7 @@ mod tests {
     #[test]
     fn test_toy_merge_conflict_no_context() {
         let config = integration_test_utils::make_config_from_args(&[]);
-        let output = integration_test_utils::run_delta(GIT_TOY_MERGE_CONFLICT_NO_CONTEXT, &config);
+        let output = integration_test_utils::run_prism(GIT_TOY_MERGE_CONFLICT_NO_CONTEXT, &config);
         let output = strip_ansi_codes(&output);
         assert!(output.contains("\n▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼"));
         assert!(output.contains(
@@ -323,7 +323,7 @@ ancestor ⟶   HEAD │
     #[test]
     fn test_real_merge_conflict() {
         let config = integration_test_utils::make_config_from_args(&[]);
-        let output = integration_test_utils::run_delta(GIT_MERGE_CONFLICT, &config);
+        let output = integration_test_utils::run_prism(GIT_MERGE_CONFLICT, &config);
         let output = strip_ansi_codes(&output);
         assert!(output.contains("\n▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼"));
         assert!(output.contains(
@@ -340,7 +340,7 @@ ancestor ⟶   HEAD │
     #[allow(non_snake_case)]
     fn test_real_merge_conflict_U0() {
         let config = integration_test_utils::make_config_from_args(&[]);
-        let output = integration_test_utils::run_delta(GIT_MERGE_CONFLICT_U0, &config);
+        let output = integration_test_utils::run_prism(GIT_MERGE_CONFLICT_U0, &config);
         let output = strip_ansi_codes(&output);
         assert!(output.contains("\n▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼"));
         assert!(output.contains(
@@ -382,15 +382,15 @@ index 27d47c0,3a7e7b9..0000000
  +
  +use super::draw;
  +use crate::cli;
- +use crate::config::{self, delta_unreachable};
- +use crate::delta::{DiffType, InMergeConflict, MergeParents, State, StateMachine};
+ +use crate::config::{self, prism_unreachable};
+ +use crate::prism::{DiffType, InMergeConflict, MergeParents, State, StateMachine};
 ++||||||| parent of b2b28c8... Display merge conflict branches
-++use crate::delta::{DiffType, MergeParents, State, StateMachine};
+++use crate::prism::{DiffType, MergeParents, State, StateMachine};
 ++=======
 + use super::draw;
 + use crate::cli;
-+ use crate::config::{self, delta_unreachable};
-+ use crate::delta::{DiffType, MergeParents, State, StateMachine};
++ use crate::config::{self, prism_unreachable};
++ use crate::prism::{DiffType, MergeParents, State, StateMachine};
 ++>>>>>>> b2b28c8... Display merge conflict branches
   use crate::minusplus::MinusPlus;
   use crate::paint;
@@ -582,7 +582,7 @@ index 27d47c0,3a7e7b9..0000000
  +            self.painter.merge_conflict_lines[commit].push((line, state));
  +            true
  +        } else {
- +            delta_unreachable(&format!("Invalid state: {:?}", state))
+ +            prism_unreachable(&format!("Invalid state: {:?}", state))
  +        }
  +    }
  +
@@ -644,7 +644,7 @@ index 27d47c0,3a7e7b9..0000000
 +             self.painter.merge_conflict_lines[commit].push((line, state));
 +             true
 +         } else {
-+             delta_unreachable(&format!("Invalid state: {:?}", state))
++             prism_unreachable(&format!("Invalid state: {:?}", state))
 +         }
 +     }
 + 
@@ -893,15 +893,15 @@ index 27d47c0,3a7e7b9..0000000
  +
  +use super::draw;
  +use crate::cli;
- +use crate::config::{self, delta_unreachable};
- +use crate::delta::{DiffType, InMergeConflict, MergeParents, State, StateMachine};
+ +use crate::config::{self, prism_unreachable};
+ +use crate::prism::{DiffType, InMergeConflict, MergeParents, State, StateMachine};
 ++||||||| parent of b2b28c8... Display merge conflict branches
-++use crate::delta::{DiffType, MergeParents, State, StateMachine};
+++use crate::prism::{DiffType, MergeParents, State, StateMachine};
 ++=======
 + use super::draw;
 + use crate::cli;
-+ use crate::config::{self, delta_unreachable};
-+ use crate::delta::{DiffType, MergeParents, State, StateMachine};
++ use crate::config::{self, prism_unreachable};
++ use crate::prism::{DiffType, MergeParents, State, StateMachine};
 ++>>>>>>> b2b28c8... Display merge conflict branches
 @@@ -33,0 -32,0 +43,1 @@@ impl<'a> StateMachine<'a> 
 ++<<<<<<< HEAD
@@ -1072,7 +1072,7 @@ index 27d47c0,3a7e7b9..0000000
  +            self.painter.merge_conflict_lines[commit].push((line, state));
  +            true
  +        } else {
- +            delta_unreachable(&format!("Invalid state: {:?}", state))
+ +            prism_unreachable(&format!("Invalid state: {:?}", state))
  +        }
  +    }
  +
@@ -1134,7 +1134,7 @@ index 27d47c0,3a7e7b9..0000000
 +             self.painter.merge_conflict_lines[commit].push((line, state));
 +             true
 +         } else {
-+             delta_unreachable(&format!("Invalid state: {:?}", state))
++             prism_unreachable(&format!("Invalid state: {:?}", state))
 +         }
 +     }
 + 

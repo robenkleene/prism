@@ -6,8 +6,8 @@ use std::borrow::Cow;
 use crate::ansi::measure_text_width;
 use crate::color;
 use crate::config;
-use crate::config::delta_unreachable;
-use crate::delta::{self, State, StateMachine};
+use crate::config::prism_unreachable;
+use crate::prism::{self, State, StateMachine};
 use crate::fatal;
 use crate::format::{self, FormatStringSimple, Placeholder};
 use crate::format::{make_placeholder_regex, parse_line_number_format};
@@ -26,7 +26,7 @@ pub enum BlameLineNumbers {
 impl<'a> StateMachine<'a> {
     /// If this is a line of git blame output then render it accordingly. If
     /// this is the first blame line, then set the syntax-highlighter language
-    /// according to delta.default-language.
+    /// according to prism.default-language.
     pub fn handle_blame_line(&mut self) -> std::io::Result<bool> {
         // TODO: It should be possible to eliminate some of the .clone()s and
         // .to_owned()s.
@@ -165,9 +165,9 @@ impl<'a> StateMachine<'a> {
                     self.get_next_color(Some(key_color))
                 }
             }
-            (None, _, true) => delta_unreachable("is_repeat cannot be true when key has no color."),
+            (None, _, true) => prism_unreachable("is_repeat cannot be true when key has no color."),
             (Some(_), None, _) => {
-                delta_unreachable("There must be a previous key if the key has a color.")
+                prism_unreachable("There must be a previous key if the key has a color.")
             }
         }
     }
@@ -276,7 +276,7 @@ pub fn format_blame_metadata(
                 }))
             }
             Some(Placeholder::Str("author")) => Some(Cow::from(blame.author)),
-            Some(Placeholder::Str("commit")) => Some(delta::format_raw_line(blame.commit, config)),
+            Some(Placeholder::Str("commit")) => Some(prism::format_raw_line(blame.commit, config)),
             None => None,
             _ => unreachable!("Unexpected `git blame` input"),
         };

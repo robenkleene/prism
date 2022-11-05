@@ -16,7 +16,7 @@
 - Stylable box/line decorations to draw attention to commit, file and hunk header sections.
 - Git style strings (foreground color, background color, font attributes) are supported for >20 stylable elements
 
-|                                                | delta | git | [diff-so-fancy] /<br>[diff-highlight] | github/gitlab |
+|                                                | prism | git | [diff-so-fancy] /<br>[diff-highlight] | github/gitlab |
 | ---------------------------------------------- | ----- | --- | ------------------------------------- | ------------- |
 | language syntax highlighting                   | ✅    | ❌  | ❌                                    | ✅            |
 | within-line insertion/deletion detection       | ✅    | ❌  | ✅                                    | ✅            |
@@ -26,7 +26,7 @@
 | line numbering                                 | ✅    | ❌  | ❌                                    | ✅            |
 | side-by-side view                              | ✅    | ❌  | ❌                                    | ✅            |
 
-In addition, delta handles traditional unified diff output.
+In addition, prism handles traditional unified diff output.
 
 [diff-so-fancy]: https://github.com/so-fancy/diff-so-fancy
 [diff-highlight]: https://github.com/git/git/tree/master/contrib/diff-highlight

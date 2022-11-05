@@ -5,7 +5,7 @@ use unicode_segmentation::UnicodeSegmentation;
 
 use super::draw;
 use crate::config::Config;
-use crate::delta::{DiffType, Source, State, StateMachine};
+use crate::prism::{DiffType, Source, State, StateMachine};
 use crate::paint::Painter;
 use crate::{features, utils};
 
@@ -539,42 +539,42 @@ mod tests {
         );
         for prefix in &DIFF_PREFIXES {
             assert_eq!(
-                parse_diff_header_line(&format!("--- {}src/delta.rs", prefix), true),
-                ("src/delta.rs".to_string(), FileEvent::Change)
+                parse_diff_header_line(&format!("--- {}src/prism.rs", prefix), true),
+                ("src/prism.rs".to_string(), FileEvent::Change)
             );
         }
         assert_eq!(
-            parse_diff_header_line("--- src/delta.rs", true),
-            ("src/delta.rs".to_string(), FileEvent::Change)
+            parse_diff_header_line("--- src/prism.rs", true),
+            ("src/prism.rs".to_string(), FileEvent::Change)
         );
         assert_eq!(
-            parse_diff_header_line("+++ src/delta.rs", true),
-            ("src/delta.rs".to_string(), FileEvent::Change)
+            parse_diff_header_line("+++ src/prism.rs", true),
+            ("src/prism.rs".to_string(), FileEvent::Change)
         );
     }
 
     #[test]
     fn test_get_file_path_from_git_diff_header_line_containing_spaces() {
         assert_eq!(
-            parse_diff_header_line("+++ a/my src/delta.rs", true),
-            ("my src/delta.rs".to_string(), FileEvent::Change)
+            parse_diff_header_line("+++ a/my src/prism.rs", true),
+            ("my src/prism.rs".to_string(), FileEvent::Change)
         );
         assert_eq!(
-            parse_diff_header_line("+++ my src/delta.rs", true),
-            ("my src/delta.rs".to_string(), FileEvent::Change)
+            parse_diff_header_line("+++ my src/prism.rs", true),
+            ("my src/prism.rs".to_string(), FileEvent::Change)
         );
         assert_eq!(
-            parse_diff_header_line("+++ a/src/my delta.rs", true),
-            ("src/my delta.rs".to_string(), FileEvent::Change)
+            parse_diff_header_line("+++ a/src/my prism.rs", true),
+            ("src/my prism.rs".to_string(), FileEvent::Change)
         );
         assert_eq!(
-            parse_diff_header_line("+++ a/my src/my delta.rs", true),
-            ("my src/my delta.rs".to_string(), FileEvent::Change)
+            parse_diff_header_line("+++ a/my src/my prism.rs", true),
+            ("my src/my prism.rs".to_string(), FileEvent::Change)
         );
         assert_eq!(
-            parse_diff_header_line("+++ b/my src/my enough/my delta.rs", true),
+            parse_diff_header_line("+++ b/my src/my enough/my prism.rs", true),
             (
-                "my src/my enough/my delta.rs".to_string(),
+                "my src/my enough/my prism.rs".to_string(),
                 FileEvent::Change
             )
         );
@@ -599,12 +599,12 @@ mod tests {
     #[test]
     fn test_parse_diff_header_line() {
         assert_eq!(
-            parse_diff_header_line("--- src/delta.rs", false),
-            ("src/delta.rs".to_string(), FileEvent::Change)
+            parse_diff_header_line("--- src/prism.rs", false),
+            ("src/prism.rs".to_string(), FileEvent::Change)
         );
         assert_eq!(
-            parse_diff_header_line("+++ src/delta.rs", false),
-            ("src/delta.rs".to_string(), FileEvent::Change)
+            parse_diff_header_line("+++ src/prism.rs", false),
+            ("src/prism.rs".to_string(), FileEvent::Change)
         );
     }
 

@@ -125,12 +125,12 @@ pub mod tests {
 
     #[test]
     fn test_paths_and_hyperlinks_user_in_repo_root_dir() {
-        // Expectations are uninfluenced by git's --relative and delta's relative_paths options.
+        // Expectations are uninfluenced by git's --relative and prism's relative_paths options.
         let input_type = InputType::GitDiff;
         let true_location_of_file_relative_to_repo_root = PathBuf::from("a");
         let git_prefix_env_var = Some("");
 
-        for (delta_relative_paths_option, calling_cmd) in vec![
+        for (prism_relative_paths_option, calling_cmd) in vec![
             (false, Some("git diff")),
             (false, Some("git diff --relative")),
             (true, Some("git diff")),
@@ -138,16 +138,16 @@ pub mod tests {
         ] {
             run_test(FilePathsTestCase {
                 name: &format!(
-                    "delta relative_paths={} calling_cmd={:?}",
-                    delta_relative_paths_option, calling_cmd
+                    "prism relative_paths={} calling_cmd={:?}",
+                    prism_relative_paths_option, calling_cmd
                 ),
                 true_location_of_file_relative_to_repo_root:
                     true_location_of_file_relative_to_repo_root.as_path(),
                 git_prefix_env_var,
-                delta_relative_paths_option,
+                prism_relative_paths_option,
                 input_type,
                 calling_cmd,
-                path_in_delta_input: "a",
+                path_in_prism_input: "a",
                 expected_displayed_path: "a",
             })
         }
@@ -166,8 +166,8 @@ pub mod tests {
             true_location_of_file_relative_to_repo_root:
                 true_location_of_file_relative_to_repo_root.as_path(),
             git_prefix_env_var,
-            delta_relative_paths_option: false,
-            path_in_delta_input: "b/a",
+            prism_relative_paths_option: false,
+            path_in_prism_input: "b/a",
             expected_displayed_path: "b/a",
         });
         run_test(FilePathsTestCase {
@@ -177,9 +177,9 @@ pub mod tests {
             true_location_of_file_relative_to_repo_root:
                 true_location_of_file_relative_to_repo_root.as_path(),
             git_prefix_env_var,
-            delta_relative_paths_option: false,
-            path_in_delta_input: "a",
-            // delta saw a and wasn't configured to make any changes
+            prism_relative_paths_option: false,
+            path_in_prism_input: "a",
+            // prism saw a and wasn't configured to make any changes
             expected_displayed_path: "a",
         });
         run_test(FilePathsTestCase {
@@ -189,9 +189,9 @@ pub mod tests {
             true_location_of_file_relative_to_repo_root:
                 true_location_of_file_relative_to_repo_root.as_path(),
             git_prefix_env_var,
-            delta_relative_paths_option: true,
-            path_in_delta_input: "b/a",
-            // delta saw b/a and changed it to a
+            prism_relative_paths_option: true,
+            path_in_prism_input: "b/a",
+            // prism saw b/a and changed it to a
             expected_displayed_path: "a",
         });
         run_test(FilePathsTestCase {
@@ -201,9 +201,9 @@ pub mod tests {
             true_location_of_file_relative_to_repo_root:
                 true_location_of_file_relative_to_repo_root.as_path(),
             git_prefix_env_var,
-            delta_relative_paths_option: true,
-            path_in_delta_input: "a",
-            // delta saw a and didn't change it
+            prism_relative_paths_option: true,
+            path_in_prism_input: "a",
+            // prism saw a and didn't change it
             expected_displayed_path: "a",
         });
     }
@@ -218,33 +218,33 @@ pub mod tests {
             name: "b/a from c",
             input_type,
             calling_cmd: Some("git diff"),
-            delta_relative_paths_option: false,
+            prism_relative_paths_option: false,
             true_location_of_file_relative_to_repo_root:
                 true_location_of_file_relative_to_repo_root.as_path(),
             git_prefix_env_var,
-            path_in_delta_input: "b/a",
+            path_in_prism_input: "b/a",
             expected_displayed_path: "b/a",
         });
         run_test(FilePathsTestCase {
             name: "b/a from c",
             input_type,
             calling_cmd: Some("git diff --relative"),
-            delta_relative_paths_option: false,
+            prism_relative_paths_option: false,
             true_location_of_file_relative_to_repo_root:
                 true_location_of_file_relative_to_repo_root.as_path(),
             git_prefix_env_var,
-            path_in_delta_input: "../b/a",
+            path_in_prism_input: "../b/a",
             expected_displayed_path: "../b/a",
         });
         run_test(FilePathsTestCase {
             name: "b/a from c",
             input_type,
             calling_cmd: Some("git diff"),
-            delta_relative_paths_option: true,
+            prism_relative_paths_option: true,
             true_location_of_file_relative_to_repo_root:
                 true_location_of_file_relative_to_repo_root.as_path(),
             git_prefix_env_var,
-            path_in_delta_input: "b/a",
+            path_in_prism_input: "b/a",
             expected_displayed_path: "../b/a",
         });
     }
@@ -258,11 +258,11 @@ pub mod tests {
             name: "git grep: b/a.txt from root dir",
             input_type,
             calling_cmd: Some("git grep foo"),
-            delta_relative_paths_option: false,
+            prism_relative_paths_option: false,
             true_location_of_file_relative_to_repo_root:
                 true_location_of_file_relative_to_repo_root.as_path(),
             git_prefix_env_var: Some(""),
-            path_in_delta_input: "b/a.txt",
+            path_in_prism_input: "b/a.txt",
             expected_displayed_path: "b/a.txt:",
         });
     }
@@ -280,11 +280,11 @@ pub mod tests {
             name: "git grep: b/a.txt from b/ dir",
             input_type,
             calling_cmd,
-            delta_relative_paths_option: false,
+            prism_relative_paths_option: false,
             true_location_of_file_relative_to_repo_root:
                 true_location_of_file_relative_to_repo_root.as_path(),
             git_prefix_env_var: Some("b/"),
-            path_in_delta_input: "a.txt",
+            path_in_prism_input: "a.txt",
             expected_displayed_path: "a.txt:",
         });
     }
@@ -307,13 +307,13 @@ __path__:  some matching line
         // True location of file in repo
         true_location_of_file_relative_to_repo_root: &'a Path,
 
-        // Git spawns delta from repo root, and stores in this env var the cwd in which the user invoked delta.
+        // Git spawns prism from repo root, and stores in this env var the cwd in which the user invoked prism.
         git_prefix_env_var: Option<&'a str>,
 
-        delta_relative_paths_option: bool,
+        prism_relative_paths_option: bool,
         input_type: InputType,
         calling_cmd: Option<&'a str>,
-        path_in_delta_input: &'a str,
+        path_in_prism_input: &'a str,
         expected_displayed_path: &'a str,
         #[allow(dead_code)]
         name: &'a str,
@@ -365,7 +365,7 @@ __path__:  some matching line
                 "--line-numbers-right-format",
                 "{np}જ",
             ];
-            if self.delta_relative_paths_option {
+            if self.prism_relative_paths_option {
                 args.push("--relative-paths");
             }
             args.iter().map(|s| s.to_string()).collect()
@@ -427,14 +427,14 @@ __path__:  some matching line
                         .into()
                 }
                 (OtherGrep, None) => {
-                    // Output from e.g. rg has been piped to delta.
+                    // Output from e.g. rg has been piped to prism.
                     // Therefore
-                    // (a) the cwd that the delta process reports is the user's shell process cwd
+                    // (a) the cwd that the prism process reports is the user's shell process cwd
                     // (b) the file in question must be under this cwd
                     // (c) grep output will contain the path relative to this cwd
 
                     // So to compute the path as it would appear in grep output, we could form the
-                    // absolute path to the file and strip off the config.cwd_of_delta_process
+                    // absolute path to the file and strip off the config.cwd_of_prism_process
                     // prefix. The absolute path to the file could be constructed as (absolute path
                     // to repo root) + true_location_of_file_relative_to_repo_root). But I don't
                     // think we know the absolute path to repo root.
@@ -445,7 +445,7 @@ __path__:  some matching line
         }
 
         pub fn expected_hyperlink_path(&self) -> PathBuf {
-            utils::path::fake_delta_cwd_for_tests()
+            utils::path::fake_prism_cwd_for_tests()
                 .join(self.true_location_of_file_relative_to_repo_root)
         }
     }
@@ -459,36 +459,36 @@ __path__:  some matching line
                 .collect::<Vec<&str>>()
                 .as_slice(),
         );
-        // The test is simulating delta invoked by git hence these are the same
+        // The test is simulating prism invoked by git hence these are the same
         config.cwd_relative_to_repo_root = test_case.git_prefix_env_var.map(|s| s.to_string());
         config.cwd_of_user_shell_process = utils::path::cwd_of_user_shell_process(
-            config.cwd_of_delta_process.as_ref(),
+            config.cwd_of_prism_process.as_ref(),
             config.cwd_relative_to_repo_root.as_deref(),
         );
-        let mut delta_test = PrismTest::with_config(&config);
+        let mut prism_test = PrismTest::with_config(&config);
         if let Some(cmd) = test_case.calling_cmd {
-            delta_test = delta_test.with_calling_process(cmd)
+            prism_test = prism_test.with_calling_process(cmd)
         }
-        let delta_test = match test_case.calling_process() {
+        let prism_test = match test_case.calling_process() {
             CallingProcess::GitDiff(_) => {
                 assert_eq!(
-                    test_case.path_in_delta_input,
+                    test_case.path_in_prism_input,
                     test_case.path_in_git_output()
                 );
-                delta_test
-                    .with_input(&GIT_DIFF_OUTPUT.replace("__path__", test_case.path_in_delta_input))
+                prism_test
+                    .with_input(&GIT_DIFF_OUTPUT.replace("__path__", test_case.path_in_prism_input))
             }
             CallingProcess::GitGrep => {
                 assert_eq!(
-                    test_case.path_in_delta_input,
+                    test_case.path_in_prism_input,
                     test_case.path_in_grep_output()
                 );
-                delta_test.with_input(
-                    &GIT_GREP_OUTPUT.replace("__path__", &test_case.path_in_delta_input),
+                prism_test.with_input(
+                    &GIT_GREP_OUTPUT.replace("__path__", &test_case.path_in_prism_input),
                 )
             }
-            CallingProcess::OtherGrep => delta_test
-                .with_input(&GIT_GREP_OUTPUT.replace("__path__", &test_case.path_in_delta_input)),
+            CallingProcess::OtherGrep => prism_test
+                .with_input(&GIT_GREP_OUTPUT.replace("__path__", &test_case.path_in_prism_input)),
         };
         let make_expected_hyperlink = |text| {
             format_osc8_hyperlink(
@@ -499,7 +499,7 @@ __path__:  some matching line
         match test_case.calling_process() {
             CallingProcess::GitDiff(_) => {
                 let line_number = "1";
-                delta_test
+                prism_test
                     .inspect_raw()
                     // file hyperlink
                     .expect_raw_contains(&format!(
@@ -512,7 +512,7 @@ __path__:  some matching line
                     .expect_raw_contains(&format!("અ{}જ", make_expected_hyperlink(line_number)));
             }
             CallingProcess::GitGrep | CallingProcess::OtherGrep => {
-                delta_test
+                prism_test
                     .inspect_raw()
                     .expect_raw_contains(&make_expected_hyperlink(
                         test_case.expected_displayed_path,

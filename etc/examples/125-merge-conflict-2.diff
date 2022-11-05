@@ -13,12 +13,12 @@ index 759070d,3daf9eb..0000000
  +	cargo test
  +
  +end-to-end-test: build
- +	bash -c "diff -u <(git log -p) <(git log -p | target/release/delta --color-only | perl -pe 's/\e\[[0-9;]*m//g')"
+ +	bash -c "diff -u <(git log -p) <(git log -p | target/release/prism --color-only | perl -pe 's/\e\[[0-9;]*m//g')"
 ++||||||| constructed merge base
 ++test:
 ++	cargo test
 ++	bash -c "diff -u <(git log -p) \
-++                     <(git log -p | delta --width variable \
+++                     <(git log -p | prism --width variable \
 ++                                          --tabs 0 \
 ++	                                      --retain-plus-minus-markers \
 ++                                          --commit-style plain \
@@ -29,7 +29,7 @@ index 759070d,3daf9eb..0000000
 + test:
 + 	cargo test --release
 + 	bash -c "diff -u <(git log -p) \
-+                      <(git log -p | target/release/delta --width variable \
++                      <(git log -p | target/release/prism --width variable \
 +                                           --tabs 0 \
 + 	                                      --retain-plus-minus-markers \
 +                                           --commit-style plain \

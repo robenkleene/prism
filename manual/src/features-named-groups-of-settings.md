@@ -1,13 +1,13 @@
 # "Features": named groups of settings
 
-All delta options can go under the `[delta]` section in your git config file. However, you can also use named "features" to keep things organized: these are sections in git config like `[delta "my-feature"]`. Here's an example using two custom features:
+All prism options can go under the `[prism]` section in your git config file. However, you can also use named "features" to keep things organized: these are sections in git config like `[prism "my-feature"]`. Here's an example using two custom features:
 
 ```gitconfig
-[delta]
+[prism]
     features = unobtrusive-line-numbers decorations
     whitespace-error-style = 22 reverse
 
-[delta "unobtrusive-line-numbers"]
+[prism "unobtrusive-line-numbers"]
     line-numbers = true
     line-numbers-minus-style = "#444444"
     line-numbers-zero-style = "#444444"
@@ -17,7 +17,7 @@ All delta options can go under the `[delta]` section in your git config file. Ho
     line-numbers-left-style = blue
     line-numbers-right-style = blue
 
-[delta "decorations"]
+[prism "decorations"]
     commit-decoration-style = bold yellow box ul
     file-style = bold yellow ul
     file-decoration-style = none
@@ -28,7 +28,7 @@ All delta options can go under the `[delta]` section in your git config file. Ho
 
 The environment variable `DELTA_FEATURES` can used to enable features from the command line: it should be set to a space-separated string of feature names.
 If you precede this with a `+` symbol, then the features are _added_ to those configured elsewhere, instead of replacing them.
-This is very useful, for example to temporarily switch delta to side-by-side mode you can do
+This is very useful, for example to temporarily switch prism to side-by-side mode you can do
 
 ```
 export DELTA_FEATURES=+side-by-side

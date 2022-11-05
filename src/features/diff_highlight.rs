@@ -90,7 +90,7 @@ mod test_utils {
     newNormal = ul green bold
     newHighlight = green bold 22
 ";
-        let git_config_path = "delta__test_diff_highlight.gitconfig";
+        let git_config_path = "prism__test_diff_highlight.gitconfig";
 
         let opt = integration_test_utils::make_options_from_args_and_git_config(
             &["--features", "diff-highlight"],

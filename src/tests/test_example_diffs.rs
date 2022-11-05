@@ -2,7 +2,7 @@
 mod tests {
     use crate::ansi::{self, strip_ansi_codes};
     use crate::cli::InspectRawLines;
-    use crate::delta::{DiffType, State};
+    use crate::prism::{DiffType, State};
     use crate::handlers::hunk_header::ParsedHunkHeader;
     use crate::style;
     use crate::tests::ansi_test_utils::ansi_test_utils;
@@ -59,7 +59,7 @@ mod tests {
     fn test_recognized_file_type() {
         // In addition to the background color, the code has language syntax highlighting.
         let config = integration_test_utils::make_config_from_args(&[]);
-        let output = integration_test_utils::get_line_of_code_from_delta(
+        let output = integration_test_utils::get_line_of_code_from_prism(
             &ADDED_FILE_INPUT,
             14,
             "class X:",
@@ -75,7 +75,7 @@ mod tests {
         let config = integration_test_utils::make_config_from_args(&[]);
         let input = ADDED_FILE_INPUT.replace("a.py", "a");
         let output =
-            integration_test_utils::get_line_of_code_from_delta(&input, 14, "class X:", &config);
+            integration_test_utils::get_line_of_code_from_prism(&input, 14, "class X:", &config);
         ansi_test_utils::assert_has_color_other_than_plus_color(&output, &config);
     }
 
@@ -91,7 +91,7 @@ mod tests {
         ]);
         let input = ADDED_FILE_INPUT.replace("a.py", "a");
         let output =
-            integration_test_utils::get_line_of_code_from_delta(&input, 14, "class X:", &config);
+            integration_test_utils::get_line_of_code_from_prism(&input, 14, "class X:", &config);
         ansi_test_utils::assert_has_plus_color_only(&output, &config);
     }
 
@@ -99,7 +99,7 @@ mod tests {
     fn test_diff_unified_two_files() {
         let config =
             integration_test_utils::make_config_from_args(&["--file-modified-label", "comparing:"]);
-        let output = integration_test_utils::run_delta(DIFF_UNIFIED_TWO_FILES, &config);
+        let output = integration_test_utils::run_prism(DIFF_UNIFIED_TWO_FILES, &config);
         let output = strip_ansi_codes(&output);
         let mut lines = output.lines();
 
@@ -115,7 +115,7 @@ mod tests {
     fn test_diff_unified_two_directories() {
         let config =
             integration_test_utils::make_config_from_args(&["--width", "80", "--navigate"]);
-        let output = integration_test_utils::run_delta(DIFF_UNIFIED_TWO_DIRECTORIES, &config);
+        let output = integration_test_utils::run_prism(DIFF_UNIFIED_TWO_DIRECTORIES, &config);
         let output = strip_ansi_codes(&output);
         let mut lines = output.lines();
 
@@ -144,10 +144,10 @@ mod tests {
     }
 
     #[test]
-    #[ignore] // Ideally, delta would make this test pass. See #121.
-    fn test_delta_ignores_non_diff_input() {
+    #[ignore] // Ideally, prism would make this test pass. See #121.
+    fn test_prism_ignores_non_diff_input() {
         let config = integration_test_utils::make_config_from_args(&[]);
-        let output = integration_test_utils::run_delta(NOT_A_DIFF_OUTPUT, &config);
+        let output = integration_test_utils::run_prism(NOT_A_DIFF_OUTPUT, &config);
         let output = strip_ansi_codes(&output);
         assert_eq!(output, NOT_A_DIFF_OUTPUT.to_owned() + "\n");
     }
@@ -160,20 +160,20 @@ mod tests {
             DIFF_EXHIBITING_TRUNCATION_BUG,
         ] {
             let config = integration_test_utils::make_config_from_args(&["--raw"]);
-            let output = integration_test_utils::run_delta(input, &config);
+            let output = integration_test_utils::run_prism(input, &config);
             assert_eq!(strip_ansi_codes(&output), input);
             assert_ne!(output, input);
         }
     }
 
     #[test]
-    fn test_delta_paints_diff_when_there_is_unrecognized_initial_content() {
+    fn test_prism_paints_diff_when_there_is_unrecognized_initial_content() {
         for input in vec![
             DIFF_WITH_UNRECOGNIZED_PRECEDING_MATERIAL_1,
             DIFF_WITH_UNRECOGNIZED_PRECEDING_MATERIAL_2,
         ] {
             let config = integration_test_utils::make_config_from_args(&["--raw"]);
-            let output = integration_test_utils::run_delta(input, &config);
+            let output = integration_test_utils::run_prism(input, &config);
             assert_eq!(strip_ansi_codes(&output), input);
             assert_ne!(output, input);
         }
@@ -182,14 +182,14 @@ mod tests {
     #[test]
     fn test_diff_with_merge_conflict_is_not_truncated() {
         let config = integration_test_utils::make_config_from_args(&[]);
-        let output = integration_test_utils::run_delta(DIFF_WITH_MERGE_CONFLICT, &config);
+        let output = integration_test_utils::run_prism(DIFF_WITH_MERGE_CONFLICT, &config);
         println!("{}", strip_ansi_codes(&output));
     }
 
     #[test]
     fn test_diff_with_merge_conflict_is_passed_on_unchanged_under_raw() {
         let config = integration_test_utils::make_config_from_args(&["--raw"]);
-        let output = integration_test_utils::run_delta(DIFF_WITH_MERGE_CONFLICT, &config);
+        let output = integration_test_utils::run_prism(DIFF_WITH_MERGE_CONFLICT, &config);
         assert_eq!(strip_ansi_codes(&output), DIFF_WITH_MERGE_CONFLICT);
     }
 
@@ -198,7 +198,7 @@ mod tests {
         // See etc/examples/662-submodules
         // diff.submodule = log
         let config = integration_test_utils::make_config_from_args(&["--width", "49"]);
-        let output = integration_test_utils::run_delta(SUBMODULE_DIFF_LOG, &config);
+        let output = integration_test_utils::run_prism(SUBMODULE_DIFF_LOG, &config);
         let output = strip_ansi_codes(&output);
         assert_eq!(output, SUBMODULE_DIFF_LOG_EXPECTED_OUTPUT);
     }
@@ -207,7 +207,7 @@ mod tests {
     fn test_submodule_contains_untracked_content() {
         let config = integration_test_utils::make_config_from_args(&[]);
         let output =
-            integration_test_utils::run_delta(SUBMODULE_CONTAINS_UNTRACKED_CONTENT_INPUT, &config);
+            integration_test_utils::run_prism(SUBMODULE_CONTAINS_UNTRACKED_CONTENT_INPUT, &config);
         let output = strip_ansi_codes(&output);
         assert!(output.contains("\nSubmodule x/y/z contains untracked content\n"));
     }
@@ -216,7 +216,7 @@ mod tests {
     fn test_triple_dash_at_beginning_of_line_in_code() {
         let config = integration_test_utils::make_config_from_args(&[]);
         let output =
-            integration_test_utils::run_delta(TRIPLE_DASH_AT_BEGINNING_OF_LINE_IN_CODE, &config);
+            integration_test_utils::run_prism(TRIPLE_DASH_AT_BEGINNING_OF_LINE_IN_CODE, &config);
         let output = strip_ansi_codes(&output);
         assert!(output.contains("-- instance (Category p, Category q) => Category (p ∧ q) where\n"));
     }
@@ -224,7 +224,7 @@ mod tests {
     #[test]
     fn test_binary_files_differ() {
         let config = integration_test_utils::make_config_from_args(&[]);
-        let output = integration_test_utils::run_delta(BINARY_FILES_DIFFER, &config);
+        let output = integration_test_utils::run_prism(BINARY_FILES_DIFFER, &config);
         let output = strip_ansi_codes(&output);
         assert!(output.contains("Binary files /dev/null and b/foo differ\n"));
     }
@@ -232,7 +232,7 @@ mod tests {
     #[test]
     fn test_diff_in_diff() {
         let config = integration_test_utils::make_config_from_args(&[]);
-        let output = integration_test_utils::run_delta(DIFF_IN_DIFF, &config);
+        let output = integration_test_utils::run_prism(DIFF_IN_DIFF, &config);
         let output = strip_ansi_codes(&output);
         assert!(output.contains("\n---\n"));
         assert!(output.contains("\nSubject: [PATCH] Init\n"));
@@ -246,7 +246,7 @@ mod tests {
             "--commit-decoration-style",
             "omit",
         ]);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_no_color(
             &output,
             0,
@@ -267,7 +267,7 @@ commit 94907c0f136f46dc46ffae2dc92dca9af7eb7c2e
             "--commit-decoration-style",
             "omit",
         ]);
-        let output = integration_test_utils::run_delta(
+        let output = integration_test_utils::run_prism(
             GIT_DIFF_SINGLE_HUNK_WITH_ANSI_ESCAPE_SEQUENCES,
             &config,
         );
@@ -286,7 +286,7 @@ commit 94907c0f136f46dc46ffae2dc92dca9af7eb7c2e
             "--commit-decoration-style",
             "omit",
         ]);
-        let output = integration_test_utils::run_delta(
+        let output = integration_test_utils::run_prism(
             GIT_DIFF_SINGLE_HUNK_WITH_ANSI_ESCAPE_SEQUENCES,
             &config,
         );
@@ -302,7 +302,7 @@ commit 94907c0f136f46dc46ffae2dc92dca9af7eb7c2e
     #[test]
     fn test_orphan_carriage_return_is_stripped() {
         let config = integration_test_utils::make_config_from_args(&[]);
-        let output = integration_test_utils::run_delta(
+        let output = integration_test_utils::run_prism(
             GIT_DIFF_SINGLE_HUNK_WITH_SEQUENCE_OF_CR_ESCAPE_SEQUENCES_LF,
             &config,
         );
@@ -331,7 +331,7 @@ commit 94907c0f136f46dc46ffae2dc92dca9af7eb7c2e
 
     fn _do_test_commit_style_no_decoration(args: &[&str]) {
         let config = integration_test_utils::make_config_from_args(args);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         if false {
             // `--commit-style xxx` is not honored yet: always behaves like xxx=raw
             ansi_test_utils::assert_line_has_style(
@@ -355,7 +355,7 @@ commit 94907c0f136f46dc46ffae2dc92dca9af7eb7c2e
     #[test]
     fn test_commit_style_omit() {
         let config = integration_test_utils::make_config_from_args(&["--commit-style", "omit"]);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         let output = strip_ansi_codes(&output);
         assert!(!output.contains(
             "\
@@ -397,7 +397,7 @@ commit 94907c0f136f46dc46ffae2dc92dca9af7eb7c2e
 
     fn _do_test_commit_style_box(args: &[&str]) {
         let config = integration_test_utils::make_config_from_args(args);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_style(
             &output,
             0,
@@ -431,7 +431,7 @@ commit 94907c0f136f46dc46ffae2dc92dca9af7eb7c2e │
 
     fn _do_test_commit_style_box_ul(args: &[&str]) {
         let config = integration_test_utils::make_config_from_args(args);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_style(
             &output,
             0,
@@ -464,7 +464,7 @@ commit 94907c0f136f46dc46ffae2dc92dca9af7eb7c2e │
 
     fn _do_test_commit_style_box_ol(args: &[&str]) {
         let config = integration_test_utils::make_config_from_args(args);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_style(
             &output,
             0,
@@ -504,7 +504,7 @@ commit 94907c0f136f46dc46ffae2dc92dca9af7eb7c2e │
             "--commit-decoration-style",
             "box ul",
         ]);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_no_color(
             &output,
             1,
@@ -532,7 +532,7 @@ commit 94907c0f136f46dc46ffae2dc92dca9af7eb7c2e │
 
     fn _do_test_commit_style_underline(args: &[&str]) {
         let config = integration_test_utils::make_config_from_args(args);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_style(
             &output,
             0,
@@ -563,7 +563,7 @@ commit 94907c0f136f46dc46ffae2dc92dca9af7eb7c2e
             "--file-decoration-style",
             "omit",
         ]);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         for (i, line) in vec![
             "diff --git a/src/align.rs b/src/align.rs",
             "index 8e37a9e..6ce4863 100644",
@@ -593,7 +593,7 @@ index 8e37a9e..6ce4863 100644
             "--file-decoration-style",
             "omit",
         ]);
-        let output = integration_test_utils::run_delta(
+        let output = integration_test_utils::run_prism(
             GIT_DIFF_SINGLE_HUNK_WITH_ANSI_ESCAPE_SEQUENCES,
             &config,
         );
@@ -608,7 +608,7 @@ index 8e37a9e..6ce4863 100644
             "--file-decoration-style",
             "omit",
         ]);
-        let output = integration_test_utils::run_delta(
+        let output = integration_test_utils::run_prism(
             GIT_DIFF_SINGLE_HUNK_WITH_ANSI_ESCAPE_SEQUENCES,
             &config,
         );
@@ -647,7 +647,7 @@ index 8e37a9e..6ce4863 100644
 
     fn _do_test_file_style_no_decoration(args: &[&str]) {
         let config = integration_test_utils::make_config_from_args(args);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_style(&output, 7, "src/align.rs", "green", &config);
         let output = strip_ansi_codes(&output);
         assert!(output.contains("src/align.rs"));
@@ -662,7 +662,7 @@ src/align.rs
     #[test]
     fn test_file_style_omit() {
         let config = integration_test_utils::make_config_from_args(&["--file-style", "omit"]);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         assert!(!output.contains("src/align.rs"));
     }
 
@@ -699,7 +699,7 @@ src/align.rs
 
     fn _do_test_file_style_box(args: &[&str]) {
         let config = integration_test_utils::make_config_from_args(args);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_style(&output, 7, "─────────────┐", "green", &config);
         ansi_test_utils::assert_line_has_style(&output, 8, "src/align.rs │", "green", &config);
         ansi_test_utils::assert_line_has_style(&output, 9, "─────────────┘", "green", &config);
@@ -715,7 +715,7 @@ src/align.rs │
 
     fn _do_test_file_style_box_ul(args: &[&str]) {
         let config = integration_test_utils::make_config_from_args(args);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_style(&output, 7, "─────────────┐", "green", &config);
         ansi_test_utils::assert_line_has_style(&output, 8, "src/align.rs │", "green", &config);
         ansi_test_utils::assert_line_has_style(&output, 9, "─────────────┴─", "green", &config);
@@ -730,7 +730,7 @@ src/align.rs │
 
     fn _do_test_file_style_box_ol(args: &[&str]) {
         let config = integration_test_utils::make_config_from_args(args);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_style(&output, 7, "─────────────┬─", "green", &config);
         ansi_test_utils::assert_line_has_style(&output, 8, "src/align.rs │", "green", &config);
         ansi_test_utils::assert_line_has_style(&output, 9, "─────────────┘", "green", &config);
@@ -752,7 +752,7 @@ src/align.rs │
             "--file-decoration-style",
             "box ul",
         ]);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_no_color(&output, 8, "src/align.rs │");
         assert!(output.contains(
             "
@@ -774,7 +774,7 @@ src/align.rs │
 
     fn _do_test_file_style_underline(args: &[&str]) {
         let config = integration_test_utils::make_config_from_args(args);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_style(&output, 7, "src/align.rs", "magenta", &config);
         ansi_test_utils::assert_line_has_style(&output, 8, "────────────", "magenta", &config);
         let output = strip_ansi_codes(&output);
@@ -793,7 +793,7 @@ src/align.rs
             "--hunk-header-decoration-style",
             "omit",
         ]);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_no_color(
             &output,
             9,
@@ -811,7 +811,7 @@ src/align.rs
             "omit",
             "--line-numbers",
         ]);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         assert!(output.contains(
             "
 @@ -71,11 +71,8 @@ impl<'a> Alignment<'a> {"
@@ -928,7 +928,7 @@ src/align.rs
 
     fn _do_test_output_is_in_one_to_one_correspondence_with_input(args: &[&str]) {
         let config = integration_test_utils::make_config_from_args(args);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         let output = strip_ansi_codes(&output);
 
         let input_lines: Vec<&str> = GIT_DIFF_SINGLE_HUNK.lines().collect();
@@ -956,7 +956,7 @@ src/align.rs
     fn test_file_style_with_color_only_has_style() {
         let config =
             integration_test_utils::make_config_from_args(&["--color-only", "--file-style", "red"]);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
 
         ansi_test_utils::assert_line_has_style(&output, 8, "--- a/src/align.rs", "red", &config);
         ansi_test_utils::assert_line_has_style(&output, 9, "+++ b/src/align.rs", "red", &config);
@@ -976,7 +976,7 @@ src/align.rs
             "--hunk-header-style",
             "red",
         ]);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
 
         ansi_test_utils::assert_line_has_style(
             &output,
@@ -999,7 +999,7 @@ src/align.rs
             "--hunk-header-decoration-style",
             "box",
         ]);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
 
         ansi_test_utils::assert_line_has_style(
             &output,
@@ -1028,14 +1028,14 @@ src/align.rs:71: impl<'a> Alignment<'a> { │
             "--hunk-header-decoration-style",
             "box",
         ]);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK_NO_FRAG, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK_NO_FRAG, &config);
 
-        ansi_test_utils::assert_line_has_style(&output, 5, "src/delta.rs:1: ", "yellow", &config);
+        ansi_test_utils::assert_line_has_style(&output, 5, "src/prism.rs:1: ", "yellow", &config);
         let output = strip_ansi_codes(&output);
         assert!(output.contains(
             "
 ────────────────┐
-src/delta.rs:1: │
+src/prism.rs:1: │
 ────────────────┘
 "
         ));
@@ -1048,7 +1048,7 @@ src/delta.rs:1: │
             "--commit-style",
             "red",
         ]);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
 
         ansi_test_utils::assert_line_has_style(
             &output,
@@ -1071,7 +1071,7 @@ src/delta.rs:1: │
             "--hunk-header-decoration-style",
             "omit",
         ]);
-        let output = integration_test_utils::run_delta(
+        let output = integration_test_utils::run_prism(
             GIT_DIFF_SINGLE_HUNK_WITH_ANSI_ESCAPE_SEQUENCES,
             &config,
         );
@@ -1088,7 +1088,7 @@ src/delta.rs:1: │
             "--hunk-header-decoration-style",
             "omit",
         ]);
-        let output = integration_test_utils::run_delta(
+        let output = integration_test_utils::run_prism(
             GIT_DIFF_SINGLE_HUNK_WITH_ANSI_ESCAPE_SEQUENCES,
             &config,
         );
@@ -1118,7 +1118,7 @@ src/delta.rs:1: │
 
     fn _do_test_hunk_header_style_no_decoration(args: &[&str]) {
         let config = integration_test_utils::make_config_from_args(args);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         let output = strip_ansi_codes(&output);
         assert!(output.contains("impl<'a> Alignment<'a> {"));
         assert!(!output.contains("impl<'a> Alignment<'a> { │"));
@@ -1133,7 +1133,7 @@ impl<'a> Alignment<'a> {
     fn test_hunk_header_style_omit() {
         let config =
             integration_test_utils::make_config_from_args(&["--hunk-header-style", "omit"]);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         let output = strip_ansi_codes(&output);
         assert!(!output.contains("impl<'a> Alignment<'a> {"));
     }
@@ -1150,7 +1150,7 @@ impl<'a> Alignment<'a> {
 
     fn _do_test_hunk_header_empty_style(args: &[&str]) {
         let config = integration_test_utils::make_config_from_args(args);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         assert!(output.contains("impl<'a> Alignment<'a> {"));
         assert!(!output.contains("@@"));
     }
@@ -1192,7 +1192,7 @@ impl<'a> Alignment<'a> {
 
     fn _do_test_hunk_header_style_box(args: &[&str]) {
         let config = integration_test_utils::make_config_from_args(args);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_style(
             &output,
             10,
@@ -1219,7 +1219,7 @@ impl<'a> Alignment<'a> {
 
     fn _do_test_hunk_header_style_box_file(args: &[&str]) {
         let config = integration_test_utils::make_config_from_args(args);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_style(
             &output,
             10,
@@ -1246,7 +1246,7 @@ src/align.rs: impl<'a> Alignment<'a> { │
 
     fn _do_test_hunk_header_style_box_file_line_number(args: &[&str]) {
         let config = integration_test_utils::make_config_from_args(args);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_style(
             &output,
             10,
@@ -1279,7 +1279,7 @@ src/align.rs:71: impl<'a> Alignment<'a> { │
             "--hunk-header-decoration-style",
             "box",
         ]);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_no_color(
             &output,
             11,
@@ -1304,7 +1304,7 @@ src/align.rs:71: impl<'a> Alignment<'a> { │
 
     fn _do_test_hunk_header_style_underline(args: &[&str]) {
         let config = integration_test_utils::make_config_from_args(args);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_style(
             &output,
             11,
@@ -1330,7 +1330,7 @@ src/align.rs:71: impl<'a> Alignment<'a> { │
             "--hunk-header-decoration-style",
             "box",
         ]);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_no_color(&output, 10, "─────────────────────────────┐");
         ansi_test_utils::assert_line_has_syntax_highlighted_substring(
             &output,
@@ -1427,7 +1427,7 @@ src/align.rs:71: impl<'a> Alignment<'a> { │
             empty_line_marker_style_name,
             empty_line_marker_style,
         ]);
-        let output = integration_test_utils::run_delta(example_diff, &config);
+        let output = integration_test_utils::run_prism(example_diff, &config);
         let line = output.lines().nth(8).unwrap();
         if base_style_has_background_color {
             let style = style::Style::from_str(base_style, None, None, true, None);
@@ -1450,9 +1450,9 @@ src/align.rs:71: impl<'a> Alignment<'a> { │
             "--whitespace-error-style",
             whitespace_error_style,
         ]);
-        let output = integration_test_utils::run_delta(DIFF_WITH_WHITESPACE_ERROR, &config);
+        let output = integration_test_utils::run_prism(DIFF_WITH_WHITESPACE_ERROR, &config);
         ansi_test_utils::assert_line_has_style(&output, 8, " ", whitespace_error_style, &config);
-        let output = integration_test_utils::run_delta(DIFF_WITH_REMOVED_WHITESPACE_ERROR, &config);
+        let output = integration_test_utils::run_prism(DIFF_WITH_REMOVED_WHITESPACE_ERROR, &config);
         ansi_test_utils::assert_line_does_not_have_style(
             &output,
             8,
@@ -1471,7 +1471,7 @@ src/align.rs:71: impl<'a> Alignment<'a> { │
             "--plus-style",
             plus_style,
         ]);
-        let output = integration_test_utils::run_delta(DIFF_WITH_ADDED_EMPTY_LINE, &config);
+        let output = integration_test_utils::run_prism(DIFF_WITH_ADDED_EMPTY_LINE, &config);
         ansi_test_utils::assert_line_has_style(&output, 8, "", plus_style, &config)
     }
 
@@ -1484,14 +1484,14 @@ src/align.rs:71: impl<'a> Alignment<'a> { │
             "--plus-style",
             plus_style,
         ]);
-        let output = integration_test_utils::run_delta(DIFF_WITH_SINGLE_CHARACTER_LINE, &config);
+        let output = integration_test_utils::run_prism(DIFF_WITH_SINGLE_CHARACTER_LINE, &config);
         ansi_test_utils::assert_line_has_style(&output, 14, "+}", plus_style, &config)
     }
 
     #[test]
     fn test_color_only_mode() {
         let config = integration_test_utils::make_config_from_args(&["--color-only"]);
-        let output = integration_test_utils::run_delta(GIT_DIFF_SINGLE_HUNK, &config);
+        let output = integration_test_utils::run_prism(GIT_DIFF_SINGLE_HUNK, &config);
         ansi_test_utils::assert_line_has_syntax_highlighted_substring(
             &output,
             12,
@@ -1507,7 +1507,7 @@ src/align.rs:71: impl<'a> Alignment<'a> { │
     fn test_git_diff_is_unchanged_under_color_only() {
         let config = integration_test_utils::make_config_from_args(&["--color-only"]);
         let input = DIFF_WITH_TWO_ADDED_LINES;
-        let output = integration_test_utils::run_delta(input, &config);
+        let output = integration_test_utils::run_prism(input, &config);
         let output = strip_ansi_codes(&output);
         assert_eq!(output, input);
     }
@@ -1517,17 +1517,17 @@ src/align.rs:71: impl<'a> Alignment<'a> { │
     fn test_git_diff_U0_is_unchanged_under_color_only() {
         let config = integration_test_utils::make_config_from_args(&["--color-only"]);
         let input = DIFF_WITH_TWO_ADDED_LINES_CREATED_BY_GIT_DIFF_U0;
-        let output = integration_test_utils::run_delta(input, &config);
+        let output = integration_test_utils::run_prism(input, &config);
         let output = strip_ansi_codes(&output);
         assert_eq!(output, input);
     }
 
-    // See https://github.com/dandavison/delta/issues/371#issuecomment-720173435
+    // See https://github.com/dandavison/prism/issues/371#issuecomment-720173435
     #[test]
     fn test_keep_plus_minus_markers_under_inspect_raw_lines() {
         let config = integration_test_utils::make_config_from_args(&["--keep-plus-minus-markers"]);
         assert_eq!(config.inspect_raw_lines, InspectRawLines::True);
-        let output = integration_test_utils::run_delta(
+        let output = integration_test_utils::run_prism(
             GIT_DIFF_UNDER_COLOR_MOVED_DIMMED_ZEBRA_WITH_ANSI_ESCAPE_SEQUENCES,
             &config,
         );
@@ -1543,7 +1543,7 @@ src/align.rs:71: impl<'a> Alignment<'a> { │
     fn test_file_mode_change_with_rename() {
         let config = integration_test_utils::make_config_from_args(&["--right-arrow=->"]);
         let output =
-            integration_test_utils::run_delta(GIT_DIFF_FILE_MODE_CHANGE_WITH_RENAME, &config);
+            integration_test_utils::run_prism(GIT_DIFF_FILE_MODE_CHANGE_WITH_RENAME, &config);
         let output = strip_ansi_codes(&output);
         assert!(output.contains("renamed: old-longer-name -> shorter-name (mode +x)"));
     }
@@ -1552,21 +1552,21 @@ src/align.rs:71: impl<'a> Alignment<'a> { │
     fn test_file_mode_change_gain_executable_bit() {
         PrismTest::with_args(&[])
             .with_input(GIT_DIFF_FILE_MODE_CHANGE_GAIN_EXECUTABLE_BIT)
-            .expect_contains("src/delta.rs (mode +x)");
+            .expect_contains("src/prism.rs (mode +x)");
     }
 
     #[test]
     fn test_file_mode_change_lose_executable_bit() {
         PrismTest::with_args(&[])
             .with_input(GIT_DIFF_FILE_MODE_CHANGE_LOSE_EXECUTABLE_BIT)
-            .expect_contains("src/delta.rs (mode -x)");
+            .expect_contains("src/prism.rs (mode -x)");
     }
 
     #[test]
     fn test_file_mode_change_unexpected_bits() {
         PrismTest::with_args(&["--navigate", "--right-arrow=->"])
             .with_input(GIT_DIFF_FILE_MODE_CHANGE_UNEXPECTED_BITS)
-            .expect_contains("Δ src/delta.rs (mode 100700 -> 100644)");
+            .expect_contains("Δ src/prism.rs (mode 100700 -> 100644)");
     }
 
     #[test]
@@ -1661,10 +1661,10 @@ index 8e37a9e..6ce4863 100644
 ";
 
     const GIT_DIFF_SINGLE_HUNK_NO_FRAG: &str = "\
-diff --git a/src/delta.rs b/src/delta.rs
+diff --git a/src/prism.rs b/src/prism.rs
 index e401e269..e5304e01 100644
---- a/src/delta.rs
-+++ b/src/delta.rs
+--- a/src/prism.rs
++++ b/src/prism.rs
 @@ -1,4 +1,3 @@
 -use std::borrow::Cow;
  use std::fmt::Write as FmtWrite;
@@ -2069,14 +2069,14 @@ copy to copied_file
     // git --no-pager show -p --cc --format=  --numstat --stat
     // #121
     const DIFF_WITH_UNRECOGNIZED_PRECEDING_MATERIAL_1: &str = "
-1	5	src/delta.rs
- src/delta.rs | 6 +-----
+1	5	src/prism.rs
+ src/prism.rs | 6 +-----
  1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/src/delta.rs b/src/delta.rs
+diff --git a/src/prism.rs b/src/prism.rs
 index da10d2b..39cff42 100644
---- a/src/delta.rs
-+++ b/src/delta.rs
+--- a/src/prism.rs
++++ b/src/prism.rs
 @@ -67,11 +67,6 @@ where
      let source = detect_source(&mut lines_peekable);
 
@@ -2093,10 +2093,10 @@ index da10d2b..39cff42 100644
      }
 
      #[test]
-+    #[ignore] // Ideally, delta would make this test pass.
-     fn test_delta_ignores_non_diff_input() {
++    #[ignore] // Ideally, prism would make this test pass.
+     fn test_prism_ignores_non_diff_input() {
          let options = get_command_line_options();
-         let output = strip_ansi_codes(&run_delta(NOT_A_DIFF_OUTPUT, &options)).to_string();
+         let output = strip_ansi_codes(&run_prism(NOT_A_DIFF_OUTPUT, &options)).to_string();
 ";
 
     // git stash show --stat --patch
@@ -2152,12 +2152,12 @@ index 759070d,3daf9eb..0000000
  +	cargo test
  +
  +end-to-end-test: build
- +	bash -c "diff -u <(git log -p) <(git log -p | target/release/delta --color-only | perl -pe 's/\e\[[0-9;]*m//g')"
+ +	bash -c "diff -u <(git log -p) <(git log -p | target/release/prism --color-only | perl -pe 's/\e\[[0-9;]*m//g')"
 ++||||||| constructed merge base
 ++test:
 ++	cargo test
 ++	bash -c "diff -u <(git log -p) \
-++                     <(git log -p | delta --width variable \
+++                     <(git log -p | prism --width variable \
 ++                                          --tabs 0 \
 ++	                                      --retain-plus-minus-markers \
 ++                                          --commit-style plain \
@@ -2168,7 +2168,7 @@ index 759070d,3daf9eb..0000000
 + test:
 + 	cargo test --release
 + 	bash -c "diff -u <(git log -p) \
-+                      <(git log -p | target/release/delta --width variable \
++                      <(git log -p | target/release/prism --width variable \
 +                                           --tabs 0 \
 + 	                                      --retain-plus-minus-markers \
 +                                           --commit-style plain \
@@ -2197,10 +2197,10 @@ index cba6064..ba1a4de 100644
     // 5adc445ec38142046fc4cc4518e7019fe54f2e35. The bug was triggered by this diff. The bug was
     // present prior to that commit.
     const DIFF_EXHIBITING_STATE_MACHINE_PARSER_BUG: &str = r"
-diff --git a/src/delta.rs b/src/delta.rs
+diff --git a/src/prism.rs b/src/prism.rs
 index 20aef29..20416c0 100644
---- a/src/delta.rs
-+++ b/src/delta.rs
+--- a/src/prism.rs
++++ b/src/prism.rs
 @@ -994,0 +1014,2 @@ index cba6064..ba1a4de 100644
 +++ a
 +++ b
@@ -2310,7 +2310,7 @@ Date:   Sun Nov 1 15:28:53 2020 -0500
 [1m+++ b/etc/performance/all-benchmarks.json[m
 [31m@@ -7,9 +7,9 @@[m
      "median": 0.004928057465000001,[m
-     "message": "cargo new delta\n",[m
+     "message": "cargo new prism\n",[m
      "min": 0.003220796465,[m
 [2m-    "stddev": 0.004157057519168492,[m
      "system": 0.0016010150000000001,[m
@@ -2338,19 +2338,19 @@ rename to shorter-name
 ";
 
     const GIT_DIFF_FILE_MODE_CHANGE_GAIN_EXECUTABLE_BIT: &str = "
-diff --git a/src/delta.rs b/src/delta.rs
+diff --git a/src/prism.rs b/src/prism.rs
 old mode 100644
 new mode 100755
 ";
 
     const GIT_DIFF_FILE_MODE_CHANGE_LOSE_EXECUTABLE_BIT: &str = "
-diff --git a/src/delta.rs b/src/delta.rs
+diff --git a/src/prism.rs b/src/prism.rs
 old mode 100755
 new mode 100644
 ";
 
     const GIT_DIFF_FILE_MODE_CHANGE_UNEXPECTED_BITS: &str = "
-diff --git a/src/delta.rs b/src/delta.rs
+diff --git a/src/prism.rs b/src/prism.rs
 old mode 100700
 new mode 100644
 ";

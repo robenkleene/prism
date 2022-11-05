@@ -1,4 +1,4 @@
-use crate::delta::{DiffType, Source, State, StateMachine};
+use crate::prism::{DiffType, Source, State, StateMachine};
 
 impl<'a> StateMachine<'a> {
     #[inline]

@@ -1,1 +1,1 @@
-compdef _gnu_generic delta
+compdef _gnu_generic prism

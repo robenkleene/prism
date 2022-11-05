@@ -1,11 +1,11 @@
 # To use these themes, first include this file in your own gitconfig file:
 #
 # [include]
-#     path = PATH/TO/delta/themes.gitconfig
+#     path = PATH/TO/prism/themes.gitconfig
 #
 # Then, in your own gitconfig file, activate the chosen theme, e.g.
 #
-# [delta]
+# [prism]
 #    features = kingfisher
 #
 # Please add your own themes to this file, and open a PR.
@@ -15,18 +15,18 @@
 # 1. The name of the theme must be the name of some sort of wild organism:
 #    mammal, bird, plant, mollusk -- whatever. It can be in any language.
 #
-# 2. Use `delta --show-config` to list all the style settings that are active in
-#    your current delta environment, but only include settings in your theme
+# 2. Use `prism --show-config` to list all the style settings that are active in
+#    your current prism environment, but only include settings in your theme
 #    that are essential to its appearance.
 #
 # 3. Include either `dark = true` or `light = true` according to whether it is
 #    designed for a light or dark terminal background. (This marks a feature as
-#    a "theme", causing it to be picked up by `delta --show-themes`).
+#    a "theme", causing it to be picked up by `prism --show-themes`).
 #
 # 4. Feel free to include a comment line indicating who is the author of the
 #    theme. E.g. a link to your github user page.
 
-[delta "collared-trogon"]
+[prism "collared-trogon"]
     # author: https://github.com/clnoll
     commit-decoration-style = bold box ul
     dark = true
@@ -48,7 +48,7 @@
     plus-style = syntax "#001a00"
     syntax-theme = Nord
 
-[delta "coracias-caudatus"]
+[prism "coracias-caudatus"]
     # author: https://github.com/clnoll
     commit-decoration-style = ol "#7536ff"
     commit-style = "#200078"
@@ -73,7 +73,7 @@
     plus-style = syntax "#cffff3"
     syntax-theme = Github
 
-[delta "hoopoe"]
+[prism "hoopoe"]
     # author: https://github.com/dandavison
     light = true
     pink = "#ffe0e0"
@@ -99,7 +99,7 @@
     syntax-theme = GitHub
     zero-style = syntax
 
-[delta "tangara-chilensis"]
+[prism "tangara-chilensis"]
     # author: https://github.com/clnoll
     commit-decoration-style = bold box ul "#34fd50"
     dark = true
@@ -122,7 +122,7 @@
     side-by-side = true
     syntax-theme = Vibrant Sunburst
 
-[delta "villsau"]
+[prism "villsau"]
     # author: https://github.com/torarnv
     dark = true
     file-style = omit
@@ -143,7 +143,7 @@
     whitespace-error-style = reverse red
     zero-style = dim syntax
 
-[delta "woolly-mammoth"]
+[prism "woolly-mammoth"]
     # author: https://github.com/Kr1ss-XD
     commit-decoration-style = 232 130 box
     commit-style = 232 bold italic 130
@@ -175,7 +175,7 @@
     blame-format = "{author:<18} ({commit:>7}) ┊{timestamp:^16}┊ "
     blame-palette = "#101010 #200020 #002800 #000028 #202000 #280000 #002020 #002800 #202020"
 
-[delta "calochortus-lyallii"]
+[prism "calochortus-lyallii"]
     # author: https://github.com/manojkarthick
     commit-decoration-style = none
     dark = true
@@ -204,7 +204,7 @@
     zero-style = syntax
     syntax-theme = Nord
 
-[delta "mantis-shrimp"]
+[prism "mantis-shrimp"]
     #author: https://github.com/2kabhishek
     dark = true
     side-by-side = true
@@ -239,7 +239,7 @@
     plus-style = syntax "#004433"
     whitespace-error-style = "#280050"
 
-[delta "mantis-shrimp-lite"]
+[prism "mantis-shrimp-lite"]
     #author: https://github.com/2kabhishek
     dark = true
     side-by-side = true
@@ -271,7 +271,7 @@
     plus-emph-style = syntax bold green
     whitespace-error-style = purple bold
 
-[delta "zebra-dark"]
+[prism "zebra-dark"]
     minus-style = syntax "#330f0f"
     minus-emph-style = syntax "#4f1917"
     plus-style = syntax "#0e2f19"
@@ -284,7 +284,7 @@
     zero-style = syntax
     whitespace-error-style = "#aaaaaa"
 
-[delta "zebra-light"]
+[prism "zebra-light"]
     minus-style = syntax "#fbdada"
     minus-emph-style = syntax "#f6b6b6"
     plus-style = syntax "#d6ffd6"
@@ -297,7 +297,7 @@
     zero-style = syntax
     whitespace-error-style = "#aaaaaa"
 
-[delta "chameleon"]
+[prism "chameleon"]
     #author: https://github.com/AirOnSkin
     dark = true
     line-numbers = true

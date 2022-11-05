@@ -5,10 +5,10 @@ RUN apt-get update && \
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-RUN git clone https://github.com/dandavison/delta.git
-WORKDIR delta
+RUN git clone https://github.com/dandavison/prism.git
+WORKDIR prism
 RUN /root/.cargo/bin/cargo build --release
 
 ENV PATH="${PWD}/target/release:${PATH}"
 
-CMD delta
+CMD prism

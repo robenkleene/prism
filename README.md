@@ -2,31 +2,31 @@
   <img width=400px src="https://user-images.githubusercontent.com/52205/147996902-9829bd3f-cd33-466e-833e-49a6f3ebd623.png" alt="image" />
 </p>
 <p align="center">
-  <a href="https://github.com/dandavison/delta/actions">
-    <img src="https://github.com/dandavison/delta/workflows/Continuous%20Integration/badge.svg" alt="CI">
+  <a href="https://github.com/dandavison/prism/actions">
+    <img src="https://github.com/dandavison/prism/workflows/Continuous%20Integration/badge.svg" alt="CI">
   </a>
-  <a href="https://coveralls.io/github/dandavison/delta?branch=master">
-    <img src="https://coveralls.io/repos/github/dandavison/delta/badge.svg?branch=master" alt="Coverage Status">
+  <a href="https://coveralls.io/github/dandavison/prism?branch=master">
+    <img src="https://coveralls.io/repos/github/dandavison/prism/badge.svg?branch=master" alt="Coverage Status">
   </a>
-  <a href="https://gitter.im/dandavison-delta/community?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge">
-    <img src="https://badges.gitter.im/dandavison-delta/community.svg" alt="Gitter">
+  <a href="https://gitter.im/dandavison-prism/community?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge">
+    <img src="https://badges.gitter.im/dandavison-prism/community.svg" alt="Gitter">
   </a>
 </p>
 
 ## Get Started
 
-[Install it](https://dandavison.github.io/delta/installation.html) (the package is called "git-delta" in most package managers, but the executable is just `delta`) and add this to your `~/.gitconfig`:
+[Install it](https://dandavison.github.io/prism/installation.html) (the package is called "git-prism" in most package managers, but the executable is just `prism`) and add this to your `~/.gitconfig`:
 
 ```gitconfig
 [core]
-    pager = delta
+    pager = prism
 
 [interactive]
-    diffFilter = delta --color-only
+    diffFilter = prism --color-only
 [add.interactive]
     useBuiltin = false # required for git 2.37.0
 
-[delta]
+[prism]
     navigate = true    # use n and N to move between diff sections
     light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
 
@@ -37,7 +37,7 @@
     colorMoved = default
 ```
 
-Prism has many features and is very customizable; please see the [user manual](https://dandavison.github.io/delta/).
+Prism has many features and is very customizable; please see the [user manual](https://dandavison.github.io/prism/).
 
 ## Features
 
@@ -67,7 +67,7 @@ Code evolves, and we all spend time studying diffs. Prism aims to make this both
     <td>
       <img width=400px src="https://user-images.githubusercontent.com/52205/86275526-76792100-bba1-11ea-9e78-6be9baa80b29.png" alt="image" />
       <br>
-      <sub>delta with <code>line-numbers</code> activated</sub>
+      <sub>prism with <code>line-numbers</code> activated</sub>
     </td>
   </tr>
 </table>
@@ -77,12 +77,12 @@ Code evolves, and we all spend time studying diffs. Prism aims to make this both
     <td>
       <img width=800px src="https://user-images.githubusercontent.com/52205/87230973-412eb900-c381-11ea-8aec-cc200290bd1b.png" alt="image" />
       <br>
-      <sub>delta with <code>side-by-side</code> and <code>line-numbers</code> activated</sub>
+      <sub>prism with <code>side-by-side</code> and <code>line-numbers</code> activated</sub>
     </td>
   </tr>
 </table>
 
-Here's what `git show` can look like with git configured to use delta:
+Here's what `git show` can look like with git configured to use prism:
 
 <br>
 
@@ -114,7 +114,7 @@ Here's what `git show` can look like with git configured to use delta:
 
 ### Syntax-highlighting themes
 
-**All the syntax-highlighting color themes that are available with [bat](https://github.com/sharkdp/bat/) are available with delta:**
+**All the syntax-highlighting color themes that are available with [bat](https://github.com/sharkdp/bat/) are available with prism:**
 
 <br>
 <table>
@@ -132,10 +132,10 @@ Here's what `git show` can look like with git configured to use delta:
   </tr>
   <tr>
     <td>
-      <code>delta --show-syntax-themes --dark</code>
+      <code>prism --show-syntax-themes --dark</code>
     </td>
     <td>
-      <code>delta --show-syntax-themes --light</code>
+      <code>prism --show-syntax-themes --light</code>
     </td>
   </tr>
 </table>
@@ -144,10 +144,10 @@ Here's what `git show` can look like with git configured to use delta:
 
 ### Side-by-side view
 
-[[User manual](https://dandavison.github.io/delta/side-by-side-view.html)]
+[[User manual](https://dandavison.github.io/prism/side-by-side-view.html)]
 
 ```gitconfig
-[delta]
+[prism]
     side-by-side = true
 ```
 
@@ -161,10 +161,10 @@ Side-by-side view wraps long lines automatically:
 
 ### Line numbers
 
-[[User manual](https://dandavison.github.io/delta/line-numbers.html)]
+[[User manual](https://dandavison.github.io/prism/line-numbers.html)]
 
 ```gitconfig
-[delta]
+[prism]
     line-numbers = true
 ```
 
@@ -172,16 +172,16 @@ Side-by-side view wraps long lines automatically:
 
 ### Merge conflicts
 
-[[User manual](https://dandavison.github.io/delta/merge-conflicts.html)]
+[[User manual](https://dandavison.github.io/prism/merge-conflicts.html)]
 
 <table><tr><td><img width=500px src="https://user-images.githubusercontent.com/52205/144783121-bb549100-69d8-41b8-ac62-1704f1f7b43e.png" alt="image" /></td></tr></table>
 
 ### Git blame
 
-[[User manual](https://dandavison.github.io/delta/git-blame.html)]
+[[User manual](https://dandavison.github.io/prism/git-blame.html)]
 
 <table><tr><td><img width=600px src="https://user-images.githubusercontent.com/52205/141891376-1fdb87dc-1d9c-4ad6-9d72-eeb19a8aeb0b.png" alt="image" /></td></tr></table>
 
 ### Installation and usage
 
-Please see the [user manual](https://dandavison.github.io/delta/) and `delta --help`.
+Please see the [user manual](https://dandavison.github.io/prism/) and `prism --help`.

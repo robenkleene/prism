@@ -2,7 +2,7 @@ use std::io::{self, ErrorKind, Read};
 
 use crate::cli;
 use crate::config;
-use crate::delta;
+use crate::prism;
 use crate::env::PrismEnv;
 use crate::git_config;
 use crate::options::get::get_themes;
@@ -55,7 +55,7 @@ pub fn show_themes(dark: bool, light: bool, computed_theme_is_light: bool) -> st
             writeln!(writer, "\n\nTheme: {}\n", title_style.paint(theme))?;
 
             if let Err(error) =
-                delta::delta(ByteLines::new(BufReader::new(&input[0..])), writer, &config)
+                prism::prism(ByteLines::new(BufReader::new(&input[0..])), writer, &config)
             {
                 match error.kind() {
                     ErrorKind::BrokenPipe => std::process::exit(0),

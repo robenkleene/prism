@@ -1,7 +1,7 @@
 use std::borrow::Cow;
 
 use super::draw;
-use crate::delta::{State, StateMachine};
+use crate::prism::{State, StateMachine};
 use crate::features;
 
 impl<'a> StateMachine<'a> {

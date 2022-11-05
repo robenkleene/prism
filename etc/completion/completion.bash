@@ -1,17 +1,17 @@
 #!/bin/bash
 
-__delta_previous_extglob_setting=$(shopt -p extglob)
+__prism_previous_extglob_setting=$(shopt -p extglob)
 shopt -s extglob
 
-__delta_complete_commands() {
+__prism_complete_commands() {
     COMPREPLY=( $(compgen -W "${commands[*]}" -- "$cur") )
 }
 
-_delta_delta() {
-    __delta_complete_commands
+_prism_prism() {
+    __prism_complete_commands
 }
 
-_delta() {
+_prism() {
     local previous_extglob_setting=$(shopt -p extglob)
     shopt -s extglob
 
@@ -42,7 +42,7 @@ _delta() {
     local cur prev words cword
     _get_comp_words_by_ref -n : cur prev words cword
 
-    local command='delta' command_pos=0
+    local command='prism' command_pos=0
     local counter=1
     while [ $counter -lt $cword ]; do
       case "${words[$counter]}" in
@@ -55,7 +55,7 @@ _delta() {
       (( counter++ ))
     done
 
-    local completions_func=_delta_${command}
+    local completions_func=_prism_${command}
 
     declare -F $completions_func >/dev/null && $completions_func
 
@@ -63,7 +63,7 @@ _delta() {
     return 0
 }
 
-eval "$__delta_previous_extglob_setting"
-unset __delta_previous_extglob_setting
+eval "$__prism_previous_extglob_setting"
+unset __prism_previous_extglob_setting
 
-complete -F _delta -A file delta
+complete -F _prism -A file prism

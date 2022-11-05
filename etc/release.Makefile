@@ -40,7 +40,7 @@ $(CREATE_GITHUB_RELEASE_SENTINEL):
 	git tag "$$DELTA_NEW_VERSION"
 	git push
 	git push --tags
-	@echo \# See https://github.com/dandavison/delta/releases
+	@echo \# See https://github.com/dandavison/prism/releases
 	touch $(CREATE_GITHUB_RELEASE_SENTINEL)
 
 
@@ -58,10 +58,10 @@ $(BUMP_VERSION_IN_DOCUMENTATION_LINKS_SENTINEL):
 BUMP_PRIVATE_HOMEBREW_FORMULA_SENTINEL=.make-sentinels/bump-private-homebrew-formula
 bump-private-homebrew-formula: $(BUMP_PRIVATE_HOMEBREW_FORMULA_SENTINEL)
 $(BUMP_PRIVATE_HOMEBREW_FORMULA_SENTINEL):
-	sed -i -E "s,$$DELTA_OLD_VERSION,$$DELTA_NEW_VERSION,g" HomeBrewFormula/git-delta.rb
+	sed -i -E "s,$$DELTA_OLD_VERSION,$$DELTA_NEW_VERSION,g" HomeBrewFormula/git-prism.rb
 	make hash
-	@echo \# modify hashes in HomeBrewFormula/git-delta.rb
-	git add HomeBrewFormula/git-delta.rb
+	@echo \# modify hashes in HomeBrewFormula/git-prism.rb
+	git add HomeBrewFormula/git-prism.rb
 	git commit -m "Bump version in private Homebrew formula"
 	touch $(BUMP_PRIVATE_HOMEBREW_FORMULA_SENTINEL)
 

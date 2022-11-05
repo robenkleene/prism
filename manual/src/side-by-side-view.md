@@ -1,7 +1,7 @@
 # Side-by-side view
 
 ```gitconfig
-[delta]
+[prism]
     side-by-side = true
 ```
 
@@ -12,7 +12,7 @@ By default, side-by-side view has line-numbers activated, and has syntax highlig
 To disable the line numbers in side-by-side view, but keep a vertical delimiter line between the left and right panels, use the line-numbers format options. For example:
 
 ```gitconfig
-[delta]
+[prism]
     side-by-side = true
     line-numbers-left-format = ""
     line-numbers-right-format = "│ "

@@ -9,7 +9,7 @@
     "min": 0.004024913580000004,
     "max": 0.010748769580000005,
     "commit": "1561325305-5a4361fa037090adf729ab3f161832d969abc576",
-    "message": "cargo new delta\n",
+    "message": "cargo new prism\n",
     "time": 0.010748769580000005
   },
   {
@@ -22,7 +22,7 @@
     "min": 0.004024913580000004,
     "max": 0.010748769580000005,
     "commit": "1561325305-5a4361fa037090adf729ab3f161832d969abc576",
-    "message": "cargo new delta\n",
+    "message": "cargo new prism\n",
     "time": 0.004347394580000004
   },
   {
@@ -35,7 +35,7 @@
     "min": 0.004024913580000004,
     "max": 0.010748769580000005,
     "commit": "1561325305-5a4361fa037090adf729ab3f161832d969abc576",
-    "message": "cargo new delta\n",
+    "message": "cargo new prism\n",
     "time": 0.004132040580000005
   },
   {
@@ -48,7 +48,7 @@
     "min": 0.004024913580000004,
     "max": 0.010748769580000005,
     "commit": "1561325305-5a4361fa037090adf729ab3f161832d969abc576",
-    "message": "cargo new delta\n",
+    "message": "cargo new prism\n",
     "time": 0.0054328235800000044
   },
   {
@@ -61,7 +61,7 @@
     "min": 0.004024913580000004,
     "max": 0.010748769580000005,
     "commit": "1561325305-5a4361fa037090adf729ab3f161832d969abc576",
-    "message": "cargo new delta\n",
+    "message": "cargo new prism\n",
     "time": 0.004024913580000004
   },
   {
@@ -2999,7 +2999,7 @@
     "min": 1.20944875058,
     "max": 1.3270222735800001,
     "commit": "1561780077-8b111cb4496d9250cb0c25d828f03d64274992ed",
-    "message": "Do not support --width=max ref #3\n\nThis would require that delta starts the pager process rather than\nusing a pipe. This is how bat is able to detect terminal width.\n",
+    "message": "Do not support --width=max ref #3\n\nThis would require that prism starts the pager process rather than\nusing a pipe. This is how bat is able to detect terminal width.\n",
     "time": 1.3270222735800001
   },
   {
@@ -3012,7 +3012,7 @@
     "min": 1.20944875058,
     "max": 1.3270222735800001,
     "commit": "1561780077-8b111cb4496d9250cb0c25d828f03d64274992ed",
-    "message": "Do not support --width=max ref #3\n\nThis would require that delta starts the pager process rather than\nusing a pipe. This is how bat is able to detect terminal width.\n",
+    "message": "Do not support --width=max ref #3\n\nThis would require that prism starts the pager process rather than\nusing a pipe. This is how bat is able to detect terminal width.\n",
     "time": 1.21284912258
   },
   {
@@ -3025,7 +3025,7 @@
     "min": 1.20944875058,
     "max": 1.3270222735800001,
     "commit": "1561780077-8b111cb4496d9250cb0c25d828f03d64274992ed",
-    "message": "Do not support --width=max ref #3\n\nThis would require that delta starts the pager process rather than\nusing a pipe. This is how bat is able to detect terminal width.\n",
+    "message": "Do not support --width=max ref #3\n\nThis would require that prism starts the pager process rather than\nusing a pipe. This is how bat is able to detect terminal width.\n",
     "time": 1.21168055558
   },
   {
@@ -3038,7 +3038,7 @@
     "min": 1.20944875058,
     "max": 1.3270222735800001,
     "commit": "1561780077-8b111cb4496d9250cb0c25d828f03d64274992ed",
-    "message": "Do not support --width=max ref #3\n\nThis would require that delta starts the pager process rather than\nusing a pipe. This is how bat is able to detect terminal width.\n",
+    "message": "Do not support --width=max ref #3\n\nThis would require that prism starts the pager process rather than\nusing a pipe. This is how bat is able to detect terminal width.\n",
     "time": 1.20944875058
   },
   {
@@ -3051,7 +3051,7 @@
     "min": 1.20944875058,
     "max": 1.3270222735800001,
     "commit": "1561780077-8b111cb4496d9250cb0c25d828f03d64274992ed",
-    "message": "Do not support --width=max ref #3\n\nThis would require that delta starts the pager process rather than\nusing a pipe. This is how bat is able to detect terminal width.\n",
+    "message": "Do not support --width=max ref #3\n\nThis would require that prism starts the pager process rather than\nusing a pipe. This is how bat is able to detect terminal width.\n",
     "time": 1.21127383958
   },
   {
@@ -9434,7 +9434,7 @@
     "min": 1.03570287058,
     "max": 1.05240699058,
     "commit": "1563216583-a270bb568e4cc881e84ba6fa9c86bb1ca57c2a28",
-    "message": "Modify bat travis build config for delta\n",
+    "message": "Modify bat travis build config for prism\n",
     "time": 1.03570287058
   },
   {
@@ -9447,7 +9447,7 @@
     "min": 1.03570287058,
     "max": 1.05240699058,
     "commit": "1563216583-a270bb568e4cc881e84ba6fa9c86bb1ca57c2a28",
-    "message": "Modify bat travis build config for delta\n",
+    "message": "Modify bat travis build config for prism\n",
     "time": 1.05240699058
   },
   {
@@ -9460,7 +9460,7 @@
     "min": 1.03570287058,
     "max": 1.05240699058,
     "commit": "1563216583-a270bb568e4cc881e84ba6fa9c86bb1ca57c2a28",
-    "message": "Modify bat travis build config for delta\n",
+    "message": "Modify bat travis build config for prism\n",
     "time": 1.04197833858
   },
   {
@@ -9473,7 +9473,7 @@
     "min": 1.03570287058,
     "max": 1.05240699058,
     "commit": "1563216583-a270bb568e4cc881e84ba6fa9c86bb1ca57c2a28",
-    "message": "Modify bat travis build config for delta\n",
+    "message": "Modify bat travis build config for prism\n",
     "time": 1.05074741058
   },
   {
@@ -9486,7 +9486,7 @@
     "min": 1.03570287058,
     "max": 1.05240699058,
     "commit": "1563216583-a270bb568e4cc881e84ba6fa9c86bb1ca57c2a28",
-    "message": "Modify bat travis build config for delta\n",
+    "message": "Modify bat travis build config for prism\n",
     "time": 1.03897269358
   },
   {
@@ -9564,7 +9564,7 @@
     "min": 1.04360879358,
     "max": 1.14027342058,
     "commit": "1563243718-bdf65a1489fa5dbfebde54fa60b6560efa92d6eb",
-    "message": "Homebrew formula\n\nbrew tap dandavison/delta https://github.com/dandavison/delta\nbrew install dandavison/delta/git-delta\n",
+    "message": "Homebrew formula\n\nbrew tap dandavison/prism https://github.com/dandavison/prism\nbrew install dandavison/prism/git-prism\n",
     "time": 1.14027342058
   },
   {
@@ -9577,7 +9577,7 @@
     "min": 1.04360879358,
     "max": 1.14027342058,
     "commit": "1563243718-bdf65a1489fa5dbfebde54fa60b6560efa92d6eb",
-    "message": "Homebrew formula\n\nbrew tap dandavison/delta https://github.com/dandavison/delta\nbrew install dandavison/delta/git-delta\n",
+    "message": "Homebrew formula\n\nbrew tap dandavison/prism https://github.com/dandavison/prism\nbrew install dandavison/prism/git-prism\n",
     "time": 1.10585888058
   },
   {
@@ -9590,7 +9590,7 @@
     "min": 1.04360879358,
     "max": 1.14027342058,
     "commit": "1563243718-bdf65a1489fa5dbfebde54fa60b6560efa92d6eb",
-    "message": "Homebrew formula\n\nbrew tap dandavison/delta https://github.com/dandavison/delta\nbrew install dandavison/delta/git-delta\n",
+    "message": "Homebrew formula\n\nbrew tap dandavison/prism https://github.com/dandavison/prism\nbrew install dandavison/prism/git-prism\n",
     "time": 1.0632576605800002
   },
   {
@@ -9603,7 +9603,7 @@
     "min": 1.04360879358,
     "max": 1.14027342058,
     "commit": "1563243718-bdf65a1489fa5dbfebde54fa60b6560efa92d6eb",
-    "message": "Homebrew formula\n\nbrew tap dandavison/delta https://github.com/dandavison/delta\nbrew install dandavison/delta/git-delta\n",
+    "message": "Homebrew formula\n\nbrew tap dandavison/prism https://github.com/dandavison/prism\nbrew install dandavison/prism/git-prism\n",
     "time": 1.04360879358
   },
   {
@@ -9616,7 +9616,7 @@
     "min": 1.04360879358,
     "max": 1.14027342058,
     "commit": "1563243718-bdf65a1489fa5dbfebde54fa60b6560efa92d6eb",
-    "message": "Homebrew formula\n\nbrew tap dandavison/delta https://github.com/dandavison/delta\nbrew install dandavison/delta/git-delta\n",
+    "message": "Homebrew formula\n\nbrew tap dandavison/prism https://github.com/dandavison/prism\nbrew install dandavison/prism/git-prism\n",
     "time": 1.05588586958
   },
   {
@@ -10465,7 +10465,7 @@
     "time": 1.04483053758
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/003d3c464888f603df63b727adab639b024a6ab3 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/003d3c464888f603df63b727adab639b024a6ab3 < input.gitdiff > /dev/null",
     "mean": 1.079329046595,
     "stddev": 0.004690112775290345,
     "median": 1.077096468595,
@@ -10478,7 +10478,7 @@
     "time": 1.086883455595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/003d3c464888f603df63b727adab639b024a6ab3 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/003d3c464888f603df63b727adab639b024a6ab3 < input.gitdiff > /dev/null",
     "mean": 1.079329046595,
     "stddev": 0.004690112775290345,
     "median": 1.077096468595,
@@ -10491,7 +10491,7 @@
     "time": 1.077050696595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/003d3c464888f603df63b727adab639b024a6ab3 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/003d3c464888f603df63b727adab639b024a6ab3 < input.gitdiff > /dev/null",
     "mean": 1.079329046595,
     "stddev": 0.004690112775290345,
     "median": 1.077096468595,
@@ -10504,7 +10504,7 @@
     "time": 1.080645691595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/003d3c464888f603df63b727adab639b024a6ab3 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/003d3c464888f603df63b727adab639b024a6ab3 < input.gitdiff > /dev/null",
     "mean": 1.079329046595,
     "stddev": 0.004690112775290345,
     "median": 1.077096468595,
@@ -10517,7 +10517,7 @@
     "time": 1.077096468595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/003d3c464888f603df63b727adab639b024a6ab3 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/003d3c464888f603df63b727adab639b024a6ab3 < input.gitdiff > /dev/null",
     "mean": 1.079329046595,
     "stddev": 0.004690112775290345,
     "median": 1.077096468595,
@@ -10530,7 +10530,7 @@
     "time": 1.074968920595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/1374863f71d00371c45fa6a3cef39fbbbeab7fcf < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/1374863f71d00371c45fa6a3cef39fbbbeab7fcf < input.gitdiff > /dev/null",
     "mean": 1.072624437795,
     "stddev": 0.0030873117602998514,
     "median": 1.072118326595,
@@ -10543,7 +10543,7 @@
     "time": 1.071349983595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/1374863f71d00371c45fa6a3cef39fbbbeab7fcf < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/1374863f71d00371c45fa6a3cef39fbbbeab7fcf < input.gitdiff > /dev/null",
     "mean": 1.072624437795,
     "stddev": 0.0030873117602998514,
     "median": 1.072118326595,
@@ -10556,7 +10556,7 @@
     "time": 1.0684882655949999
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/1374863f71d00371c45fa6a3cef39fbbbeab7fcf < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/1374863f71d00371c45fa6a3cef39fbbbeab7fcf < input.gitdiff > /dev/null",
     "mean": 1.072624437795,
     "stddev": 0.0030873117602998514,
     "median": 1.072118326595,
@@ -10569,7 +10569,7 @@
     "time": 1.074678986595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/1374863f71d00371c45fa6a3cef39fbbbeab7fcf < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/1374863f71d00371c45fa6a3cef39fbbbeab7fcf < input.gitdiff > /dev/null",
     "mean": 1.072624437795,
     "stddev": 0.0030873117602998514,
     "median": 1.072118326595,
@@ -10582,7 +10582,7 @@
     "time": 1.072118326595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/1374863f71d00371c45fa6a3cef39fbbbeab7fcf < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/1374863f71d00371c45fa6a3cef39fbbbeab7fcf < input.gitdiff > /dev/null",
     "mean": 1.072624437795,
     "stddev": 0.0030873117602998514,
     "median": 1.072118326595,
@@ -10595,7 +10595,7 @@
     "time": 1.076486626595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/2404597c29f1ca4125740891224216d00e75ac6f < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/2404597c29f1ca4125740891224216d00e75ac6f < input.gitdiff > /dev/null",
     "mean": 1.1063696097949998,
     "stddev": 0.004914855331548992,
     "median": 1.106519067595,
@@ -10608,7 +10608,7 @@
     "time": 1.109962789595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/2404597c29f1ca4125740891224216d00e75ac6f < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/2404597c29f1ca4125740891224216d00e75ac6f < input.gitdiff > /dev/null",
     "mean": 1.1063696097949998,
     "stddev": 0.004914855331548992,
     "median": 1.106519067595,
@@ -10621,7 +10621,7 @@
     "time": 1.106519067595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/2404597c29f1ca4125740891224216d00e75ac6f < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/2404597c29f1ca4125740891224216d00e75ac6f < input.gitdiff > /dev/null",
     "mean": 1.1063696097949998,
     "stddev": 0.004914855331548992,
     "median": 1.106519067595,
@@ -10634,7 +10634,7 @@
     "time": 1.1019944665949999
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/2404597c29f1ca4125740891224216d00e75ac6f < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/2404597c29f1ca4125740891224216d00e75ac6f < input.gitdiff > /dev/null",
     "mean": 1.1063696097949998,
     "stddev": 0.004914855331548992,
     "median": 1.106519067595,
@@ -10647,7 +10647,7 @@
     "time": 1.101013648595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/2404597c29f1ca4125740891224216d00e75ac6f < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/2404597c29f1ca4125740891224216d00e75ac6f < input.gitdiff > /dev/null",
     "mean": 1.1063696097949998,
     "stddev": 0.004914855331548992,
     "median": 1.106519067595,
@@ -10660,7 +10660,7 @@
     "time": 1.1123580765949999
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/36dda02d8b37e424134eb6b6685f8566c8213ca3 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/36dda02d8b37e424134eb6b6685f8566c8213ca3 < input.gitdiff > /dev/null",
     "mean": 1.075709386195,
     "stddev": 0.0061083634489436,
     "median": 1.079370891595,
@@ -10673,7 +10673,7 @@
     "time": 1.080675481595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/36dda02d8b37e424134eb6b6685f8566c8213ca3 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/36dda02d8b37e424134eb6b6685f8566c8213ca3 < input.gitdiff > /dev/null",
     "mean": 1.075709386195,
     "stddev": 0.0061083634489436,
     "median": 1.079370891595,
@@ -10686,7 +10686,7 @@
     "time": 1.079370891595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/36dda02d8b37e424134eb6b6685f8566c8213ca3 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/36dda02d8b37e424134eb6b6685f8566c8213ca3 < input.gitdiff > /dev/null",
     "mean": 1.075709386195,
     "stddev": 0.0061083634489436,
     "median": 1.079370891595,
@@ -10699,7 +10699,7 @@
     "time": 1.069758992595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/36dda02d8b37e424134eb6b6685f8566c8213ca3 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/36dda02d8b37e424134eb6b6685f8566c8213ca3 < input.gitdiff > /dev/null",
     "mean": 1.075709386195,
     "stddev": 0.0061083634489436,
     "median": 1.079370891595,
@@ -10712,7 +10712,7 @@
     "time": 1.068362921595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/36dda02d8b37e424134eb6b6685f8566c8213ca3 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/36dda02d8b37e424134eb6b6685f8566c8213ca3 < input.gitdiff > /dev/null",
     "mean": 1.075709386195,
     "stddev": 0.0061083634489436,
     "median": 1.079370891595,
@@ -10725,7 +10725,7 @@
     "time": 1.080378643595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/49f9932f98839ef5341360e94469a2795bb1d620 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/49f9932f98839ef5341360e94469a2795bb1d620 < input.gitdiff > /dev/null",
     "mean": 1.0771459831949999,
     "stddev": 0.008877754768077175,
     "median": 1.076847363595,
@@ -10738,7 +10738,7 @@
     "time": 1.084711598595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/49f9932f98839ef5341360e94469a2795bb1d620 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/49f9932f98839ef5341360e94469a2795bb1d620 < input.gitdiff > /dev/null",
     "mean": 1.0771459831949999,
     "stddev": 0.008877754768077175,
     "median": 1.076847363595,
@@ -10751,7 +10751,7 @@
     "time": 1.068932848595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/49f9932f98839ef5341360e94469a2795bb1d620 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/49f9932f98839ef5341360e94469a2795bb1d620 < input.gitdiff > /dev/null",
     "mean": 1.0771459831949999,
     "stddev": 0.008877754768077175,
     "median": 1.076847363595,
@@ -10764,7 +10764,7 @@
     "time": 1.067871559595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/49f9932f98839ef5341360e94469a2795bb1d620 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/49f9932f98839ef5341360e94469a2795bb1d620 < input.gitdiff > /dev/null",
     "mean": 1.0771459831949999,
     "stddev": 0.008877754768077175,
     "median": 1.076847363595,
@@ -10777,7 +10777,7 @@
     "time": 1.076847363595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/49f9932f98839ef5341360e94469a2795bb1d620 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/49f9932f98839ef5341360e94469a2795bb1d620 < input.gitdiff > /dev/null",
     "mean": 1.0771459831949999,
     "stddev": 0.008877754768077175,
     "median": 1.076847363595,
@@ -10790,7 +10790,7 @@
     "time": 1.087366545595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/58cddd1861c674a700f0003dcfff1d4896402654 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/58cddd1861c674a700f0003dcfff1d4896402654 < input.gitdiff > /dev/null",
     "mean": 1.069224203995,
     "stddev": 0.001978211209677864,
     "median": 1.068384901595,
@@ -10803,7 +10803,7 @@
     "time": 1.067557452595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/58cddd1861c674a700f0003dcfff1d4896402654 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/58cddd1861c674a700f0003dcfff1d4896402654 < input.gitdiff > /dev/null",
     "mean": 1.069224203995,
     "stddev": 0.001978211209677864,
     "median": 1.068384901595,
@@ -10816,7 +10816,7 @@
     "time": 1.068384901595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/58cddd1861c674a700f0003dcfff1d4896402654 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/58cddd1861c674a700f0003dcfff1d4896402654 < input.gitdiff > /dev/null",
     "mean": 1.069224203995,
     "stddev": 0.001978211209677864,
     "median": 1.068384901595,
@@ -10829,7 +10829,7 @@
     "time": 1.067483677595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/58cddd1861c674a700f0003dcfff1d4896402654 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/58cddd1861c674a700f0003dcfff1d4896402654 < input.gitdiff > /dev/null",
     "mean": 1.069224203995,
     "stddev": 0.001978211209677864,
     "median": 1.068384901595,
@@ -10842,7 +10842,7 @@
     "time": 1.071097858595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/58cddd1861c674a700f0003dcfff1d4896402654 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/58cddd1861c674a700f0003dcfff1d4896402654 < input.gitdiff > /dev/null",
     "mean": 1.069224203995,
     "stddev": 0.001978211209677864,
     "median": 1.068384901595,
@@ -10855,7 +10855,7 @@
     "time": 1.071597129595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/62fb930313675f83a010b8a20a4f48cf7a05615b < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/62fb930313675f83a010b8a20a4f48cf7a05615b < input.gitdiff > /dev/null",
     "mean": 1.075575723195,
     "stddev": 0.004510271314262143,
     "median": 1.074417381595,
@@ -10868,7 +10868,7 @@
     "time": 1.0829986785949999
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/62fb930313675f83a010b8a20a4f48cf7a05615b < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/62fb930313675f83a010b8a20a4f48cf7a05615b < input.gitdiff > /dev/null",
     "mean": 1.075575723195,
     "stddev": 0.004510271314262143,
     "median": 1.074417381595,
@@ -10881,7 +10881,7 @@
     "time": 1.070849378595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/62fb930313675f83a010b8a20a4f48cf7a05615b < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/62fb930313675f83a010b8a20a4f48cf7a05615b < input.gitdiff > /dev/null",
     "mean": 1.075575723195,
     "stddev": 0.004510271314262143,
     "median": 1.074417381595,
@@ -10894,7 +10894,7 @@
     "time": 1.074417381595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/62fb930313675f83a010b8a20a4f48cf7a05615b < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/62fb930313675f83a010b8a20a4f48cf7a05615b < input.gitdiff > /dev/null",
     "mean": 1.075575723195,
     "stddev": 0.004510271314262143,
     "median": 1.074417381595,
@@ -10907,7 +10907,7 @@
     "time": 1.073967929595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/62fb930313675f83a010b8a20a4f48cf7a05615b < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/62fb930313675f83a010b8a20a4f48cf7a05615b < input.gitdiff > /dev/null",
     "mean": 1.075575723195,
     "stddev": 0.004510271314262143,
     "median": 1.074417381595,
@@ -10920,7 +10920,7 @@
     "time": 1.075645247595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/6563c30a5721197af17ebd2a75fcc2b50f42b9b2 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/6563c30a5721197af17ebd2a75fcc2b50f42b9b2 < input.gitdiff > /dev/null",
     "mean": 1.074089606595,
     "stddev": 0.005527163094052358,
     "median": 1.072263929595,
@@ -10933,7 +10933,7 @@
     "time": 1.072263929595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/6563c30a5721197af17ebd2a75fcc2b50f42b9b2 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/6563c30a5721197af17ebd2a75fcc2b50f42b9b2 < input.gitdiff > /dev/null",
     "mean": 1.074089606595,
     "stddev": 0.005527163094052358,
     "median": 1.072263929595,
@@ -10946,7 +10946,7 @@
     "time": 1.081646737595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/6563c30a5721197af17ebd2a75fcc2b50f42b9b2 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/6563c30a5721197af17ebd2a75fcc2b50f42b9b2 < input.gitdiff > /dev/null",
     "mean": 1.074089606595,
     "stddev": 0.005527163094052358,
     "median": 1.072263929595,
@@ -10959,7 +10959,7 @@
     "time": 1.077613144595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/6563c30a5721197af17ebd2a75fcc2b50f42b9b2 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/6563c30a5721197af17ebd2a75fcc2b50f42b9b2 < input.gitdiff > /dev/null",
     "mean": 1.074089606595,
     "stddev": 0.005527163094052358,
     "median": 1.072263929595,
@@ -10972,7 +10972,7 @@
     "time": 1.071266555595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/6563c30a5721197af17ebd2a75fcc2b50f42b9b2 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/6563c30a5721197af17ebd2a75fcc2b50f42b9b2 < input.gitdiff > /dev/null",
     "mean": 1.074089606595,
     "stddev": 0.005527163094052358,
     "median": 1.072263929595,
@@ -10985,7 +10985,7 @@
     "time": 1.0676576655949999
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/6705228e661250cb3a229954c750a95ce1ffa982 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/6705228e661250cb3a229954c750a95ce1ffa982 < input.gitdiff > /dev/null",
     "mean": 1.072044947395,
     "stddev": 0.003230163526853996,
     "median": 1.0708252035949999,
@@ -10998,7 +10998,7 @@
     "time": 1.069469884595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/6705228e661250cb3a229954c750a95ce1ffa982 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/6705228e661250cb3a229954c750a95ce1ffa982 < input.gitdiff > /dev/null",
     "mean": 1.072044947395,
     "stddev": 0.003230163526853996,
     "median": 1.0708252035949999,
@@ -11011,7 +11011,7 @@
     "time": 1.076746142595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/6705228e661250cb3a229954c750a95ce1ffa982 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/6705228e661250cb3a229954c750a95ce1ffa982 < input.gitdiff > /dev/null",
     "mean": 1.072044947395,
     "stddev": 0.003230163526853996,
     "median": 1.0708252035949999,
@@ -11024,7 +11024,7 @@
     "time": 1.069235368595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/6705228e661250cb3a229954c750a95ce1ffa982 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/6705228e661250cb3a229954c750a95ce1ffa982 < input.gitdiff > /dev/null",
     "mean": 1.072044947395,
     "stddev": 0.003230163526853996,
     "median": 1.0708252035949999,
@@ -11037,7 +11037,7 @@
     "time": 1.073948137595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/6705228e661250cb3a229954c750a95ce1ffa982 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/6705228e661250cb3a229954c750a95ce1ffa982 < input.gitdiff > /dev/null",
     "mean": 1.072044947395,
     "stddev": 0.003230163526853996,
     "median": 1.0708252035949999,
@@ -11050,7 +11050,7 @@
     "time": 1.0708252035949999
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/76acca6bfb5ddb40f910699ed886bdeacd653ba7 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/76acca6bfb5ddb40f910699ed886bdeacd653ba7 < input.gitdiff > /dev/null",
     "mean": 1.0680683657949999,
     "stddev": 0.005002858421820523,
     "median": 1.066768967595,
@@ -11063,7 +11063,7 @@
     "time": 1.066768967595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/76acca6bfb5ddb40f910699ed886bdeacd653ba7 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/76acca6bfb5ddb40f910699ed886bdeacd653ba7 < input.gitdiff > /dev/null",
     "mean": 1.0680683657949999,
     "stddev": 0.005002858421820523,
     "median": 1.066768967595,
@@ -11076,7 +11076,7 @@
     "time": 1.072526144595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/76acca6bfb5ddb40f910699ed886bdeacd653ba7 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/76acca6bfb5ddb40f910699ed886bdeacd653ba7 < input.gitdiff > /dev/null",
     "mean": 1.0680683657949999,
     "stddev": 0.005002858421820523,
     "median": 1.066768967595,
@@ -11089,7 +11089,7 @@
     "time": 1.063710127595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/76acca6bfb5ddb40f910699ed886bdeacd653ba7 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/76acca6bfb5ddb40f910699ed886bdeacd653ba7 < input.gitdiff > /dev/null",
     "mean": 1.0680683657949999,
     "stddev": 0.005002858421820523,
     "median": 1.066768967595,
@@ -11102,7 +11102,7 @@
     "time": 1.074092318595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/76acca6bfb5ddb40f910699ed886bdeacd653ba7 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/76acca6bfb5ddb40f910699ed886bdeacd653ba7 < input.gitdiff > /dev/null",
     "mean": 1.0680683657949999,
     "stddev": 0.005002858421820523,
     "median": 1.066768967595,
@@ -11115,7 +11115,7 @@
     "time": 1.063244270595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/9338d7fb465a6e009d405bb2653ea3a533d0ad3a < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/9338d7fb465a6e009d405bb2653ea3a533d0ad3a < input.gitdiff > /dev/null",
     "mean": 1.0938958985949998,
     "stddev": 0.02114705852992774,
     "median": 1.088617600595,
@@ -11128,7 +11128,7 @@
     "time": 1.125581193595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/9338d7fb465a6e009d405bb2653ea3a533d0ad3a < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/9338d7fb465a6e009d405bb2653ea3a533d0ad3a < input.gitdiff > /dev/null",
     "mean": 1.0938958985949998,
     "stddev": 0.02114705852992774,
     "median": 1.088617600595,
@@ -11141,7 +11141,7 @@
     "time": 1.069471487595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/9338d7fb465a6e009d405bb2653ea3a533d0ad3a < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/9338d7fb465a6e009d405bb2653ea3a533d0ad3a < input.gitdiff > /dev/null",
     "mean": 1.0938958985949998,
     "stddev": 0.02114705852992774,
     "median": 1.088617600595,
@@ -11154,7 +11154,7 @@
     "time": 1.101805639595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/9338d7fb465a6e009d405bb2653ea3a533d0ad3a < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/9338d7fb465a6e009d405bb2653ea3a533d0ad3a < input.gitdiff > /dev/null",
     "mean": 1.0938958985949998,
     "stddev": 0.02114705852992774,
     "median": 1.088617600595,
@@ -11167,7 +11167,7 @@
     "time": 1.084003571595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/9338d7fb465a6e009d405bb2653ea3a533d0ad3a < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/9338d7fb465a6e009d405bb2653ea3a533d0ad3a < input.gitdiff > /dev/null",
     "mean": 1.0938958985949998,
     "stddev": 0.02114705852992774,
     "median": 1.088617600595,
@@ -11180,7 +11180,7 @@
     "time": 1.088617600595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/94848668f06c9e2c9802e87e2d9bd472914ade98 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/94848668f06c9e2c9802e87e2d9bd472914ade98 < input.gitdiff > /dev/null",
     "mean": 1.073155974595,
     "stddev": 0.00337723854891423,
     "median": 1.071804380595,
@@ -11193,7 +11193,7 @@
     "time": 1.079143388595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/94848668f06c9e2c9802e87e2d9bd472914ade98 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/94848668f06c9e2c9802e87e2d9bd472914ade98 < input.gitdiff > /dev/null",
     "mean": 1.073155974595,
     "stddev": 0.00337723854891423,
     "median": 1.071804380595,
@@ -11206,7 +11206,7 @@
     "time": 1.070931454595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/94848668f06c9e2c9802e87e2d9bd472914ade98 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/94848668f06c9e2c9802e87e2d9bd472914ade98 < input.gitdiff > /dev/null",
     "mean": 1.073155974595,
     "stddev": 0.00337723854891423,
     "median": 1.071804380595,
@@ -11219,7 +11219,7 @@
     "time": 1.072164047595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/94848668f06c9e2c9802e87e2d9bd472914ade98 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/94848668f06c9e2c9802e87e2d9bd472914ade98 < input.gitdiff > /dev/null",
     "mean": 1.073155974595,
     "stddev": 0.00337723854891423,
     "median": 1.071804380595,
@@ -11232,7 +11232,7 @@
     "time": 1.071804380595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/94848668f06c9e2c9802e87e2d9bd472914ade98 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/94848668f06c9e2c9802e87e2d9bd472914ade98 < input.gitdiff > /dev/null",
     "mean": 1.073155974595,
     "stddev": 0.00337723854891423,
     "median": 1.071804380595,
@@ -11245,7 +11245,7 @@
     "time": 1.071736601595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/a3f5e2e6428320c3cd49523c58ddcf9bb3862c5c < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/a3f5e2e6428320c3cd49523c58ddcf9bb3862c5c < input.gitdiff > /dev/null",
     "mean": 1.073737391795,
     "stddev": 0.0055701397970737,
     "median": 1.073874577595,
@@ -11258,7 +11258,7 @@
     "time": 1.081342705595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/a3f5e2e6428320c3cd49523c58ddcf9bb3862c5c < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/a3f5e2e6428320c3cd49523c58ddcf9bb3862c5c < input.gitdiff > /dev/null",
     "mean": 1.073737391795,
     "stddev": 0.0055701397970737,
     "median": 1.073874577595,
@@ -11271,7 +11271,7 @@
     "time": 1.071620533595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/a3f5e2e6428320c3cd49523c58ddcf9bb3862c5c < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/a3f5e2e6428320c3cd49523c58ddcf9bb3862c5c < input.gitdiff > /dev/null",
     "mean": 1.073737391795,
     "stddev": 0.0055701397970737,
     "median": 1.073874577595,
@@ -11284,7 +11284,7 @@
     "time": 1.073874577595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/a3f5e2e6428320c3cd49523c58ddcf9bb3862c5c < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/a3f5e2e6428320c3cd49523c58ddcf9bb3862c5c < input.gitdiff > /dev/null",
     "mean": 1.073737391795,
     "stddev": 0.0055701397970737,
     "median": 1.073874577595,
@@ -11297,7 +11297,7 @@
     "time": 1.075717336595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/a3f5e2e6428320c3cd49523c58ddcf9bb3862c5c < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/a3f5e2e6428320c3cd49523c58ddcf9bb3862c5c < input.gitdiff > /dev/null",
     "mean": 1.073737391795,
     "stddev": 0.0055701397970737,
     "median": 1.073874577595,
@@ -11310,7 +11310,7 @@
     "time": 1.066131805595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/a787d3c674b1089e6043a0ba850fa0bfc54e54d5 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/a787d3c674b1089e6043a0ba850fa0bfc54e54d5 < input.gitdiff > /dev/null",
     "mean": 1.077803436395,
     "stddev": 0.004211144747951166,
     "median": 1.079683924595,
@@ -11323,7 +11323,7 @@
     "time": 1.073430211595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/a787d3c674b1089e6043a0ba850fa0bfc54e54d5 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/a787d3c674b1089e6043a0ba850fa0bfc54e54d5 < input.gitdiff > /dev/null",
     "mean": 1.077803436395,
     "stddev": 0.004211144747951166,
     "median": 1.079683924595,
@@ -11336,7 +11336,7 @@
     "time": 1.079683924595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/a787d3c674b1089e6043a0ba850fa0bfc54e54d5 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/a787d3c674b1089e6043a0ba850fa0bfc54e54d5 < input.gitdiff > /dev/null",
     "mean": 1.077803436395,
     "stddev": 0.004211144747951166,
     "median": 1.079683924595,
@@ -11349,7 +11349,7 @@
     "time": 1.0731653295949999
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/a787d3c674b1089e6043a0ba850fa0bfc54e54d5 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/a787d3c674b1089e6043a0ba850fa0bfc54e54d5 < input.gitdiff > /dev/null",
     "mean": 1.077803436395,
     "stddev": 0.004211144747951166,
     "median": 1.079683924595,
@@ -11362,7 +11362,7 @@
     "time": 1.080551199595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/a787d3c674b1089e6043a0ba850fa0bfc54e54d5 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/a787d3c674b1089e6043a0ba850fa0bfc54e54d5 < input.gitdiff > /dev/null",
     "mean": 1.077803436395,
     "stddev": 0.004211144747951166,
     "median": 1.079683924595,
@@ -11375,7 +11375,7 @@
     "time": 1.082186516595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/a7bcde3ab536d312e4d8dedd7cdbde3e2e9418ec < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/a7bcde3ab536d312e4d8dedd7cdbde3e2e9418ec < input.gitdiff > /dev/null",
     "mean": 1.080433996795,
     "stddev": 0.009944623644022103,
     "median": 1.076136947595,
@@ -11388,7 +11388,7 @@
     "time": 1.095662599595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/a7bcde3ab536d312e4d8dedd7cdbde3e2e9418ec < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/a7bcde3ab536d312e4d8dedd7cdbde3e2e9418ec < input.gitdiff > /dev/null",
     "mean": 1.080433996795,
     "stddev": 0.009944623644022103,
     "median": 1.076136947595,
@@ -11401,7 +11401,7 @@
     "time": 1.076136947595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/a7bcde3ab536d312e4d8dedd7cdbde3e2e9418ec < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/a7bcde3ab536d312e4d8dedd7cdbde3e2e9418ec < input.gitdiff > /dev/null",
     "mean": 1.080433996795,
     "stddev": 0.009944623644022103,
     "median": 1.076136947595,
@@ -11414,7 +11414,7 @@
     "time": 1.075621824595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/a7bcde3ab536d312e4d8dedd7cdbde3e2e9418ec < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/a7bcde3ab536d312e4d8dedd7cdbde3e2e9418ec < input.gitdiff > /dev/null",
     "mean": 1.080433996795,
     "stddev": 0.009944623644022103,
     "median": 1.076136947595,
@@ -11427,7 +11427,7 @@
     "time": 1.084562030595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/a7bcde3ab536d312e4d8dedd7cdbde3e2e9418ec < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/a7bcde3ab536d312e4d8dedd7cdbde3e2e9418ec < input.gitdiff > /dev/null",
     "mean": 1.080433996795,
     "stddev": 0.009944623644022103,
     "median": 1.076136947595,
@@ -11440,7 +11440,7 @@
     "time": 1.070186581595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/b6cef9a800e653b3ac079929b848f96b41203d3e < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/b6cef9a800e653b3ac079929b848f96b41203d3e < input.gitdiff > /dev/null",
     "mean": 1.0750585631949998,
     "stddev": 0.007261902739996852,
     "median": 1.076819715595,
@@ -11453,7 +11453,7 @@
     "time": 1.076819715595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/b6cef9a800e653b3ac079929b848f96b41203d3e < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/b6cef9a800e653b3ac079929b848f96b41203d3e < input.gitdiff > /dev/null",
     "mean": 1.0750585631949998,
     "stddev": 0.007261902739996852,
     "median": 1.076819715595,
@@ -11466,7 +11466,7 @@
     "time": 1.072011563595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/b6cef9a800e653b3ac079929b848f96b41203d3e < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/b6cef9a800e653b3ac079929b848f96b41203d3e < input.gitdiff > /dev/null",
     "mean": 1.0750585631949998,
     "stddev": 0.007261902739996852,
     "median": 1.076819715595,
@@ -11479,7 +11479,7 @@
     "time": 1.0647822385949999
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/b6cef9a800e653b3ac079929b848f96b41203d3e < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/b6cef9a800e653b3ac079929b848f96b41203d3e < input.gitdiff > /dev/null",
     "mean": 1.0750585631949998,
     "stddev": 0.007261902739996852,
     "median": 1.076819715595,
@@ -11492,7 +11492,7 @@
     "time": 1.077226457595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/b6cef9a800e653b3ac079929b848f96b41203d3e < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/b6cef9a800e653b3ac079929b848f96b41203d3e < input.gitdiff > /dev/null",
     "mean": 1.0750585631949998,
     "stddev": 0.007261902739996852,
     "median": 1.076819715595,
@@ -11505,7 +11505,7 @@
     "time": 1.084452840595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/d948cb85af8ba94062ee26ae57352de01f7b4f79 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/d948cb85af8ba94062ee26ae57352de01f7b4f79 < input.gitdiff > /dev/null",
     "mean": 1.094612638395,
     "stddev": 0.025573381956831558,
     "median": 1.083766867595,
@@ -11518,7 +11518,7 @@
     "time": 1.1401423045949999
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/d948cb85af8ba94062ee26ae57352de01f7b4f79 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/d948cb85af8ba94062ee26ae57352de01f7b4f79 < input.gitdiff > /dev/null",
     "mean": 1.094612638395,
     "stddev": 0.025573381956831558,
     "median": 1.083766867595,
@@ -11531,7 +11531,7 @@
     "time": 1.083766867595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/d948cb85af8ba94062ee26ae57352de01f7b4f79 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/d948cb85af8ba94062ee26ae57352de01f7b4f79 < input.gitdiff > /dev/null",
     "mean": 1.094612638395,
     "stddev": 0.025573381956831558,
     "median": 1.083766867595,
@@ -11544,7 +11544,7 @@
     "time": 1.086157448595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/d948cb85af8ba94062ee26ae57352de01f7b4f79 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/d948cb85af8ba94062ee26ae57352de01f7b4f79 < input.gitdiff > /dev/null",
     "mean": 1.094612638395,
     "stddev": 0.025573381956831558,
     "median": 1.083766867595,
@@ -11557,7 +11557,7 @@
     "time": 1.083728473595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/d948cb85af8ba94062ee26ae57352de01f7b4f79 < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/d948cb85af8ba94062ee26ae57352de01f7b4f79 < input.gitdiff > /dev/null",
     "mean": 1.094612638395,
     "stddev": 0.025573381956831558,
     "median": 1.083766867595,
@@ -11570,7 +11570,7 @@
     "time": 1.079268097595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/dc0318f2947536e33eb1a77a9cc8a612fd39d1cd < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/dc0318f2947536e33eb1a77a9cc8a612fd39d1cd < input.gitdiff > /dev/null",
     "mean": 1.076116026395,
     "stddev": 0.008841548977544111,
     "median": 1.077996740595,
@@ -11583,7 +11583,7 @@
     "time": 1.087358374595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/dc0318f2947536e33eb1a77a9cc8a612fd39d1cd < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/dc0318f2947536e33eb1a77a9cc8a612fd39d1cd < input.gitdiff > /dev/null",
     "mean": 1.076116026395,
     "stddev": 0.008841548977544111,
     "median": 1.077996740595,
@@ -11596,7 +11596,7 @@
     "time": 1.080811611595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/dc0318f2947536e33eb1a77a9cc8a612fd39d1cd < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/dc0318f2947536e33eb1a77a9cc8a612fd39d1cd < input.gitdiff > /dev/null",
     "mean": 1.076116026395,
     "stddev": 0.008841548977544111,
     "median": 1.077996740595,
@@ -11609,7 +11609,7 @@
     "time": 1.068197624595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/dc0318f2947536e33eb1a77a9cc8a612fd39d1cd < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/dc0318f2947536e33eb1a77a9cc8a612fd39d1cd < input.gitdiff > /dev/null",
     "mean": 1.076116026395,
     "stddev": 0.008841548977544111,
     "median": 1.077996740595,
@@ -11622,7 +11622,7 @@
     "time": 1.0662157805949999
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/dc0318f2947536e33eb1a77a9cc8a612fd39d1cd < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/dc0318f2947536e33eb1a77a9cc8a612fd39d1cd < input.gitdiff > /dev/null",
     "mean": 1.076116026395,
     "stddev": 0.008841548977544111,
     "median": 1.077996740595,
@@ -11635,7 +11635,7 @@
     "time": 1.077996740595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/e9af9c85d5c2633023bb98253f5b8bb36a8f041b < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/e9af9c85d5c2633023bb98253f5b8bb36a8f041b < input.gitdiff > /dev/null",
     "mean": 1.0730755499949998,
     "stddev": 0.0026176390913243393,
     "median": 1.072729949595,
@@ -11648,7 +11648,7 @@
     "time": 1.069761566595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/e9af9c85d5c2633023bb98253f5b8bb36a8f041b < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/e9af9c85d5c2633023bb98253f5b8bb36a8f041b < input.gitdiff > /dev/null",
     "mean": 1.0730755499949998,
     "stddev": 0.0026176390913243393,
     "median": 1.072729949595,
@@ -11661,7 +11661,7 @@
     "time": 1.076213111595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/e9af9c85d5c2633023bb98253f5b8bb36a8f041b < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/e9af9c85d5c2633023bb98253f5b8bb36a8f041b < input.gitdiff > /dev/null",
     "mean": 1.0730755499949998,
     "stddev": 0.0026176390913243393,
     "median": 1.072729949595,
@@ -11674,7 +11674,7 @@
     "time": 1.071558125595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/e9af9c85d5c2633023bb98253f5b8bb36a8f041b < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/e9af9c85d5c2633023bb98253f5b8bb36a8f041b < input.gitdiff > /dev/null",
     "mean": 1.0730755499949998,
     "stddev": 0.0026176390913243393,
     "median": 1.072729949595,
@@ -11687,7 +11687,7 @@
     "time": 1.075114996595
   },
   {
-    "command": "/Users/dan/tmp/tempo/delta/e9af9c85d5c2633023bb98253f5b8bb36a8f041b < input.gitdiff > /dev/null",
+    "command": "/Users/dan/tmp/tempo/prism/e9af9c85d5c2633023bb98253f5b8bb36a8f041b < input.gitdiff > /dev/null",
     "mean": 1.0730755499949998,
     "stddev": 0.0026176390913243393,
     "median": 1.072729949595,

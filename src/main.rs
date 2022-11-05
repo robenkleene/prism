@@ -9,7 +9,7 @@ mod cli;
 mod color;
 mod colors;
 mod config;
-mod delta;
+mod prism;
 mod edits;
 mod env;
 mod features;
@@ -34,7 +34,7 @@ use std::process;
 
 use bytelines::ByteLinesReader;
 
-use crate::delta::delta;
+use crate::prism::prism;
 use crate::utils::bat::assets::list_languages;
 use crate::utils::bat::output::OutputType;
 
@@ -68,11 +68,11 @@ fn main() -> std::io::Result<()> {
     // Do this first because both parsing all the input in `run_app()` and
     // listing all processes takes about 50ms on Linux.
     // It also improves the chance that the calling process is still around when
-    // input is piped into delta (e.g. `git show  --word-diff=color | delta`).
+    // input is piped into prism (e.g. `git show  --word-diff=color | prism`).
     utils::process::start_determining_calling_process_in_thread();
 
     // Ignore ctrl-c (SIGINT) to avoid leaving an orphaned pager process.
-    // See https://github.com/dandavison/delta/issues/681
+    // See https://github.com/dandavison/prism/issues/681
     ctrlc::set_handler(|| {})
         .unwrap_or_else(|err| eprintln!("Failed to set ctrl-c handler: {}", err));
     let exit_code = run_app()?;
@@ -82,7 +82,7 @@ fn main() -> std::io::Result<()> {
 
 #[cfg(not(tarpaulin_include))]
 // An Ok result contains the desired process exit code. Note that 1 is used to
-// report that two files differ when delta is called with two positional
+// report that two files differ when prism is called with two positional
 // arguments and without standard input; 2 is used to report a real problem.
 fn run_app() -> std::io::Result<i32> {
     let assets = utils::bat::assets::load_highlighting_assets();
@@ -144,14 +144,14 @@ fn run_app() -> std::io::Result<i32> {
     if atty::is(atty::Stream::Stdin) {
         eprintln!(
             "\
-    The main way to use delta is to configure it as the pager for git: \
-    see https://github.com/dandavison/delta#configuration. \
-    You can also use delta to diff two files: `delta file_A file_B`."
+    The main way to use prism is to configure it as the pager for git: \
+    see https://github.com/dandavison/prism#configuration. \
+    You can also use prism to diff two files: `prism file_A file_B`."
         );
         return Ok(config.error_exit_code);
     }
 
-    if let Err(error) = delta(io::stdin().lock().byte_lines(), &mut writer, &config) {
+    if let Err(error) = prism(io::stdin().lock().byte_lines(), &mut writer, &config) {
         match error.kind() {
             ErrorKind::BrokenPipe => return Ok(0),
             _ => eprintln!("{}", error),

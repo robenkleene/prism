@@ -1,1 +1,1 @@
-docker run -i delta-ubuntu delta $@
+docker run -i prism-ubuntu prism $@

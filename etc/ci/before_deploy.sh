@@ -55,7 +55,7 @@ make_deb() {
     local homepage
     local maintainer
 
-    homepage="https://github.com/dandavison/delta"
+    homepage="https://github.com/dandavison/prism"
     maintainer="Dan Davison <dandavison7@gmail.com>"
     copyright_years="2019 - "$(date "+%Y")
 

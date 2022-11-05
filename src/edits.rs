@@ -803,39 +803,39 @@ mod tests {
         for (minus_annotated_line, plus_annotated_line) in
             minus_annotated_lines.iter().zip(plus_annotated_lines)
         {
-            let (minus_total, minus_delta) = summarize_annotated_line(minus_annotated_line);
-            let (plus_total, plus_delta) = summarize_annotated_line(plus_annotated_line);
+            let (minus_total, minus_prism) = summarize_annotated_line(minus_annotated_line);
+            let (plus_total, plus_prism) = summarize_annotated_line(plus_annotated_line);
             assert_eq!(
-                minus_total - minus_delta,
-                plus_total - plus_delta,
+                minus_total - minus_prism,
+                plus_total - plus_prism,
                 "\nInconsistent edits:\n \
                  {:?}\n \
-                 \tminus_total - minus_delta = {} - {} = {}\n \
+                 \tminus_total - minus_prism = {} - {} = {}\n \
                  {:?}\n \
-                 \tplus_total  - plus_delta  = {} - {} = {}\n",
+                 \tplus_total  - plus_prism  = {} - {} = {}\n",
                 minus_annotated_line,
                 minus_total,
-                minus_delta,
-                minus_total - minus_delta,
+                minus_prism,
+                minus_total - minus_prism,
                 plus_annotated_line,
                 plus_total,
-                plus_delta,
-                plus_total - plus_delta
+                plus_prism,
+                plus_total - plus_prism
             );
         }
     }
 
     fn summarize_annotated_line(sections: &AnnotatedLine) -> (usize, usize) {
         let mut total = 0;
-        let mut delta = 0;
+        let mut prism = 0;
         for (edit, s) in sections {
             let length = s.graphemes(true).count();
             total += length;
             if is_edit(edit) {
-                delta += length;
+                prism += length;
             }
         }
-        (total, delta)
+        (total, prism)
     }
 
     // For debugging test failures:

@@ -27,7 +27,7 @@ pub fn parse_color(s: &str, true_color: bool, git_config: Option<&GitConfig>) ->
             .or_else(|| utils::syntect::syntect_color_from_name(s));
         if syntect_color.is_none() {
             if let Some(git_config) = git_config {
-                if let Some(val) = git_config.get::<String>(&format!("delta.{}", s)) {
+                if let Some(val) = git_config.get::<String>(&format!("prism.{}", s)) {
                     return parse_color(&val, true_color, None);
                 }
             }

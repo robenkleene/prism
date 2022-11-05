@@ -1,4 +1,4 @@
-use crate::delta::{State, StateMachine};
+use crate::prism::{State, StateMachine};
 use crate::paint::{BgShouldFill, StyleSectionSpecifier};
 use crate::utils::process;
 

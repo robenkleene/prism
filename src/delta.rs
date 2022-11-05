@@ -6,7 +6,7 @@ use std::io::Write;
 use bytelines::ByteLines;
 
 use crate::ansi;
-use crate::config::delta_unreachable;
+use crate::config::prism_unreachable;
 use crate::config::Config;
 use crate::features;
 use crate::handlers::hunk_header::ParsedHunkHeader;
@@ -64,7 +64,7 @@ impl DiffType {
             Combined(Prefix(prefix), _) => prefix.len(),
             Combined(Number(n_parents), _) => *n_parents,
             Unified => 1,
-            Combined(Unknown, _) => delta_unreachable("Number of merge parents must be known."),
+            Combined(Unknown, _) => prism_unreachable("Number of merge parents must be known."),
         }
     }
 }
@@ -112,7 +112,7 @@ pub struct StateMachine<'a> {
     pub blame_key_colors: HashMap<String, String>,
 }
 
-pub fn delta<I>(lines: ByteLines<I>, writer: &mut dyn Write, config: &Config) -> std::io::Result<()>
+pub fn prism<I>(lines: ByteLines<I>, writer: &mut dyn Write, config: &Config) -> std::io::Result<()>
 where
     I: BufRead,
 {
@@ -234,7 +234,7 @@ impl<'a> StateMachine<'a> {
             && !self.config.color_only
     }
 
-    /// Emit unchanged any line that delta does not handle.
+    /// Emit unchanged any line that prism does not handle.
     pub fn emit_line_unchanged(&mut self) -> std::io::Result<bool> {
         self.painter.emit()?;
         writeln!(
@@ -265,7 +265,7 @@ pub fn format_raw_line<'a>(line: &'a str, config: &Config) -> Cow<'a, str> {
     }
 }
 
-/// Try to detect what is producing the input for delta.
+/// Try to detect what is producing the input for prism.
 ///
 /// Currently can detect:
 /// * git diff

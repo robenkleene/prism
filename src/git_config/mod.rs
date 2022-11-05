@@ -108,9 +108,9 @@ lazy_static! {
     static ref GIT_CONFIG_PARAMETERS_REGEX: Regex = Regex::new(
         r"(?x)
         (?:                               # Non-capturing group containing union
-            '(delta\.[a-z-]+)=([^']+)'    # Git <2.31.0 format
+            '(prism\.[a-z-]+)=([^']+)'    # Git <2.31.0 format
         |
-            '(delta\.[a-z-]+)'='([^']+)'  # Git ≥2.31.0 format
+            '(prism\.[a-z-]+)'='([^']+)'  # Git ≥2.31.0 format
         )
         "
     )
@@ -226,39 +226,39 @@ mod tests {
             assert!(config.is_empty());
         }
 
-        for env_var_value in &["'delta.plus-style=green'", "'delta.plus-style'='green'"] {
+        for env_var_value in &["'prism.plus-style=green'", "'prism.plus-style'='green'"] {
             let config = parse_config_from_env_var_value(env_var_value);
-            assert_eq!(config["delta.plus-style"], "green");
+            assert_eq!(config["prism.plus-style"], "green");
         }
 
         for env_var_value in &[
-            r##"'user.name=xxx' 'delta.hunk-header-line-number-style=red "#067a00"'"##,
-            r##"'user.name'='xxx' 'delta.hunk-header-line-number-style'='red "#067a00"'"##,
+            r##"'user.name=xxx' 'prism.hunk-header-line-number-style=red "#067a00"'"##,
+            r##"'user.name'='xxx' 'prism.hunk-header-line-number-style'='red "#067a00"'"##,
         ] {
             let config = parse_config_from_env_var_value(env_var_value);
             assert_eq!(
-                config["delta.hunk-header-line-number-style"],
+                config["prism.hunk-header-line-number-style"],
                 r##"red "#067a00""##
             );
         }
 
         for env_var_value in &[
-            r##"'user.name=xxx' 'delta.side-by-side=false'"##,
-            r##"'user.name'='xxx' 'delta.side-by-side'='false'"##,
+            r##"'user.name=xxx' 'prism.side-by-side=false'"##,
+            r##"'user.name'='xxx' 'prism.side-by-side'='false'"##,
         ] {
             let config = parse_config_from_env_var_value(env_var_value);
-            assert_eq!(config["delta.side-by-side"], "false");
+            assert_eq!(config["prism.side-by-side"], "false");
         }
 
         for env_var_value in &[
-            r##"'delta.plus-style=green' 'delta.side-by-side=false' 'delta.hunk-header-line-number-style=red "#067a00"'"##,
-            r##"'delta.plus-style'='green' 'delta.side-by-side'='false' 'delta.hunk-header-line-number-style'='red "#067a00"'"##,
+            r##"'prism.plus-style=green' 'prism.side-by-side=false' 'prism.hunk-header-line-number-style=red "#067a00"'"##,
+            r##"'prism.plus-style'='green' 'prism.side-by-side'='false' 'prism.hunk-header-line-number-style'='red "#067a00"'"##,
         ] {
             let config = parse_config_from_env_var_value(env_var_value);
-            assert_eq!(config["delta.plus-style"], "green");
-            assert_eq!(config["delta.side-by-side"], "false");
+            assert_eq!(config["prism.plus-style"], "green");
+            assert_eq!(config["prism.side-by-side"], "false");
             assert_eq!(
-                config["delta.hunk-header-line-number-style"],
+                config["prism.hunk-header-line-number-style"],
                 r##"red "#067a00""##
             );
         }

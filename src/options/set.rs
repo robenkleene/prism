@@ -55,7 +55,7 @@ macro_rules! set_options {
             let expected_option_names: HashSet<_> = $expected_option_name_map.values().cloned().collect();
 
             if option_names != expected_option_names {
-                $crate::config::delta_unreachable(
+                $crate::config::prism_unreachable(
                     &format!("Error processing options.\nUnhandled names: {:?}\nInvalid names: {:?}.\n",
                              &expected_option_names - &option_names,
                              &option_names - &expected_option_names));
@@ -302,11 +302,11 @@ fn set__light__dark__syntax_theme__options(
 //    - `diff-so-fancy`
 //    - `navigate`
 //
-// 3. Suppose the main [delta] section has `features = d e`. Then
+// 3. Suppose the main [prism] section has `features = d e`. Then
 //    - `e`, followed by e's "ordered descendents"
 //    - `d`, followed by d's "ordered descendents"
 //
-// 4. Suppose the main [delta] section has `diff-highlight = true` followed by `raw = true`.
+// 4. Suppose the main [prism] section has `diff-highlight = true` followed by `raw = true`.
 //    Then
 //    - `diff-highlight`
 //    - `raw`
@@ -320,17 +320,17 @@ fn set__light__dark__syntax_theme__options(
 //
 // Thus, for example:
 //
-// delta --features "my-navigate-settings" --navigate   =>   "navigate my-navigate-settings"
+// prism --features "my-navigate-settings" --navigate   =>   "navigate my-navigate-settings"
 //
 // In the following configuration, the feature names indicate their priority, with `a` having
 // highest priority:
 //
-// delta --g --features "d a"
+// prism --g --features "d a"
 //
-// [delta "a"]
+// [prism "a"]
 //     features = c b
 //
-// [delta "d"]
+// [prism "d"]
 //     features = f e
 fn gather_features(
     opt: &mut cli::Opt,
@@ -392,9 +392,9 @@ fn gather_features(
     }
 
     if let Some(git_config) = git_config {
-        // Gather features from [delta] section if --features was not passed.
+        // Gather features from [prism] section if --features was not passed.
         if opt.features.is_none() {
-            if let Some(feature_string) = git_config.get::<String>("delta.features") {
+            if let Some(feature_string) = git_config.get::<String>("prism.features") {
                 for feature in split_feature_string(&feature_string) {
                     gather_features_recursively(
                         feature,
@@ -406,9 +406,9 @@ fn gather_features(
                 }
             }
         }
-        // Always gather builtin feature flags from [delta] section.
+        // Always gather builtin feature flags from [prism] section.
         gather_builtin_features_from_flags_in_gitconfig(
-            "delta",
+            "prism",
             &mut features,
             builtin_features,
             opt,
@@ -432,7 +432,7 @@ fn gather_features_recursively(
     } else {
         features.push_front(feature.to_string());
     }
-    if let Some(child_features) = git_config.get::<String>(&format!("delta.{}.features", feature)) {
+    if let Some(child_features) = git_config.get::<String>(&format!("prism.{}.features", feature)) {
         for child_feature in split_feature_string(&child_features) {
             if !features.contains(&child_feature.to_string()) {
                 gather_features_recursively(
@@ -446,7 +446,7 @@ fn gather_features_recursively(
         }
     }
     gather_builtin_features_from_flags_in_gitconfig(
-        &format!("delta.{}", feature),
+        &format!("prism.{}", feature),
         features,
         builtin_features,
         opt,
@@ -681,7 +681,7 @@ pub mod tests {
         // In general the values here are not the default values. However there are some exceptions
         // since e.g. color-only = true (non-default) forces side-by-side = false (default).
         let git_config_contents = b"
-[delta]
+[prism]
     color-only = false
     commit-decoration-style = black black
     commit-style = black black
@@ -734,7 +734,7 @@ pub mod tests {
     zero-style = black black
     # no-gitconfig
 ";
-        let git_config_path = "delta__test_options_can_be_set_in_git_config.gitconfig";
+        let git_config_path = "prism__test_options_can_be_set_in_git_config.gitconfig";
 
         let opt = integration_test_utils::make_options_from_args_and_git_config(
             &[],
@@ -807,13 +807,13 @@ pub mod tests {
     #[test]
     fn test_width_in_git_config_is_honored() {
         let git_config_contents = b"
-[delta]
+[prism]
     features = my-width-feature
 
-[delta \"my-width-feature\"]
+[prism \"my-width-feature\"]
     width = variable
 ";
-        let git_config_path = "delta__test_width_in_git_config_is_honored.gitconfig";
+        let git_config_path = "prism__test_width_in_git_config_is_honored.gitconfig";
 
         let opt = integration_test_utils::make_options_from_args_and_git_config(
             &[],

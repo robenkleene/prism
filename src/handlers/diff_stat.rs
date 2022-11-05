@@ -3,7 +3,7 @@ use regex::Regex;
 use std::borrow::Cow;
 
 use crate::config::Config;
-use crate::delta::{State, StateMachine};
+use crate::prism::{State, StateMachine};
 use crate::features;
 use crate::utils;
 
@@ -36,7 +36,7 @@ impl<'a> StateMachine<'a> {
 
 // A regex to capture the path, and the content from the pipe onwards, in lines
 // like these:
-// " src/delta.rs  | 14 ++++++++++----"
+// " src/prism.rs  | 14 ++++++++++----"
 // " src/config.rs |  2 ++"
 lazy_static! {
     static ref DIFF_STAT_LINE_REGEX: Regex =
@@ -80,10 +80,10 @@ mod tests {
 
     #[test]
     fn test_diff_stat_line_regex_1() {
-        let caps = DIFF_STAT_LINE_REGEX.captures(" src/delta.rs  | 14 ++++++++++----");
+        let caps = DIFF_STAT_LINE_REGEX.captures(" src/prism.rs  | 14 ++++++++++----");
         assert!(caps.is_some());
         let caps = caps.unwrap();
-        assert_eq!(caps.get(1).unwrap().as_str(), "src/delta.rs");
+        assert_eq!(caps.get(1).unwrap().as_str(), "src/prism.rs");
         assert_eq!(caps.get(2).unwrap().as_str(), "| 14 ++++++++++----");
     }
 

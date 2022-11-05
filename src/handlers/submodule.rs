@@ -1,7 +1,7 @@
 use lazy_static::lazy_static;
 use regex::Regex;
 
-use crate::delta::{State, StateMachine};
+use crate::prism::{State, StateMachine};
 
 impl<'a> StateMachine<'a> {
     #[inline]

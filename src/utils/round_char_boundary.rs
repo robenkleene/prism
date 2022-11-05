@@ -1,5 +1,5 @@
 // Taken from https://github.com/rust-lang/rust/pull/86497
-// TODO: Remove when this is in the version of the Rust standard library that delta is building
+// TODO: Remove when this is in the version of the Rust standard library that prism is building
 // against.
 
 #[inline]

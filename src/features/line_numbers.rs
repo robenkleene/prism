@@ -4,7 +4,7 @@ use lazy_static::lazy_static;
 use regex::Regex;
 
 use crate::config;
-use crate::delta::State;
+use crate::prism::State;
 use crate::features::hyperlinks;
 use crate::features::side_by_side::ansifill::{self, ODD_PAD_CHAR};
 use crate::features::side_by_side::{Left, PanelSide, Right};
@@ -323,7 +323,7 @@ pub mod tests {
     use crate::ansi::strip_ansi_codes;
     use crate::features::side_by_side::ansifill::ODD_PAD_CHAR;
     use crate::format::FormatStringData;
-    use crate::tests::integration_test_utils::{make_config_from_args, run_delta, PrismTest};
+    use crate::tests::integration_test_utils::{make_config_from_args, run_prism, PrismTest};
 
     use super::*;
 
@@ -694,7 +694,7 @@ pub mod tests {
             "--line-numbers-plus-style",
             "0 4",
         ]);
-        let output = run_delta(ONE_MINUS_ONE_PLUS_LINE_DIFF, &config);
+        let output = run_prism(ONE_MINUS_ONE_PLUS_LINE_DIFF, &config);
         let output = strip_ansi_codes(&output);
         let mut lines = output.lines().skip(crate::config::HEADER_LEN);
         assert_eq!(lines.next().unwrap(), "  1 ⋮  1 │a = 1");
@@ -719,7 +719,7 @@ pub mod tests {
             "--line-numbers-plus-style",
             "0 4",
         ]);
-        let output = run_delta(ONE_MINUS_ONE_PLUS_LINE_DIFF, &config);
+        let output = run_prism(ONE_MINUS_ONE_PLUS_LINE_DIFF, &config);
         let output = strip_ansi_codes(&output);
         let mut lines = output.lines().skip(crate::config::HEADER_LEN);
         assert_eq!(lines.next().unwrap(), "  1    1 ⋮  1 │a = 1");
@@ -730,7 +730,7 @@ pub mod tests {
     #[test]
     fn test_five_digit_line_number() {
         let config = make_config_from_args(&["--line-numbers"]);
-        let output = run_delta(FIVE_DIGIT_LINE_NUMBER_DIFF, &config);
+        let output = run_prism(FIVE_DIGIT_LINE_NUMBER_DIFF, &config);
         let output = strip_ansi_codes(&output);
         let mut lines = output.lines().skip(crate::config::HEADER_LEN);
         assert_eq!(lines.next().unwrap(), "10000⋮10000│a = 1");
@@ -741,7 +741,7 @@ pub mod tests {
     #[test]
     fn test_unequal_digit_line_number() {
         let config = make_config_from_args(&["--line-numbers"]);
-        let output = run_delta(UNEQUAL_DIGIT_DIFF, &config);
+        let output = run_prism(UNEQUAL_DIGIT_DIFF, &config);
         let output = strip_ansi_codes(&output);
         let mut lines = output.lines().skip(crate::config::HEADER_LEN);
         assert_eq!(lines.next().unwrap(), "10000⋮ 9999│a = 1");
@@ -752,7 +752,7 @@ pub mod tests {
     #[test]
     fn test_color_only() {
         let config = make_config_from_args(&["--line-numbers", "--color-only"]);
-        let output = run_delta(TWO_MINUS_LINES_DIFF, &config);
+        let output = run_prism(TWO_MINUS_LINES_DIFF, &config);
         let mut lines = output.lines().skip(5);
         let (line_1, line_2) = (lines.next().unwrap(), lines.next().unwrap());
         assert_eq!(strip_ansi_codes(line_1), "  1 ⋮    │-a = 1");
@@ -762,7 +762,7 @@ pub mod tests {
     #[test]
     fn test_hunk_header_style_is_omit() {
         let config = make_config_from_args(&["--line-numbers", "--hunk-header-style", "omit"]);
-        let output = run_delta(TWO_LINE_DIFFS, &config);
+        let output = run_prism(TWO_LINE_DIFFS, &config);
         let output = strip_ansi_codes(&output);
         let mut lines = output.lines().skip(4);
         assert_eq!(lines.next().unwrap(), "  1 ⋮  1 │a = 1");

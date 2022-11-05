@@ -15,7 +15,7 @@ pub mod merge_conflict;
 mod ripgrep_json;
 pub mod submodule;
 
-use crate::delta::{State, StateMachine};
+use crate::prism::{State, StateMachine};
 
 impl<'a> StateMachine<'a> {
     pub fn handle_additional_cases(&mut self, to_state: State) -> std::io::Result<bool> {
@@ -31,7 +31,7 @@ impl<'a> StateMachine<'a> {
         // 2. Git diff emits lines describing submodule state such as "Submodule x/y/z contains
         //    untracked content"
         //
-        // See https://github.com/dandavison/delta/issues/60#issuecomment-557485242 for a
+        // See https://github.com/dandavison/prism/issues/60#issuecomment-557485242 for a
         // proposal for more robust parsing logic.
 
         self.painter.paint_buffered_minus_and_plus_lines();

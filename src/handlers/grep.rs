@@ -6,7 +6,7 @@ use serde::Deserialize;
 use unicode_segmentation::UnicodeSegmentation;
 
 use crate::ansi;
-use crate::delta::{State, StateMachine};
+use crate::prism::{State, StateMachine};
 use crate::handlers::{self, ripgrep_json};
 use crate::paint::{self, expand_tabs, BgShouldFill, StyleSectionSpecifier};
 use crate::style::Style;
@@ -545,13 +545,13 @@ mod tests {
 
         assert_eq!(
             parse_grep_line(
-                "src/de lta.rs:pub fn delta<I>(lines: ByteLines<I>, writer: &mut dyn Write, config: &Config) -> std::io::Result<()>"
+                "src/de lta.rs:pub fn prism<I>(lines: ByteLines<I>, writer: &mut dyn Write, config: &Config) -> std::io::Result<()>"
             ),
             Some(GrepLine {
                 path: "src/de lta.rs".into(),
                 line_number: None,
                 line_type: LineType::Match,
-                code: "pub fn delta<I>(lines: ByteLines<I>, writer: &mut dyn Write, config: &Config) -> std::io::Result<()>".into(),
+                code: "pub fn prism<I>(lines: ByteLines<I>, writer: &mut dyn Write, config: &Config) -> std::io::Result<()>".into(),
                 submatches: None,
             })
         );
@@ -882,7 +882,7 @@ mod tests {
             "/usr/local/bin/git --doesnt-matter grep --nor-this nor_this -- nor_this";
         let _args = FakeParentArgs::once(fake_parent_grep_command);
 
-        let not_grep_output = "|       expose it in delta's color output styled with grep:";
+        let not_grep_output = "|       expose it in prism's color output styled with grep:";
         assert_eq!(parse_grep_line(not_grep_output), None);
     }
 

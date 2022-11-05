@@ -2,7 +2,7 @@
 
 DIR=$(dirname ${BASH_SOURCE[0]})
 
-delta --help | \
+prism --help | \
     $DIR/ansifilter | \
     rg ' --[^-].+ <' | \
     rg -v 'deprecated' | \

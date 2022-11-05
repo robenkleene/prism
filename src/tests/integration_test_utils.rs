@@ -11,7 +11,7 @@ use itertools;
 use crate::ansi;
 use crate::cli;
 use crate::config;
-use crate::delta::delta;
+use crate::prism::prism;
 use crate::env::PrismEnv;
 use crate::git_config::GitConfig;
 use crate::tests::test_utils;
@@ -102,13 +102,13 @@ pub fn make_git_config(
     GitConfig::from_path(env, &path, honor_env_var)
 }
 
-pub fn get_line_of_code_from_delta(
+pub fn get_line_of_code_from_prism(
     input: &str,
     line_number: usize,
     expected_text: &str,
     config: &config::Config,
 ) -> String {
-    let output = run_delta(&input, config);
+    let output = run_prism(&input, config);
     let line_of_code = output.lines().nth(line_number).unwrap();
     assert!(ansi::strip_ansi_codes(line_of_code) == expected_text);
     line_of_code.to_string()
@@ -216,7 +216,7 @@ impl<'a> PrismTest<'a> {
 
     pub fn with_input(&self, input: &str) -> PrismTestOutput {
         let _args = FakeParentArgs::for_scope(self.calling_process.as_deref().unwrap_or(""));
-        let raw = run_delta(input, &self.config);
+        let raw = run_prism(input, &self.config);
         let cooked = if self.explain_ansi_ {
             ansi::explain_ansi(&raw, false)
         } else {
@@ -295,10 +295,10 @@ impl PrismTestOutput {
     }
 }
 
-pub fn run_delta(input: &str, config: &config::Config) -> String {
+pub fn run_prism(input: &str, config: &config::Config) -> String {
     let mut writer: Vec<u8> = Vec::new();
 
-    delta(
+    prism(
         ByteLines::new(BufReader::new(input.as_bytes())),
         &mut writer,
         &config,
@@ -381,7 +381,7 @@ ignored!  2
     }
 
     #[test]
-    fn test_delta_test() {
+    fn test_prism_test() {
         let input = "@@ -1,1 +1,1 @@ fn foo() {\n-1\n+2\n";
         PrismTest::with_args(&["--raw"])
             .set_config(|c| c.pager = None)

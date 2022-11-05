@@ -12,9 +12,9 @@ die() {
     exit 1
 }
 
-DELTA="${1:-./target/release/delta} --no-gitconfig --navigate"
+DELTA="${1:-./target/release/prism} --no-gitconfig --navigate"
 
-# Trick delta into thinking that its pager is less, when really it is cat.
+# Trick prism into thinking that its pager is less, when really it is cat.
 unset DELTA_PAGER
 TEMPDIR="$(mktemp -d)"
 export PAGER="$TEMPDIR/less"
@@ -24,12 +24,12 @@ cat >"$PAGER" <<-EOF
 EOF
 chmod 755 $PAGER
 
-test_delta_less_hist_file_created () {
-    DELTA_HIST_FILE="${XDG_DATA_HOME:-$HOME/.local/share}/delta/lesshst"
+test_prism_less_hist_file_created () {
+    DELTA_HIST_FILE="${XDG_DATA_HOME:-$HOME/.local/share}/prism/lesshst"
     rm -f ~/.lesshst "$DELTA_HIST_FILE"
     [ -e "$DELTA_HIST_FILE" ] && die "Expected \"$DELTA_HIST_FILE\" not to exist"
     if [[ "$OSTYPE" = darwin* ]]; then
-        # Trick git and delta into invoking their pager child processes, despite
+        # Trick git and prism into invoking their pager child processes, despite
         # output not being a tty.
         script -q /dev/null git -c pager.log="$DELTA" log -p HEAD~2...HEAD > /dev/null
     else
@@ -39,11 +39,11 @@ test_delta_less_hist_file_created () {
 }
 
 # Basic test
-test_delta_less_hist_file_created
+test_prism_less_hist_file_created
 
 # Test it works with a custom LESSHISTFILE
-export LESSHISTFILE=$TEMPDIR/delta.lesshst
-test_delta_less_hist_file_created
+export LESSHISTFILE=$TEMPDIR/prism.lesshst
+test_prism_less_hist_file_created
 
 # Test histfile sections other than `.search` at the end of the file (#1)
 cat >$LESSHISTFILE <<-EOF
@@ -51,7 +51,7 @@ cat >$LESSHISTFILE <<-EOF
 	"pwd
 	"ls -Al ../data/
 EOF
-test_delta_less_hist_file_created
+test_prism_less_hist_file_created
 
 # Test histfile sections other than `.search` at the end of the file (#2)
 cat >>$LESSHISTFILE <<-EOF
@@ -59,7 +59,7 @@ cat >>$LESSHISTFILE <<-EOF
 	m a 1 7740 /etc/gitconfig
 	m b 1 4221 /etc/profile
 EOF
-test_delta_less_hist_file_created
+test_prism_less_hist_file_created
 
 # Cleanup
 cleanup

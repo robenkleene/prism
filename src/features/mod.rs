@@ -8,13 +8,13 @@ use ProvenancedOptionValue::*;
 /// A custom feature is a named set of command line (option, value) pairs, supplied in a git config
 /// file. I.e. it might look like
 ///
-/// [delta "decorations"]
+/// [prism "decorations"]
 ///     commit-decoration-style = bold box ul
 ///     file-style = bold 19 ul
 ///     file-decoration-style = none
 ///
 /// A builtin feature is a named set of command line (option, value) pairs that is built-in to
-/// delta. The valueof a builtin feature is a function. This function is passed the current set of
+/// prism. The valueof a builtin feature is a function. This function is passed the current set of
 /// all command-line option-value pairs, and GitConfig, and returns either a GitConfigValue, or a
 /// DefaultValue. (It may use the set of all option-value pairs when computing its default).
 pub type BuiltinFeature = HashMap<String, OptionValueFunction>;
@@ -101,7 +101,7 @@ pub mod tests {
     #[test]
     fn test_builtin_features_have_flags_and_these_set_features() {
         let builtin_features = make_builtin_features();
-        let mut args = vec!["delta".to_string()];
+        let mut args = vec!["prism".to_string()];
         args.extend(builtin_features.keys().map(|s| format!("--{}", s)));
         let opt = cli::Opt::from_iter_and_git_config(PrismEnv::default(), args, None);
         let features: HashSet<&str> = opt
@@ -118,10 +118,10 @@ pub mod tests {
     #[test]
     fn test_builtin_feature_from_gitconfig() {
         let git_config_contents = b"
-[delta]
+[prism]
     navigate = true
 ";
-        let git_config_path = "delta__test_builtin_feature_from_gitconfig.gitconfig";
+        let git_config_path = "prism__test_builtin_feature_from_gitconfig.gitconfig";
 
         assert_eq!(
             make_options_from_args_and_git_config(
@@ -140,11 +140,11 @@ pub mod tests {
     #[test]
     fn test_features_on_command_line_replace_features_in_gitconfig() {
         let git_config_contents = b"
-[delta]
+[prism]
     features = my-feature
 ";
         let git_config_path =
-            "delta__test_features_on_command_line_replace_features_in_gitconfig.gitconfig";
+            "prism__test_features_on_command_line_replace_features_in_gitconfig.gitconfig";
 
         assert_eq!(
             make_options_from_args_and_git_config(
@@ -173,11 +173,11 @@ pub mod tests {
     #[test]
     fn test_feature_flag_on_command_line_does_not_replace_features_in_gitconfig() {
         let git_config_contents = b"
-[delta]
+[prism]
     features = my-feature
 ";
         let git_config_path =
-            "delta__test_feature_flag_on_command_line_does_not_replace_features_in_gitconfig.gitconfig";
+            "prism__test_feature_flag_on_command_line_does_not_replace_features_in_gitconfig.gitconfig";
         assert_eq!(
             make_options_from_args_and_git_config(
                 &["--navigate", "--raw"],
@@ -195,18 +195,18 @@ pub mod tests {
     #[test]
     fn test_recursive_feature_gathering_1() {
         let git_config_contents = b"
-[delta]
+[prism]
     features = h g
 
-[delta \"a\"]
+[prism \"a\"]
     features = c b
     diff-highlight = true
 
-[delta \"d\"]
+[prism \"d\"]
     features = f e
     diff-so-fancy = true
 ";
-        let git_config_path = "delta__test_feature_collection.gitconfig";
+        let git_config_path = "prism__test_feature_collection.gitconfig";
 
         assert_eq!(
             make_options_from_args_and_git_config(
@@ -225,21 +225,21 @@ pub mod tests {
     #[test]
     fn test_recursive_feature_gathering_2() {
         let git_config_contents = b"
-[delta]
+[prism]
     features = feature-1
 
-[delta \"feature-1\"]
+[prism \"feature-1\"]
     features = feature-2 feature-3
 
-[delta \"feature-2\"]
+[prism \"feature-2\"]
     features = feature-4
 
-[delta \"feature-4\"]
+[prism \"feature-4\"]
     minus-style = blue
 ";
-        let git_config_path = "delta__test_recursive_features.gitconfig";
+        let git_config_path = "prism__test_recursive_features.gitconfig";
         let opt = make_options_from_args_and_git_config(
-            &["delta"],
+            &["prism"],
             Some(git_config_contents),
             Some(git_config_path),
         );
@@ -254,10 +254,10 @@ pub mod tests {
     #[test]
     fn test_main_section() {
         let git_config_contents = b"
-[delta]
+[prism]
     minus-style = blue
 ";
-        let git_config_path = "delta__test_main_section.gitconfig";
+        let git_config_path = "prism__test_main_section.gitconfig";
 
         // First check that it doesn't default to blue, because that's going to be used to signal
         // that gitconfig has set the style.
@@ -301,13 +301,13 @@ pub mod tests {
     #[test]
     fn test_feature() {
         let git_config_contents = b"
-[delta]
+[prism]
 
 
-[delta \"my-feature\"]
+[prism \"my-feature\"]
     minus-style = green
 ";
-        let git_config_path = "delta__test_feature.gitconfig";
+        let git_config_path = "prism__test_feature.gitconfig";
 
         assert_eq!(
             make_options_from_args_and_git_config(
@@ -324,13 +324,13 @@ pub mod tests {
     #[test]
     fn test_main_section_overrides_feature() {
         let git_config_contents = b"
-[delta]
+[prism]
     minus-style = blue
 
-[delta \"my-feature-1\"]
+[prism \"my-feature-1\"]
     minus-style = green
 ";
-        let git_config_path = "delta__test_main_section_overrides_feature.gitconfig";
+        let git_config_path = "prism__test_main_section_overrides_feature.gitconfig";
 
         // Without --features the main section takes effect
         assert_eq!(
@@ -359,16 +359,16 @@ pub mod tests {
     #[test]
     fn test_multiple_features() {
         let git_config_contents = b"
-[delta]
+[prism]
 
 
-[delta \"my-feature-1\"]
+[prism \"my-feature-1\"]
     minus-style = green
 
-[delta \"my-feature-2\"]
+[prism \"my-feature-2\"]
     minus-style = yellow
 ";
-        let git_config_path = "delta__test_multiple_features.gitconfig";
+        let git_config_path = "prism__test_multiple_features.gitconfig";
 
         assert_eq!(
             make_options_from_args_and_git_config(
@@ -396,13 +396,13 @@ pub mod tests {
     #[test]
     fn test_invalid_features() {
         let git_config_contents = b"
-[delta \"my-feature-1\"]
+[prism \"my-feature-1\"]
     minus-style = green
 
-[delta \"my-feature-2\"]
+[prism \"my-feature-2\"]
     minus-style = yellow
 ";
-        let git_config_path = "delta__test_invalid_features.gitconfig";
+        let git_config_path = "prism__test_invalid_features.gitconfig";
 
         let default = make_options_from_args_and_git_config(&[], None, None).minus_style;
         assert_ne!(default, "green");
@@ -457,9 +457,9 @@ pub mod tests {
 [color \"diff\"]
     whitespace = yellow dim ul magenta
 ";
-        let git_config_path = "delta__test_whitespace_error_style.gitconfig";
+        let git_config_path = "prism__test_whitespace_error_style.gitconfig";
 
-        // Git config disabled: hard-coded delta default wins
+        // Git config disabled: hard-coded prism default wins
         assert_eq!(
             make_options_from_args_and_git_config(&[], None, None).whitespace_error_style,
             "magenta reverse"
@@ -491,10 +491,10 @@ pub mod tests {
 [color \"diff\"]
     whitespace = yellow dim ul magenta
 
-[delta]
+[prism]
     whitespace-error-style = blue reverse
 
-[delta \"my-whitespace-error-style-feature\"]
+[prism \"my-whitespace-error-style-feature\"]
     whitespace-error-style = green reverse
 ";
 
@@ -509,7 +509,7 @@ pub mod tests {
             "red reverse"
         );
 
-        // No command line argument or features; main [delta] section wins
+        // No command line argument or features; main [prism] section wins
         assert_eq!(
             make_options_from_args_and_git_config(
                 &[],
@@ -520,10 +520,10 @@ pub mod tests {
             "blue reverse"
         );
 
-        // Feature contains key, but main [delta] section still wins.
+        // Feature contains key, but main [prism] section still wins.
         // This is equivalent to
         //
-        // [delta]
+        // [prism]
         //     features = my-whitespace-error-style-feature
         //     whitespace-error-style = blue reverse
         //

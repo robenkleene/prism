@@ -147,12 +147,12 @@ mod tests {
     #[test]
     fn test_parse_github_urls() {
         let urls = &[
-            "https://github.com/dandavison/delta.git",
-            "https://github.com/dandavison/delta",
-            "git@github.com:dandavison/delta.git",
-            "git@github.com:dandavison/delta",
-            "github.com:dandavison/delta.git",
-            "github.com:dandavison/delta",
+            "https://github.com/dandavison/prism.git",
+            "https://github.com/dandavison/prism",
+            "git@github.com:dandavison/prism.git",
+            "git@github.com:dandavison/prism",
+            "github.com:dandavison/prism.git",
+            "github.com:dandavison/prism",
         ];
         for url in urls {
             let parsed = GitRemoteRepo::from_str(url);
@@ -160,7 +160,7 @@ mod tests {
             assert_eq!(
                 parsed.unwrap(),
                 GitRemoteRepo::GitHub {
-                    slug: "dandavison/delta".to_string()
+                    slug: "dandavison/prism".to_string()
                 }
             );
         }
@@ -169,12 +169,12 @@ mod tests {
     #[test]
     fn test_format_github_commit_link() {
         let repo = GitRemoteRepo::GitHub {
-            slug: "dandavison/delta".to_string(),
+            slug: "dandavison/prism".to_string(),
         };
         let commit_hash = "d3b07384d113edec49eaa6238ad5ff00";
         assert_eq!(
             repo.format_commit_url(commit_hash),
-            format!("https://github.com/dandavison/delta/commit/{}", commit_hash)
+            format!("https://github.com/dandavison/prism/commit/{}", commit_hash)
         )
     }
 

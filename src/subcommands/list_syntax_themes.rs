@@ -28,7 +28,7 @@ pub fn _list_syntax_themes_for_humans(writer: &mut dyn Write) -> std::io::Result
     }
     writeln!(
         writer,
-        "\nUse delta --show-syntax-themes to demo the themes."
+        "\nUse prism --show-syntax-themes to demo the themes."
     )?;
     Ok(())
 }

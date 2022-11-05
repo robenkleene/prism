@@ -1,11 +1,11 @@
 # Comparisons with other tools
 
-(`delta --light`)
+(`prism --light`)
 
 <table>
   <tr>
     <td>
-      delta vs. git
+      prism vs. git
     </td>
     <td>
       <img width=500px style="border: 1px solid black"
@@ -20,7 +20,7 @@
   </tr>
   <tr>
     <td>
-      delta vs. diff-so-fancy /<br>diff-highlight
+      prism vs. diff-so-fancy /<br>diff-highlight
     </td>
     <td>
       <img width=500px style="border: 1px solid black"
@@ -35,7 +35,7 @@
   </tr>
   <tr>
     <td>
-      delta vs. github
+      prism vs. github
     </td>
     <td>
       <img width=500px style="border: 1px solid black"

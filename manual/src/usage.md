@@ -1,21 +1,21 @@
 # Usage
 
-The main way to use delta is to configure it as the pager for git: see [Configuration](./configuration.md).
+The main way to use prism is to configure it as the pager for git: see [Configuration](./configuration.md).
 
 Prism can also be used as a shorthand for diffing two files, even if they are not in a git repo: the following two commands do the same thing:
 
 ```
-delta /somewhere/a.txt /somewhere/else/b.txt
+prism /somewhere/a.txt /somewhere/else/b.txt
 
 git diff /somewhere/a.txt /somewhere/else/b.txt
 ```
 
-You can also use [process substitution](https://en.wikipedia.org/wiki/Process_substitution) shell syntax with delta, e.g.
+You can also use [process substitution](https://en.wikipedia.org/wiki/Process_substitution) shell syntax with prism, e.g.
 
 ```
-delta <(sort file1) <(sort file2)
+prism <(sort file1) <(sort file2)
 ```
 
-In addition to git output, delta handles standard unified diff format, e.g. `diff -u a.txt b.txt | delta`.
+In addition to git output, prism handles standard unified diff format, e.g. `diff -u a.txt b.txt | prism`.
 
-For Mercurial, you can add delta, with its command line options, to the `[pager]` section of `.hgrc`.
+For Mercurial, you can add prism, with its command line options, to the `[pager]` section of `.hgrc`.

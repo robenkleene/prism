@@ -3,4 +3,4 @@ authors = ["Dan Davison"]
 language = "en"
 multilingual = false
 src = "src"
-title = "delta"
+title = "prism"

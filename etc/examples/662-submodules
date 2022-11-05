@@ -12,7 +12,7 @@ for sub in A B C; do
     done
     # Add initial submodule, message of "Submodule submoduleX 0000000...xxxxxxx (new submodule)", no individual commits
     git submodule add ../bogus-url-${sub} submodule${sub} && \
-        git commit -m "Add submodule${sub}" # the diff handling for this is correct in delta
+        git commit -m "Add submodule${sub}" # the diff handling for this is correct in prism
 
     # Create additional submodule commits
     for iter in $(seq 1 2); do
@@ -40,6 +40,6 @@ git add submodule[A-C] && git commit -m "Update all submodules"
 # submoduleC is a mixture of removed and added commits (e.g. different branch)
 
 # Manual, inspect superproject history via:
-#    "git -c diff.submodule=short log -p | delta --no-gitconfig"
-#    "git -c diff.submodule=log log -p | delta --no-gitconfig"
-#    "git -c diff.submodule=diff log -p | delta --no-gitconfig"
+#    "git -c diff.submodule=short log -p | prism --no-gitconfig"
+#    "git -c diff.submodule=log log -p | prism --no-gitconfig"
+#    "git -c diff.submodule=diff log -p | prism --no-gitconfig"

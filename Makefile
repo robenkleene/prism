@@ -25,21 +25,21 @@ version:
 
 hash:
 	@version=$$(make version) && \
-	printf "$$version-tar.gz %s\n" $$(curl -sL https://github.com/dandavison/delta/archive/$$version.tar.gz | sha256sum -) && \
-	printf "delta-$$version-x86_64-apple-darwin.tar.gz %s\n" $$(curl -sL https://github.com/dandavison/delta/releases/download/$$version/delta-$$version-x86_64-apple-darwin.tar.gz | sha256sum -) && \
-	printf "delta-$$version-x86_64-unknown-linux-musl.tar.gz %s\n" $$(curl -sL https://github.com/dandavison/delta/releases/download/$$version/delta-$$version-x86_64-unknown-linux-musl.tar.gz | sha256sum -)
+	printf "$$version-tar.gz %s\n" $$(curl -sL https://github.com/dandavison/prism/archive/$$version.tar.gz | sha256sum -) && \
+	printf "prism-$$version-x86_64-apple-darwin.tar.gz %s\n" $$(curl -sL https://github.com/dandavison/prism/releases/download/$$version/prism-$$version-x86_64-apple-darwin.tar.gz | sha256sum -) && \
+	printf "prism-$$version-x86_64-unknown-linux-musl.tar.gz %s\n" $$(curl -sL https://github.com/dandavison/prism/releases/download/$$version/prism-$$version-x86_64-unknown-linux-musl.tar.gz | sha256sum -)
 
-BENCHMARK_INPUT_FILE = /tmp/delta-benchmark-input.gitdiff
+BENCHMARK_INPUT_FILE = /tmp/prism-benchmark-input.gitdiff
 BENCHMARK_COMMAND = git log -p 23c292d3f25c67082a2ba315a187268be1a9b0ab
 benchmark: build
 	$(BENCHMARK_COMMAND) > $(BENCHMARK_INPUT_FILE)
 	hyperfine --warmup 10 --min-runs 20 \
-		'target/release/delta --no-gitconfig < $(BENCHMARK_INPUT_FILE) > /dev/null'
+		'target/release/prism --no-gitconfig < $(BENCHMARK_INPUT_FILE) > /dev/null'
 
 # https://github.com/brendangregg/FlameGraph
 flamegraph: build
-	$(BENCHMARK_COMMAND) | target/release/delta > /dev/null &
-	sample delta | stackcollapse-sample | flamegraph > etc/performance/flamegraph.svg
+	$(BENCHMARK_COMMAND) | target/release/prism > /dev/null &
+	sample prism | stackcollapse-sample | flamegraph > etc/performance/flamegraph.svg
 
 chronologer:
 	chronologer etc/performance/chronologer.yaml

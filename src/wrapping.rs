@@ -6,8 +6,8 @@ use crate::config::INLINE_SYMBOL_WIDTH_1;
 use crate::fatal;
 
 use crate::config::Config;
-use crate::delta::DiffType;
-use crate::delta::State;
+use crate::prism::DiffType;
+use crate::prism::State;
 use crate::features::line_numbers::{self, SideBySideLineWidth};
 use crate::features::side_by_side::{available_line_width, line_is_too_long, Left, Right};
 use crate::minusplus::*;
@@ -59,7 +59,7 @@ impl WrapConfig {
                 }
             },
             max_lines: adapt_wrap_max_lines_argument(opt.wrap_max_lines.clone()),
-            inline_hint_syntect_style: SyntectStyle::from_delta_style(inline_hint_style),
+            inline_hint_syntect_style: SyntectStyle::from_prism_style(inline_hint_style),
         }
     }
 

@@ -3,7 +3,7 @@ use std::str::FromStr;
 use syntect::highlighting::{Color, FontStyle, Style};
 
 use crate::color;
-use crate::style as delta_style;
+use crate::style as prism_style;
 
 pub fn syntect_color_from_ansi_name(name: &str) -> Option<Color> {
     color::ansi_16_color_name_to_number(name).and_then(syntect_color_from_ansi_number)
@@ -85,11 +85,11 @@ impl FromAnsiTermColor for Color {
 }
 
 pub trait FromPrismStyle {
-    fn from_delta_style(delta_style: delta_style::Style) -> Self;
+    fn from_prism_style(prism_style: prism_style::Style) -> Self;
 }
 
 impl FromPrismStyle for Style {
-    fn from_delta_style(delta_style: delta_style::Style) -> Self {
-        Self::from_ansi_term_style(delta_style.ansi_term_style)
+    fn from_prism_style(prism_style: prism_style::Style) -> Self {
+        Self::from_ansi_term_style(prism_style.ansi_term_style)
     }
 }

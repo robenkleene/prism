@@ -1,6 +1,6 @@
 # Related projects
 
-## Used by delta
+## Used by prism
 
 - [alacritty/vte](https://github.com/alacritty/vte)
 - [mitsuhiko/console](https://github.com/mitsuhiko/console)
@@ -8,10 +8,10 @@
 - [sharkdp/bat](https://github.com/sharkdp/bat)
 - [trishume/syntect](https://github.com/trishume/syntect)
 
-## Using delta
+## Using prism
 
 - [bigH/git-fuzzy](https://github.com/bigH/git-fuzzy)
-- [dandavison/magit-delta](https://github.com/dandavison/magit-delta)
+- [dandavison/magit-prism](https://github.com/dandavison/magit-prism)
 - [jesseduffield/lazygit](https://github.com/jesseduffield/lazygit/)
 - [junegunn/fzf.vim](https://github.com/junegunn/fzf.vim)
 - [ms-jpq/sad](https://github.com/ms-jpq/sad)

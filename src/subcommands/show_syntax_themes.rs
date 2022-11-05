@@ -1,6 +1,6 @@
 use crate::cli;
 use crate::config;
-use crate::delta;
+use crate::prism;
 use crate::env::PrismEnv;
 use crate::options::theme::is_light_syntax_theme;
 use crate::utils;
@@ -96,7 +96,7 @@ index f38589a..0f1bb83 100644
         )?;
         config.syntax_theme = Some(assets.get_theme(syntax_theme).clone());
         if let Err(error) =
-            delta::delta(ByteLines::new(BufReader::new(&input[0..])), writer, &config)
+            prism::prism(ByteLines::new(BufReader::new(&input[0..])), writer, &config)
         {
             match error.kind() {
                 ErrorKind::BrokenPipe => std::process::exit(0),

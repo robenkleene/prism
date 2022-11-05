@@ -40,7 +40,7 @@ mod tests {
             &format!("foo {}", style("b").red().force_styling(true))
         );
         let s = format!("foo {}", style("bar").red().force_styling(true));
-        // DED: I'm changing this test assertion: delta does not move `!` inside the styled region.
+        // DED: I'm changing this test assertion: prism does not move `!` inside the styled region.
         // assert_eq!(
         //     &truncate_str(&s, 5, "!"),
         //     &format!("foo {}", style("!").red().force_styling(true))

@@ -1,1 +1,1 @@
-The docker image built here is intended for investigating delta issues, for example when they are OS-dependent.
+The docker image built here is intended for investigating prism issues, for example when they are OS-dependent.

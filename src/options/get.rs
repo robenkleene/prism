@@ -10,14 +10,14 @@ use ProvenancedOptionValue::*;
 
 // Look up a value of type `T` associated with `option name`. The search rules are:
 //
-// 1. If there is a value associated with `option_name` in the main [delta] git config
+// 1. If there is a value associated with `option_name` in the main [prism] git config
 //    section, then stop searching and return that value.
 //
 // 2. For each feature in the ordered list of enabled features:
 //
 //    2.1 Look-up the value, treating `feature` as a custom feature.
 //        I.e., if there is a value associated with `option_name` in a git config section
-//        named [delta "`feature`"] then stop searching and return that value.
+//        named [prism "`feature`"] then stop searching and return that value.
 //
 //    2.2 Look-up the value, treating `feature` as a builtin feature.
 //        I.e., if there is a value (not a default value) associated with `option_name` in a
@@ -41,7 +41,7 @@ where
 }
 
 lazy_static! {
-    static ref GIT_CONFIG_THEME_REGEX: Regex = Regex::new(r"^delta\.(.+)\.(light|dark)$").unwrap();
+    static ref GIT_CONFIG_THEME_REGEX: Regex = Regex::new(r"^prism\.(.+)\.(light|dark)$").unwrap();
 }
 
 pub fn get_themes(git_config: Option<git_config::GitConfig>) -> Vec<String> {
@@ -75,7 +75,7 @@ pub trait GetOptionValue {
         Self: Into<OptionValue>,
     {
         if let Some(git_config) = git_config {
-            if let Some(value) = git_config.get::<Self>(&format!("delta.{}", option_name)) {
+            if let Some(value) = git_config.get::<Self>(&format!("prism.{}", option_name)) {
                 return Some(value);
             }
         }
@@ -115,7 +115,7 @@ pub trait GetOptionValue {
     {
         if let Some(git_config) = git_config {
             if let Some(value) =
-                git_config.get::<Self>(&format!("delta.{}.{}", feature, option_name))
+                git_config.get::<Self>(&format!("prism.{}.{}", feature, option_name))
             {
                 return Some(GitConfigValue(value.into()));
             }
@@ -175,14 +175,14 @@ pub mod tests {
     #[test]
     fn test_env_var_overrides_git_config_simple_string() {
         let git_config_contents = b"
-[delta]
+[prism]
     plus-style = blue
 ";
-        let git_config_path = "delta__test_simple_string_env_var_overrides_git_config.gitconfig";
+        let git_config_path = "prism__test_simple_string_env_var_overrides_git_config.gitconfig";
         _test_env_var_overrides_git_config_generic(
             git_config_contents,
             git_config_path,
-            "'delta.plus-style=green'".into(),
+            "'prism.plus-style=green'".into(),
             &|opt: Opt| assert_eq!(opt.plus_style, "blue"),
             &|opt: Opt| assert_eq!(opt.plus_style, "green"),
         );
@@ -191,14 +191,14 @@ pub mod tests {
     #[test]
     fn test_env_var_overrides_git_config_complex_string() {
         let git_config_contents = br##"
-[delta]
+[prism]
     minus-style = red bold ul "#ffeeee"
 "##;
-        let git_config_path = "delta__test_complex_string_env_var_overrides_git_config.gitconfig";
+        let git_config_path = "prism__test_complex_string_env_var_overrides_git_config.gitconfig";
         _test_env_var_overrides_git_config_generic(
             git_config_contents,
             git_config_path,
-            r##"'delta.minus-style=magenta italic ol "#aabbcc"'"##.into(),
+            r##"'prism.minus-style=magenta italic ol "#aabbcc"'"##.into(),
             &|opt: Opt| assert_eq!(opt.minus_style, r##"red bold ul #ffeeee"##),
             &|opt: Opt| assert_eq!(opt.minus_style, r##"magenta italic ol "#aabbcc""##,),
         );
@@ -207,14 +207,14 @@ pub mod tests {
     #[test]
     fn test_env_var_overrides_git_config_option_string() {
         let git_config_contents = b"
-[delta]
+[prism]
     plus-style = blue
 ";
-        let git_config_path = "delta__test_option_string_env_var_overrides_git_config.gitconfig";
+        let git_config_path = "prism__test_option_string_env_var_overrides_git_config.gitconfig";
         _test_env_var_overrides_git_config_generic(
             git_config_contents,
             git_config_path,
-            "'delta.plus-style=green'".into(),
+            "'prism.plus-style=green'".into(),
             &|opt: Opt| assert_eq!(opt.plus_style, "blue"),
             &|opt: Opt| assert_eq!(opt.plus_style, "green"),
         );
@@ -223,14 +223,14 @@ pub mod tests {
     #[test]
     fn test_env_var_overrides_git_config_bool() {
         let git_config_contents = b"
-[delta]
+[prism]
     side-by-side = true
 ";
-        let git_config_path = "delta__test_bool_env_var_overrides_git_config.gitconfig";
+        let git_config_path = "prism__test_bool_env_var_overrides_git_config.gitconfig";
         _test_env_var_overrides_git_config_generic(
             git_config_contents,
             git_config_path,
-            "'delta.side-by-side=false'".into(),
+            "'prism.side-by-side=false'".into(),
             &|opt: Opt| assert_eq!(opt.side_by_side, true),
             &|opt: Opt| assert_eq!(opt.side_by_side, false),
         );
@@ -239,14 +239,14 @@ pub mod tests {
     #[test]
     fn test_env_var_overrides_git_config_int() {
         let git_config_contents = b"
-[delta]
+[prism]
     max-line-length = 1
 ";
-        let git_config_path = "delta__test_int_env_var_overrides_git_config.gitconfig";
+        let git_config_path = "prism__test_int_env_var_overrides_git_config.gitconfig";
         _test_env_var_overrides_git_config_generic(
             git_config_contents,
             git_config_path,
-            "'delta.max-line-length=2'".into(),
+            "'prism.max-line-length=2'".into(),
             &|opt: Opt| assert_eq!(opt.max_line_length, 1),
             &|opt: Opt| assert_eq!(opt.max_line_length, 2),
         );
@@ -255,26 +255,26 @@ pub mod tests {
     #[test]
     fn test_env_var_overrides_git_config_float() {
         let git_config_contents = b"
-[delta]
+[prism]
     max-line-distance = 0.6
 ";
-        let git_config_path = "delta__test_float_env_var_overrides_git_config.gitconfig";
+        let git_config_path = "prism__test_float_env_var_overrides_git_config.gitconfig";
         _test_env_var_overrides_git_config_generic(
             git_config_contents,
             git_config_path,
-            "'delta.max-line-distance=0.7'".into(),
+            "'prism.max-line-distance=0.7'".into(),
             &|opt: Opt| assert_eq!(opt.max_line_distance, 0.6),
             &|opt: Opt| assert_eq!(opt.max_line_distance, 0.7),
         );
     }
 
     #[test]
-    fn test_delta_features_env_var() {
+    fn test_prism_features_env_var() {
         let git_config_contents = b"
-[delta]
+[prism]
     features = feature-from-gitconfig
 ";
-        let git_config_path = "delta__test_delta_features_env_var.gitconfig";
+        let git_config_path = "prism__test_prism_features_env_var.gitconfig";
 
         let opt = integration_test_utils::make_options_from_args_and_git_config(
             &[],
@@ -318,26 +318,26 @@ pub mod tests {
     #[test]
     fn test_get_themes_from_config() {
         let git_config_contents = r#"
-[delta "dark-theme"]
+[prism "dark-theme"]
     max-line-distance = 0.6
     dark = true
 
-[delta "light-theme"]
+[prism "light-theme"]
     max-line-distance = 0.6
     light = true
 
-[delta "light-and-dark-theme"]
+[prism "light-and-dark-theme"]
     max-line-distance = 0.6
     light = true
     dark = true
 
-[delta "Uppercase-Theme"]
+[prism "Uppercase-Theme"]
     light = true
 
-[delta "not-a-theme"]
+[prism "not-a-theme"]
     max-line-distance = 0.6
 "#;
-        let git_config_path = "delta__test_get_themes_git_config.gitconfig";
+        let git_config_path = "prism__test_get_themes_git_config.gitconfig";
 
         let git_config = Some(integration_test_utils::make_git_config(
             &PrismEnv::default(),

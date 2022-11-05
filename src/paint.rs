@@ -9,8 +9,8 @@ use syntect::highlighting::Style as SyntectStyle;
 use syntect::parsing::{SyntaxReference, SyntaxSet};
 use unicode_segmentation::UnicodeSegmentation;
 
-use crate::config::{self, delta_unreachable, Config};
-use crate::delta::{DiffType, InMergeConflict, MergeParents, State};
+use crate::config::{self, prism_unreachable, Config};
+use crate::prism::{DiffType, InMergeConflict, MergeParents, State};
 use crate::features::hyperlinks;
 use crate::features::line_numbers::{self, LineNumbersData};
 use crate::features::side_by_side::ansifill;
@@ -116,7 +116,7 @@ impl<'p> Painter<'p> {
         }
         syntax_set
             .find_syntax_by_extension("txt")
-            .unwrap_or_else(|| delta_unreachable("Failed to find any language syntax definitions."))
+            .unwrap_or_else(|| prism_unreachable("Failed to find any language syntax definitions."))
     }
 
     pub fn set_highlighter(&mut self) {
@@ -459,7 +459,7 @@ impl<'p> Painter<'p> {
             | State::HunkZero(_, Some(_raw_line))
             | State::HunkPlus(_, Some(_raw_line)) => {
                 // It is possible that the captured raw line contains an ANSI
-                // style that has been mapped (via map-styles) to a delta Style
+                // style that has been mapped (via map-styles) to a prism Style
                 // with syntax-highlighting.
                 true
             }
@@ -491,8 +491,8 @@ impl<'p> Painter<'p> {
     ///    sections.
     /// 2. If the line constitutes a whitespace error, then the whitespace error style
     ///    should be applied to the added material.
-    /// 3. If delta recognized the raw line as one containing ANSI colors that
-    ///    are going to be preserved in the output, then replace delta's
+    /// 3. If prism recognized the raw line as one containing ANSI colors that
+    ///    are going to be preserved in the output, then replace prism's
     ///    computed diff styles with these styles from the raw line. (This is
     ///    how support for git's --color-moved is implemented.)
     fn update_diff_style_sections<'a>(
@@ -860,7 +860,7 @@ fn style_sections_contain_more_than_one_style(sections: &[(Style, &str)]) -> boo
 // A line is a whitespace error iff it is non-empty and contains only whitespace
 // characters.
 // TODO: Git recognizes blank lines at end of file (blank-at-eof)
-// as a whitespace error but delta does not yet.
+// as a whitespace error but prism does not yet.
 // https://git-scm.com/docs/git-config#Documentation/git-config.txt-corewhitespace
 fn is_whitespace_error(sections: &[(Style, &str)]) -> bool {
     let mut any_chars = false;
@@ -884,8 +884,8 @@ mod superimpose_style_sections {
 
     // We have two different annotations of the same line:
     // `syntax_style_sections` contains foreground styles computed by syntect,
-    // and `diff_style_sections` contains styles computed by delta reflecting
-    // within-line edits. The delta styles may assign a foreground color, or
+    // and `diff_style_sections` contains styles computed by prism reflecting
+    // within-line edits. The prism styles may assign a foreground color, or
     // they may indicate that the foreground color comes from syntax
     // highlighting (the is_syntax_highlighting attribute on style::Style). This
     // function takes in the two input streams and outputs one stream with a
