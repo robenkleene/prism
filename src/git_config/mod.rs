@@ -2,7 +2,7 @@ mod git_config_entry;
 
 pub use git_config_entry::{GitConfigEntry, GitRemoteRepo};
 
-use crate::env::DeltaEnv;
+use crate::env::PrismEnv;
 use regex::Regex;
 use std::collections::HashMap;
 #[cfg(test)]
@@ -37,7 +37,7 @@ impl Clone for GitConfig {
 
 impl GitConfig {
     #[cfg(not(test))]
-    pub fn try_create(env: &DeltaEnv) -> Option<Self> {
+    pub fn try_create(env: &PrismEnv) -> Option<Self> {
         use crate::fatal;
 
         let repo = match &env.current_dir {
@@ -65,12 +65,12 @@ impl GitConfig {
     }
 
     #[cfg(test)]
-    pub fn try_create(_env: &DeltaEnv) -> Option<Self> {
+    pub fn try_create(_env: &PrismEnv) -> Option<Self> {
         unreachable!("GitConfig::try_create() is not available when testing");
     }
 
     #[cfg(test)]
-    pub fn from_path(env: &DeltaEnv, path: &Path, honor_env_var: bool) -> Self {
+    pub fn from_path(env: &PrismEnv, path: &Path, honor_env_var: bool) -> Self {
         Self {
             config: git2::Config::open(path).unwrap(),
             config_from_env_var: if honor_env_var {
@@ -96,7 +96,7 @@ impl GitConfig {
     }
 }
 
-fn parse_config_from_env_var(env: &DeltaEnv) -> HashMap<String, String> {
+fn parse_config_from_env_var(env: &PrismEnv) -> HashMap<String, String> {
     if let Some(s) = &env.git_config_parameters {
         parse_config_from_env_var_value(s)
     } else {

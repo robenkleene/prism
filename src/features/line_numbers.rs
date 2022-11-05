@@ -323,7 +323,7 @@ pub mod tests {
     use crate::ansi::strip_ansi_codes;
     use crate::features::side_by_side::ansifill::ODD_PAD_CHAR;
     use crate::format::FormatStringData;
-    use crate::tests::integration_test_utils::{make_config_from_args, run_delta, DeltaTest};
+    use crate::tests::integration_test_utils::{make_config_from_args, run_delta, PrismTest};
 
     use super::*;
 
@@ -627,7 +627,7 @@ pub mod tests {
 
     #[test]
     fn test_two_minus_lines() {
-        DeltaTest::with_args(&[
+        PrismTest::with_args(&[
             "--line-numbers",
             "--line-numbers-left-format",
             "{nm:^4}⋮",
@@ -653,7 +653,7 @@ pub mod tests {
 
     #[test]
     fn test_two_plus_lines() {
-        DeltaTest::with_args(&[
+        PrismTest::with_args(&[
             "--line-numbers",
             "--line-numbers-left-format",
             "{nm:^4}⋮",
@@ -776,7 +776,7 @@ pub mod tests {
 
     #[test]
     fn test_line_numbers_continue_correctly() {
-        DeltaTest::with_args(&["--side-by-side", "--width", "44", "--line-fill-method=ansi"])
+        PrismTest::with_args(&["--side-by-side", "--width", "44", "--line-fill-method=ansi"])
             .with_input(DIFF_PLUS_MINUS_WITH_1_CONTEXT_DIFF)
             .expect_after_header(
                 r#"
@@ -788,7 +788,7 @@ pub mod tests {
 
     #[test]
     fn test_line_numbers_continue_correctly_after_wrapping() {
-        DeltaTest::with_args(&[
+        PrismTest::with_args(&[
             "--side-by-side",
             "--width",
             "32",
@@ -818,7 +818,7 @@ pub mod tests {
             "@",
         ];
 
-        DeltaTest::with_args(cfg)
+        PrismTest::with_args(cfg)
             .with_input(DIFF_WITH_LONGER_MINUS_1_CONTEXT)
             .expect_after_header(
                 r#"
@@ -828,7 +828,7 @@ pub mod tests {
                 │  3 │xyz            │  3 │xyz"#,
             );
 
-        DeltaTest::with_args(cfg)
+        PrismTest::with_args(cfg)
             .with_input(DIFF_WITH_LONGER_PLUS_1_CONTEXT)
             .expect_after_header(
                 r#"
@@ -838,7 +838,7 @@ pub mod tests {
                 │  3 │xyz            │  3 │xyz"#,
             );
 
-        DeltaTest::with_args(cfg)
+        PrismTest::with_args(cfg)
             .with_input(DIFF_MISMATCH_LONGER_MINUS_1_CONTEXT)
             .expect_after_header(
                 r#"
@@ -849,7 +849,7 @@ pub mod tests {
                 │  3 │xyz            │  3 │xyz"#,
             );
 
-        DeltaTest::with_args(cfg)
+        PrismTest::with_args(cfg)
             .with_input(DIFF_MISMATCH_LONGER_PLUS_1_CONTEXT)
             .expect_after_header(
                 r#"

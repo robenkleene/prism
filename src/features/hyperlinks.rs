@@ -119,7 +119,7 @@ pub mod tests {
 
     use super::*;
     use crate::{
-        tests::integration_test_utils::{self, DeltaTest},
+        tests::integration_test_utils::{self, PrismTest},
         utils,
     };
 
@@ -417,7 +417,7 @@ __path__:  some matching line
                     .to_string_lossy()
                     .into(),
                 (GitGrep, Some(dir)) => {
-                    // Delta must have been invoked as core.pager since GIT_PREFIX env var is set.
+                    // Prism must have been invoked as core.pager since GIT_PREFIX env var is set.
                     // Note that it is possible that `true_location_of_file_relative_to_repo_root`
                     // is not under `git_prefix_env_var` since one can do things like `git grep foo
                     // ..`
@@ -465,7 +465,7 @@ __path__:  some matching line
             config.cwd_of_delta_process.as_ref(),
             config.cwd_relative_to_repo_root.as_deref(),
         );
-        let mut delta_test = DeltaTest::with_config(&config);
+        let mut delta_test = PrismTest::with_config(&config);
         if let Some(cmd) = test_case.calling_cmd {
             delta_test = delta_test.with_calling_process(cmd)
         }

@@ -1,4 +1,4 @@
-# Delta configs used in screenshots
+# Prism configs used in screenshots
 
 ## Side-by-side view
 

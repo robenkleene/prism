@@ -274,14 +274,14 @@ fn new_line_state(
 
 #[cfg(test)]
 mod tests {
-    use crate::tests::integration_test_utils::DeltaTest;
+    use crate::tests::integration_test_utils::PrismTest;
 
     mod word_diff {
         use super::*;
 
         #[test]
         fn test_word_diff() {
-            DeltaTest::with_args(&[])
+            PrismTest::with_args(&[])
                 .with_calling_process("git diff --word-diff")
                 .explain_ansi()
                 .with_input(GIT_DIFF_WORD_DIFF)
@@ -299,7 +299,7 @@ mod tests {
 
         #[test]
         fn test_color_words() {
-            DeltaTest::with_args(&[])
+            PrismTest::with_args(&[])
                 .with_calling_process("git diff --color-words")
                 .explain_ansi()
                 .with_input(GIT_DIFF_COLOR_WORDS)
@@ -318,7 +318,7 @@ mod tests {
         #[test]
         #[ignore] // FIXME
         fn test_color_words_map_styles() {
-            DeltaTest::with_args(&[
+            PrismTest::with_args(&[
                 "--map-styles",
                 "red => bold yellow #dddddd, green => bold blue #dddddd",
             ])
@@ -340,7 +340,7 @@ mod tests {
 
         #[test]
         fn test_hunk_line_style_raw() {
-            DeltaTest::with_args(&["--minus-style", "raw", "--plus-style", "raw"])
+            PrismTest::with_args(&["--minus-style", "raw", "--plus-style", "raw"])
                 .explain_ansi()
                 .with_input(GIT_DIFF_WITH_COLOR)
                 .expect_after_skip(
@@ -354,7 +354,7 @@ mod tests {
 
         #[test]
         fn test_hunk_line_style_raw_map_styles() {
-            DeltaTest::with_args(&[
+            PrismTest::with_args(&[
                 "--minus-style",
                 "raw",
                 "--plus-style",

@@ -84,11 +84,11 @@ impl FromAnsiTermColor for Color {
     }
 }
 
-pub trait FromDeltaStyle {
+pub trait FromPrismStyle {
     fn from_delta_style(delta_style: delta_style::Style) -> Self;
 }
 
-impl FromDeltaStyle for Style {
+impl FromPrismStyle for Style {
     fn from_delta_style(delta_style: delta_style::Style) -> Self {
         Self::from_ansi_term_style(delta_style.ansi_term_style)
     }

@@ -8,7 +8,7 @@ use console::Term;
 
 use crate::cli;
 use crate::config;
-use crate::env::DeltaEnv;
+use crate::env::PrismEnv;
 use crate::errors::*;
 use crate::fatal;
 use crate::features;
@@ -652,7 +652,7 @@ fn set_true_color(opt: &mut cli::Opt) {
     };
 }
 
-fn is_truecolor_terminal(env: &DeltaEnv) -> bool {
+fn is_truecolor_terminal(env: &PrismEnv) -> bool {
     env.colorterm
         .as_ref()
         .map(|colorterm| colorterm == "truecolor" || colorterm == "24bit")

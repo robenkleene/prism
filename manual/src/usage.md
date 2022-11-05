@@ -2,7 +2,7 @@
 
 The main way to use delta is to configure it as the pager for git: see [Configuration](./configuration.md).
 
-Delta can also be used as a shorthand for diffing two files, even if they are not in a git repo: the following two commands do the same thing:
+Prism can also be used as a shorthand for diffing two files, even if they are not in a git repo: the following two commands do the same thing:
 
 ```
 delta /somewhere/a.txt /somewhere/else/b.txt

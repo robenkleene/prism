@@ -256,7 +256,7 @@ OPTIONS:
         --inspect-raw-lines <true|false>
             Kill-switch for --color-moved support.
 
-            Whether to examine ANSI color escape sequences in raw lines received from Git and handle lines colored in certain ways specially. This is on by default: it is how Delta supports Git's --color-moved feature. Set this to "false" to disable this behavior.
+            Whether to examine ANSI color escape sequences in raw lines received from Git and handle lines colored in certain ways specially. This is on by default: it is how Prism supports Git's --color-moved feature. Set this to "false" to disable this behavior.
 
             [default: true]
 
@@ -273,7 +273,7 @@ OPTIONS:
         --line-buffer-size <N>
             Size of internal line buffer.
 
-            Delta compares the added and removed versions of nearby lines in order to detect and highlight changes at the level of individual words/tokens. Therefore, nearby lines must be buffered internally before they are painted and emitted. Increasing this value might improve highlighting of some large diff hunks. However, setting this to a high value will adversely affect delta's performance when entire files are added/removed.
+            Prism compares the added and removed versions of nearby lines in order to detect and highlight changes at the level of individual words/tokens. Therefore, nearby lines must be buffered internally before they are painted and emitted. Increasing this value might improve highlighting of some large diff hunks. However, setting this to a high value will adversely affect delta's performance when entire files are added/removed.
 
             [default: 32]
 
@@ -512,7 +512,7 @@ OPTIONS:
             In addition to named colors, arbitrary colors can be specified using RGB hex codes. See COLORS section.
 
         --show-config
-            Display the active values for all Delta options.
+            Display the active values for all Prism options.
 
             Style string options are displayed with foreground and background colors. This can be used to experiment with colors by combining this option with other options such as --minus-style, --zero-style, --plus-style, --light, --dark, etc.
 

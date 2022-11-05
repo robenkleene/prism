@@ -2,11 +2,11 @@ The purpose of delta is to transform input received from git, diff, git blame, g
 
 ### Initialization
 
-Delta [reads](https://github.com/dandavison/delta/blob/1e1bd6b6b96a3515fd7c70d6b252a25eb9807dc7/src/main.rs#L83) user options from `[delta]` sections in [`.gitconfig`](https://git-scm.com/docs/git-config), and from the command line.
+Prism [reads](https://github.com/dandavison/delta/blob/1e1bd6b6b96a3515fd7c70d6b252a25eb9807dc7/src/main.rs#L83) user options from `[delta]` sections in [`.gitconfig`](https://git-scm.com/docs/git-config), and from the command line.
 
 ### Input
 
-Delta [reads from stdin](https://github.com/dandavison/delta/blob/1e1bd6b6b96a3515fd7c70d6b252a25eb9807dc7/src/main.rs#L138), hence one can do e.g. `git diff | delta`.
+Prism [reads from stdin](https://github.com/dandavison/delta/blob/1e1bd6b6b96a3515fd7c70d6b252a25eb9807dc7/src/main.rs#L138), hence one can do e.g. `git diff | delta`.
 Note that when git's stdout is sent to a pipe, (a) git does not emit [ANSI color escape sequences](https://en.wikipedia.org/wiki/ANSI_escape_code) unless `--color=always`, and (b) git does not start its own pager process.
 
 Users typically configure git to use delta as its pager.
@@ -14,14 +14,14 @@ In that case, git sends its stdout to delta behind the scenes (_with_ ANSI color
 
 ### Parsing the input
 
-Delta [parses input](https://github.com/dandavison/delta/blob/1e1bd6b6b96a3515fd7c70d6b252a25eb9807dc7/src/delta.rs#L81) using a state machine in which
+Prism [parses input](https://github.com/dandavison/delta/blob/1e1bd6b6b96a3515fd7c70d6b252a25eb9807dc7/src/delta.rs#L81) using a state machine in which
 the states correspond to semantically distinct sections of the input (e.g. `HunkMinus` means that we are in a removed line in a diff hunk).
 The core dispatching loop is [here](https://github.com/dandavison/delta/blob/1e1bd6b6b96a3515fd7c70d6b252a25eb9807dc7/src/delta.rs#L115-L129).
 
 ### Output
 
-Delta [creates](https://github.com/dandavison/delta/blob/114ae670223520657208501a3245a3b4261c1093/src/main.rs#L125) a child pager process (`less`) and writes its output to the stdin of the pager process.
-Delta's `navigate` feature is implemented by constructing an appropriate regex and passing it as an argument to `less`.
+Prism [creates](https://github.com/dandavison/delta/blob/114ae670223520657208501a3245a3b4261c1093/src/main.rs#L125) a child pager process (`less`) and writes its output to the stdin of the pager process.
+Prism's `navigate` feature is implemented by constructing an appropriate regex and passing it as an argument to `less`.
 
 ## Core utility data structures
 
@@ -51,7 +51,7 @@ Now, we are at the end of a subhunk, and we have a sequence of minus lines, and 
 
 <table><tr><td><img width=1000px src="https://user-images.githubusercontent.com/52205/143171872-64f41fe1-9968-48c7-86e8-dba9303a54e2.png" alt="image" /></td></tr></table>
 
-Delta [processes a subhunk](https://github.com/dandavison/delta/blob/1e1bd6b6b96a3515fd7c70d6b252a25eb9807dc7/src/paint.rs#L163) as follows:
+Prism [processes a subhunk](https://github.com/dandavison/delta/blob/1e1bd6b6b96a3515fd7c70d6b252a25eb9807dc7/src/paint.rs#L163) as follows:
 
 1. **Compute syntax styles for the subhunk**
 
@@ -93,7 +93,7 @@ The inferred pairing is the one with the smallest edit distance.
 
 ## Features
 
-Delta features such as `line-numbers`, `side-by-side`, `diff-so-fancy`, etc can be considered to consist of (a) some feature-specific implementation code, and (b) a collection of key-value pairs specifying the values that certain delta options should take if that feature is enabled.
+Prism features such as `line-numbers`, `side-by-side`, `diff-so-fancy`, etc can be considered to consist of (a) some feature-specific implementation code, and (b) a collection of key-value pairs specifying the values that certain delta options should take if that feature is enabled.
 Accordingly, each such "feature" is implemented by a separate module under [`src/features/`](https://github.com/dandavison/delta/tree/master/src/features).
 Each of these modules must export a function named `make_feature` whose job is to return key-value pairs for updating the user options.
 

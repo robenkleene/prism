@@ -1,6 +1,6 @@
 use crate::config::delta_unreachable;
 
-/// A value associated with a Delta command-line option name.
+/// A value associated with a Prism command-line option name.
 pub enum OptionValue {
     Boolean(bool),
     Float(f64),

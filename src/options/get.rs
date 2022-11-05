@@ -140,7 +140,7 @@ pub mod tests {
     use std::fs::remove_file;
 
     use crate::cli::Opt;
-    use crate::env::DeltaEnv;
+    use crate::env::PrismEnv;
     use crate::options::get::get_themes;
     use crate::tests::integration_test_utils;
 
@@ -160,9 +160,9 @@ pub mod tests {
         fn_cmp_before(opt);
 
         let opt = integration_test_utils::make_options_from_args_and_git_config_honoring_env_var_with_custom_env(
-            DeltaEnv {
+            PrismEnv {
                 git_config_parameters: Some(env_value),
-                ..DeltaEnv::default()
+                ..PrismEnv::default()
             },
             &[],
             Some(git_config_contents),
@@ -285,9 +285,9 @@ pub mod tests {
         assert_eq!(opt.side_by_side, false);
 
         let opt = integration_test_utils::make_options_from_args_and_git_config_with_custom_env(
-            DeltaEnv {
+            PrismEnv {
                 features: Some("side-by-side".into()),
-                ..DeltaEnv::default()
+                ..PrismEnv::default()
             },
             &[],
             Some(git_config_contents),
@@ -298,9 +298,9 @@ pub mod tests {
         assert_eq!(opt.side_by_side, true);
 
         let opt = integration_test_utils::make_options_from_args_and_git_config_with_custom_env(
-            DeltaEnv {
+            PrismEnv {
                 features: Some("+side-by-side".into()),
-                ..DeltaEnv::default()
+                ..PrismEnv::default()
             },
             &[],
             Some(git_config_contents),
@@ -340,7 +340,7 @@ pub mod tests {
         let git_config_path = "delta__test_get_themes_git_config.gitconfig";
 
         let git_config = Some(integration_test_utils::make_git_config(
-            &DeltaEnv::default(),
+            &PrismEnv::default(),
             git_config_contents.as_bytes(),
             git_config_path,
             false,

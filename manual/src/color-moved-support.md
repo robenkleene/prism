@@ -1,6 +1,6 @@
 # `--color-moved` support
 
-Recent versions of Git (≥ v2.17, April 2018) are able to detect moved blocks of code and style them differently from the usual removed/added lines. If you have activated this feature in Git, then Delta will automatically detect such differently-styled lines, and display them unchanged, i.e. with the raw colors it receives from Git.
+Recent versions of Git (≥ v2.17, April 2018) are able to detect moved blocks of code and style them differently from the usual removed/added lines. If you have activated this feature in Git, then Prism will automatically detect such differently-styled lines, and display them unchanged, i.e. with the raw colors it receives from Git.
 
 To activate the Git feature, use
 

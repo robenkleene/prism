@@ -1,7 +1,7 @@
 use crate::cli;
 use crate::config;
 use crate::delta;
-use crate::env::DeltaEnv;
+use crate::env::PrismEnv;
 use crate::options::theme::is_light_syntax_theme;
 use crate::utils;
 use crate::utils::bat::output::{OutputType, PagingMode};
@@ -10,7 +10,7 @@ use std::io::{self, ErrorKind, Read, Write};
 
 #[cfg(not(tarpaulin_include))]
 pub fn show_syntax_themes() -> std::io::Result<()> {
-    let env = DeltaEnv::default();
+    let env = PrismEnv::default();
     let assets = utils::bat::assets::load_highlighting_assets();
     let mut output_type = OutputType::from_mode(
         &env,

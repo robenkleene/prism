@@ -86,7 +86,7 @@ fn main() -> std::io::Result<()> {
 // arguments and without standard input; 2 is used to report a real problem.
 fn run_app() -> std::io::Result<i32> {
     let assets = utils::bat::assets::load_highlighting_assets();
-    let env = env::DeltaEnv::init();
+    let env = env::PrismEnv::init();
     let opt = cli::Opt::from_args_and_git_config(
         env.clone(),
         git_config::GitConfig::try_create(&env),

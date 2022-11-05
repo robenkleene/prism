@@ -3,7 +3,7 @@ use std::io::{self, ErrorKind, Read};
 use crate::cli;
 use crate::config;
 use crate::delta;
-use crate::env::DeltaEnv;
+use crate::env::PrismEnv;
 use crate::git_config;
 use crate::options::get::get_themes;
 use crate::utils::bat::output::{OutputType, PagingMode};
@@ -25,7 +25,7 @@ pub fn show_themes(dark: bool, light: bool, computed_theme_is_light: bool) -> st
         }
     };
 
-    let env = DeltaEnv::default();
+    let env = PrismEnv::default();
     let git_config = git_config::GitConfig::try_create(&env);
     let opt = cli::Opt::from_iter_and_git_config(
         env.clone(),

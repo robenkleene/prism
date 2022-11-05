@@ -18,4 +18,4 @@ Then, add your chosen color theme to your features list, e.g.
     ...
 ```
 
-Note that this terminology differs from [bat](https://github.com/sharkdp/bat): bat does not apply background colors, and uses the term "theme" to refer to what delta calls `syntax-theme`. Delta does not have a setting named "theme": a theme is a "feature", so one uses `features` to select a theme.
+Note that this terminology differs from [bat](https://github.com/sharkdp/bat): bat does not apply background colors, and uses the term "theme" to refer to what delta calls `syntax-theme`. Prism does not have a setting named "theme": a theme is a "feature", so one uses `features` to select a theme.

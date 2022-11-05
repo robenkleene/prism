@@ -34,7 +34,7 @@ In addition to `DELTA_PAGER`, and `PAGER`, delta currently also consults `$BAT_P
 However, this is deprecated: please use `DELTA_PAGER` instead.
 No other [`bat`](https://github.com/sharkdp/bat) environment variables are used by delta, and delta does not use `bat` when it is running (it does use some code from the excellent `bat` project, but users don't need to be aware of this).
 
-## Delta-specific environment variables
+## Prism-specific environment variables
 
 To temporarily activate and inactivate delta features, you can use `DELTA_FEATURES`, e.g.
 

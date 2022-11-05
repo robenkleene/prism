@@ -5,7 +5,7 @@ use std::sync::{Arc, Condvar, Mutex, MutexGuard};
 use lazy_static::lazy_static;
 use sysinfo::{Pid, PidExt, Process, ProcessExt, ProcessRefreshKind, SystemExt};
 
-pub type DeltaPid = u32;
+pub type PrismPid = u32;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum CallingProcess {
@@ -297,8 +297,8 @@ impl ProcInfo {
 
 trait ProcActions {
     fn cmd(&self) -> &[String];
-    fn parent(&self) -> Option<DeltaPid>;
-    fn pid(&self) -> DeltaPid;
+    fn parent(&self) -> Option<PrismPid>;
+    fn pid(&self) -> PrismPid;
     fn start_time(&self) -> u64;
 }
 
@@ -309,10 +309,10 @@ where
     fn cmd(&self) -> &[String] {
         ProcessExt::cmd(self)
     }
-    fn parent(&self) -> Option<DeltaPid> {
+    fn parent(&self) -> Option<PrismPid> {
         ProcessExt::parent(self).map(|p| p.as_u32())
     }
-    fn pid(&self) -> DeltaPid {
+    fn pid(&self) -> PrismPid {
         ProcessExt::pid(self).as_u32()
     }
     fn start_time(&self) -> u64 {
@@ -323,28 +323,28 @@ where
 trait ProcessInterface {
     type Out: ProcActions;
 
-    fn my_pid(&self) -> DeltaPid;
+    fn my_pid(&self) -> PrismPid;
 
-    fn process(&self, pid: DeltaPid) -> Option<&Self::Out>;
+    fn process(&self, pid: PrismPid) -> Option<&Self::Out>;
     fn processes(&self) -> &HashMap<Pid, Self::Out>;
 
-    fn refresh_process(&mut self, pid: DeltaPid) -> bool;
+    fn refresh_process(&mut self, pid: PrismPid) -> bool;
     fn refresh_processes(&mut self);
 
-    fn parent_process(&mut self, pid: DeltaPid) -> Option<&Self::Out> {
+    fn parent_process(&mut self, pid: PrismPid) -> Option<&Self::Out> {
         self.refresh_process(pid).then_some(())?;
         let parent_pid = self.process(pid)?.parent()?;
         self.refresh_process(parent_pid).then_some(())?;
         self.process(parent_pid)
     }
-    fn naive_sibling_process(&mut self, pid: DeltaPid) -> Option<&Self::Out> {
+    fn naive_sibling_process(&mut self, pid: PrismPid) -> Option<&Self::Out> {
         let sibling_pid = pid - 1;
         self.refresh_process(sibling_pid).then_some(())?;
         self.process(sibling_pid)
     }
     fn find_sibling_in_refreshed_processes<F, T>(
         &mut self,
-        pid: DeltaPid,
+        pid: PrismPid,
         extract_args: &F,
     ) -> Option<T>
     where
@@ -371,7 +371,7 @@ trait ProcessInterface {
 
         let this_start_time = self.process(pid)?.start_time();
 
-        let mut pid_distances = HashMap::<DeltaPid, usize>::new();
+        let mut pid_distances = HashMap::<PrismPid, usize>::new();
         let mut collect_parent_pids = |pid, distance| {
             pid_distances.insert(pid, distance);
         };
@@ -418,14 +418,14 @@ trait ProcessInterface {
 impl ProcessInterface for ProcInfo {
     type Out = Process;
 
-    fn my_pid(&self) -> DeltaPid {
+    fn my_pid(&self) -> PrismPid {
         std::process::id()
     }
-    fn refresh_process(&mut self, pid: DeltaPid) -> bool {
+    fn refresh_process(&mut self, pid: PrismPid) -> bool {
         self.info
             .refresh_process_specifics(Pid::from_u32(pid), ProcessRefreshKind::new())
     }
-    fn process(&self, pid: DeltaPid) -> Option<&Self::Out> {
+    fn process(&self, pid: PrismPid) -> Option<&Self::Out> {
         self.info.process(Pid::from_u32(pid))
     }
     fn processes(&self) -> &HashMap<Pid, Self::Out> {
@@ -549,12 +549,12 @@ where
 
 // Walk up the process tree, calling `f` with the pid and the distance to `starting_pid`.
 // Prerequisite: `info.refresh_processes()` has been called.
-fn iter_parents<P, F>(info: &P, starting_pid: DeltaPid, f: F)
+fn iter_parents<P, F>(info: &P, starting_pid: PrismPid, f: F)
 where
     P: ProcessInterface,
-    F: FnMut(DeltaPid, usize),
+    F: FnMut(PrismPid, usize),
 {
-    fn inner_iter_parents<P, F>(info: &P, pid: DeltaPid, mut f: F, distance: usize)
+    fn inner_iter_parents<P, F>(info: &P, pid: PrismPid, mut f: F, distance: usize)
     where
         P: ProcessInterface,
         F: FnMut(u32, usize),
@@ -749,10 +749,10 @@ pub mod tests {
     #[derive(Debug)]
     struct FakeProc {
         #[allow(dead_code)]
-        pid: DeltaPid,
+        pid: PrismPid,
         start_time: u64,
         cmd: Vec<String>,
-        ppid: Option<DeltaPid>,
+        ppid: Option<PrismPid>,
     }
     impl Default for FakeProc {
         fn default() -> Self {
@@ -765,7 +765,7 @@ pub mod tests {
         }
     }
     impl FakeProc {
-        fn new(pid: DeltaPid, start_time: u64, cmd: Vec<String>, ppid: Option<DeltaPid>) -> Self {
+        fn new(pid: PrismPid, start_time: u64, cmd: Vec<String>, ppid: Option<PrismPid>) -> Self {
             FakeProc {
                 pid,
                 start_time,
@@ -779,10 +779,10 @@ pub mod tests {
         fn cmd(&self) -> &[String] {
             &self.cmd
         }
-        fn parent(&self) -> Option<DeltaPid> {
+        fn parent(&self) -> Option<PrismPid> {
             self.ppid
         }
-        fn pid(&self) -> DeltaPid {
+        fn pid(&self) -> PrismPid {
             self.pid
         }
         fn start_time(&self) -> u64 {
@@ -792,7 +792,7 @@ pub mod tests {
 
     #[derive(Debug)]
     struct MockProcInfo {
-        delta_pid: DeltaPid,
+        delta_pid: PrismPid,
         info: HashMap<Pid, FakeProc>,
     }
     impl Default for MockProcInfo {
@@ -804,7 +804,7 @@ pub mod tests {
         }
     }
     impl MockProcInfo {
-        fn with(processes: &[(DeltaPid, u64, &str, Option<DeltaPid>)]) -> Self {
+        fn with(processes: &[(PrismPid, u64, &str, Option<PrismPid>)]) -> Self {
             MockProcInfo {
                 delta_pid: processes.last().map(|p| p.0).unwrap_or(1),
                 info: processes
@@ -824,17 +824,17 @@ pub mod tests {
     impl ProcessInterface for MockProcInfo {
         type Out = FakeProc;
 
-        fn my_pid(&self) -> DeltaPid {
+        fn my_pid(&self) -> PrismPid {
             self.delta_pid
         }
-        fn process(&self, pid: DeltaPid) -> Option<&Self::Out> {
+        fn process(&self, pid: PrismPid) -> Option<&Self::Out> {
             self.info.get(&Pid::from_u32(pid))
         }
         fn processes(&self) -> &HashMap<Pid, Self::Out> {
             &self.info
         }
         fn refresh_processes(&mut self) {}
-        fn refresh_process(&mut self, _pid: DeltaPid) -> bool {
+        fn refresh_process(&mut self, _pid: PrismPid) -> bool {
             true
         }
     }

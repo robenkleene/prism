@@ -7,25 +7,25 @@ mod tests {
     use crate::style;
     use crate::tests::ansi_test_utils::ansi_test_utils;
     use crate::tests::integration_test_utils;
-    use crate::tests::integration_test_utils::DeltaTest;
+    use crate::tests::integration_test_utils::PrismTest;
 
     #[test]
     fn test_added_file() {
-        DeltaTest::with_args(&[])
+        PrismTest::with_args(&[])
             .with_input(ADDED_FILE_INPUT)
             .expect_contains("\nadded: a.py\n");
     }
 
     #[test]
     fn test_added_empty_file() {
-        DeltaTest::with_args(&[])
+        PrismTest::with_args(&[])
             .with_input(ADDED_EMPTY_FILE)
             .expect_contains("\nadded: file\n");
     }
 
     #[test]
     fn test_added_file_directory_path_containing_space() {
-        DeltaTest::with_args(&[])
+        PrismTest::with_args(&[])
             .with_input(ADDED_FILES_DIRECTORY_PATH_CONTAINING_SPACE)
             .expect_contains("\nadded: with space/file1\n")
             .expect_contains("\nadded: nospace/file2\n");
@@ -33,21 +33,21 @@ mod tests {
 
     #[test]
     fn test_renamed_file() {
-        DeltaTest::with_args(&[])
+        PrismTest::with_args(&[])
             .with_input(RENAMED_FILE_INPUT)
             .expect_contains_once("\nrenamed: a.py ⟶   b.py\n");
     }
 
     #[test]
     fn test_copied_file() {
-        DeltaTest::with_args(&[])
+        PrismTest::with_args(&[])
             .with_input(GIT_DIFF_WITH_COPIED_FILE)
             .expect_contains_once("\ncopied: first_file ⟶   copied_file\n");
     }
 
     #[test]
     fn test_renamed_file_with_changes() {
-        let t = DeltaTest::with_args(&[])
+        let t = PrismTest::with_args(&[])
             .with_input(RENAMED_FILE_WITH_CHANGES_INPUT)
             .expect_contains_once(
             "\nrenamed: Casks/font-dejavusansmono-nerd-font.rb ⟶   Casks/font-dejavu-sans-mono-nerd-font.rb\n"
@@ -138,7 +138,7 @@ mod tests {
     fn test_diff_unified_concatenated() {
         // See #1002. Line buffers were not being flushed correctly, leading to material from first
         // file last hunk appearing at beginning of second file first hunk.
-        DeltaTest::with_args(&[])
+        PrismTest::with_args(&[])
             .with_input(DIFF_UNIFIED_CONCATENATED)
             .expect_contains("\nLINES.\n\n1/y 2022-03-06");
     }
@@ -1550,35 +1550,35 @@ src/align.rs:71: impl<'a> Alignment<'a> { │
 
     #[test]
     fn test_file_mode_change_gain_executable_bit() {
-        DeltaTest::with_args(&[])
+        PrismTest::with_args(&[])
             .with_input(GIT_DIFF_FILE_MODE_CHANGE_GAIN_EXECUTABLE_BIT)
             .expect_contains("src/delta.rs (mode +x)");
     }
 
     #[test]
     fn test_file_mode_change_lose_executable_bit() {
-        DeltaTest::with_args(&[])
+        PrismTest::with_args(&[])
             .with_input(GIT_DIFF_FILE_MODE_CHANGE_LOSE_EXECUTABLE_BIT)
             .expect_contains("src/delta.rs (mode -x)");
     }
 
     #[test]
     fn test_file_mode_change_unexpected_bits() {
-        DeltaTest::with_args(&["--navigate", "--right-arrow=->"])
+        PrismTest::with_args(&["--navigate", "--right-arrow=->"])
             .with_input(GIT_DIFF_FILE_MODE_CHANGE_UNEXPECTED_BITS)
             .expect_contains("Δ src/delta.rs (mode 100700 -> 100644)");
     }
 
     #[test]
     fn test_file_deleted_without_preimage() {
-        DeltaTest::with_args(&[])
+        PrismTest::with_args(&[])
             .with_input(GIT_DIFF_FILE_DELETED_WITHOUT_PREIMAGE)
             .expect_contains("removed: foo.bar");
     }
 
     #[test]
     fn test_files_deleted_without_preimage() {
-        DeltaTest::with_args(&[])
+        PrismTest::with_args(&[])
             .with_input(GIT_DIFF_FILES_DELETED_WITHOUT_PREIMAGE)
             .expect_contains("removed: foo")
             .expect_contains("removed: bar");
@@ -1586,7 +1586,7 @@ src/align.rs:71: impl<'a> Alignment<'a> { │
 
     #[test]
     fn test_file_mode_change_with_diff() {
-        DeltaTest::with_args(&["--navigate", "--keep-plus-minus-markers"])
+        PrismTest::with_args(&["--navigate", "--keep-plus-minus-markers"])
             .with_input(GIT_DIFF_FILE_MODE_CHANGE_WITH_DIFF)
             .expect_contains("Δ src/script (mode +x)")
             .expect_after_skip(
@@ -1606,7 +1606,7 @@ src/align.rs:71: impl<'a> Alignment<'a> { │
         // mode, in which case we only format hyperlinks if output is a tty;
         // this causes the test to fail on Github Actions, but pass locally
         // if output is left going to the screen.
-        DeltaTest::with_args(&[
+        PrismTest::with_args(&[
                 "--commit-style",
                 "blue",
                 "--hyperlinks",
@@ -1621,14 +1621,14 @@ src/align.rs:71: impl<'a> Alignment<'a> { │
 
     #[test]
     fn test_filenames_with_spaces() {
-        DeltaTest::with_args(&[])
+        PrismTest::with_args(&[])
             .with_input(GIT_DIFF_NO_INDEX_FILENAMES_WITH_SPACES)
             .expect_contains("a b ⟶   c d\n");
     }
 
     #[test]
     fn test_file_removal_in_log_output() {
-        DeltaTest::with_args(&[])
+        PrismTest::with_args(&[])
             .with_input(GIT_LOG_FILE_REMOVAL_IN_FIRST_COMMIT)
             .expect_after_header("#partial\n\nremoved: a");
     }

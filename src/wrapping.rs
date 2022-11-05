@@ -13,7 +13,7 @@ use crate::features::side_by_side::{available_line_width, line_is_too_long, Left
 use crate::minusplus::*;
 use crate::paint::LineSections;
 use crate::style::Style;
-use crate::utils::syntect::FromDeltaStyle;
+use crate::utils::syntect::FromPrismStyle;
 
 /// See [`wrap_line`] for documentation.
 #[derive(Clone, Debug)]
@@ -643,7 +643,7 @@ mod tests {
     use crate::config::Config;
     use crate::paint::LineSections;
     use crate::style::Style;
-    use crate::tests::integration_test_utils::{make_config_from_args, DeltaTest};
+    use crate::tests::integration_test_utils::{make_config_from_args, PrismTest};
 
     lazy_static! {
         static ref S1: Style = Style {
@@ -992,7 +992,7 @@ index 223ca50..e69de29 100644
 
     #[test]
     fn test_wrap_with_unequal_hunk_zero_width() {
-        DeltaTest::with_args(&default_wrap_cfg_plus(&[
+        PrismTest::with_args(&default_wrap_cfg_plus(&[
             "--side-by-side",
             "--line-numbers-left-format",
             "│L│",
@@ -1018,7 +1018,7 @@ index 223ca50..e69de29 100644
 
     #[test]
     fn test_wrap_with_large_hunk_zero_line_numbers() {
-        DeltaTest::with_args(&default_wrap_cfg_plus(&[
+        PrismTest::with_args(&default_wrap_cfg_plus(&[
             "--side-by-side",
             "--line-numbers-left-format",
             "│LLL│",
@@ -1045,7 +1045,7 @@ index 223ca50..e69de29 100644
     #[test]
     fn test_wrap_with_keep_markers() {
         use crate::features::side_by_side::ansifill::ODD_PAD_CHAR;
-        let t = DeltaTest::with_args(&default_wrap_cfg_plus(&[
+        let t = PrismTest::with_args(&default_wrap_cfg_plus(&[
             "--side-by-side",
             "--keep-plus-minus-markers",
             "--width",
@@ -1081,7 +1081,7 @@ index 223ca50..e69de29 100644
             make_config_from_args(&default_wrap_cfg_plus(&["--side-by-side", "--width", "55"]));
 
         {
-            DeltaTest::with_config(&config)
+            PrismTest::with_config(&config)
                 .with_input(&format!(
                     "{}-{}+{}",
                     HUNK_ALIGN_DIFF_HEADER, HUNK_ALIGN_DIFF_SHORT, HUNK_ALIGN_DIFF_LONG
@@ -1096,7 +1096,7 @@ index 223ca50..e69de29 100644
         }
 
         {
-            DeltaTest::with_config(&config)
+            PrismTest::with_config(&config)
                 .with_input(&format!(
                     "{}-{}+{}",
                     HUNK_ALIGN_DIFF_HEADER, HUNK_ALIGN_DIFF_LONG, HUNK_ALIGN_DIFF_SHORT
@@ -1121,7 +1121,7 @@ index 223ca50..e69de29 100644
         ]));
 
         {
-            DeltaTest::with_config(&config)
+            PrismTest::with_config(&config)
                 .with_input(&format!(
                     "{}-{}+{}",
                     HUNK_ALIGN_DIFF_HEADER, HUNK_ALIGN_DIFF_SHORT, HUNK_ALIGN_DIFF_LONG
@@ -1135,7 +1135,7 @@ index 223ca50..e69de29 100644
         }
 
         {
-            DeltaTest::with_config(&config)
+            PrismTest::with_config(&config)
                 .with_input(&format!(
                     "{}-{}+{}",
                     HUNK_ALIGN_DIFF_HEADER, HUNK_ALIGN_DIFF_LONG, HUNK_ALIGN_DIFF_SHORT
@@ -1164,7 +1164,7 @@ index 223ca50..e69de29 100644
         config.truncation_symbol = ">".into();
 
         {
-            DeltaTest::with_config(&config)
+            PrismTest::with_config(&config)
                 .with_input(&format!(
                     "{}-{}+{}",
                     HUNK_ALIGN_DIFF_HEADER, HUNK_ALIGN_DIFF_SHORT, HUNK_ALIGN_DIFF_LONG
@@ -1179,7 +1179,7 @@ index 223ca50..e69de29 100644
 
         {
             config.wrap_config.max_lines = 2;
-            DeltaTest::with_config(&config)
+            PrismTest::with_config(&config)
                 .with_input(&format!(
                     "{}-{}+{}",
                     HUNK_ALIGN_DIFF_HEADER, HUNK_ALIGN_DIFF_SHORT, HUNK_ALIGN_DIFF_LONG

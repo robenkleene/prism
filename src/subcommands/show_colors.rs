@@ -3,7 +3,7 @@ use crate::color;
 use crate::colors;
 use crate::config;
 use crate::delta;
-use crate::env::DeltaEnv;
+use crate::env::PrismEnv;
 use crate::git_config;
 use crate::paint;
 use crate::paint::BgShouldFill;
@@ -17,7 +17,7 @@ pub fn show_colors() -> std::io::Result<()> {
     use crate::{delta::DiffType, utils};
 
     let assets = utils::bat::assets::load_highlighting_assets();
-    let env = DeltaEnv::default();
+    let env = PrismEnv::default();
     let opt = cli::Opt::from_args_and_git_config(
         env.clone(),
         git_config::GitConfig::try_create(&env),

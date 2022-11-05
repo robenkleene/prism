@@ -9,7 +9,7 @@ use std::process::{Child, Command, Stdio};
 use super::less::retrieve_less_version;
 
 use crate::config;
-use crate::env::DeltaEnv;
+use crate::env::PrismEnv;
 use crate::fatal;
 use crate::features::navigate;
 
@@ -29,7 +29,7 @@ pub enum OutputType {
 
 impl OutputType {
     pub fn from_mode(
-        env: &DeltaEnv,
+        env: &PrismEnv,
         mode: PagingMode,
         pager: Option<String>,
         config: &config::Config,
@@ -44,7 +44,7 @@ impl OutputType {
 
     /// Try to launch the pager. Fall back to stdout in case of errors.
     fn try_pager(
-        env: &DeltaEnv,
+        env: &PrismEnv,
         quit_if_one_screen: bool,
         pager_from_config: Option<String>,
         config: &config::Config,

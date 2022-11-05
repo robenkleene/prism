@@ -12,7 +12,7 @@ use crate::ansi;
 use crate::cli;
 use crate::config;
 use crate::delta::delta;
-use crate::env::DeltaEnv;
+use crate::env::PrismEnv;
 use crate::git_config::GitConfig;
 use crate::tests::test_utils;
 use crate::utils::process::tests::FakeParentArgs;
@@ -23,7 +23,7 @@ pub fn make_options_from_args_and_git_config(
     git_config_path: Option<&str>,
 ) -> cli::Opt {
     _make_options_from_args_and_git_config(
-        DeltaEnv::default(),
+        PrismEnv::default(),
         args,
         git_config_contents,
         git_config_path,
@@ -32,7 +32,7 @@ pub fn make_options_from_args_and_git_config(
 }
 
 pub fn make_options_from_args_and_git_config_with_custom_env(
-    env: DeltaEnv,
+    env: PrismEnv,
     args: &[&str],
     git_config_contents: Option<&[u8]>,
     git_config_path: Option<&str>,
@@ -41,7 +41,7 @@ pub fn make_options_from_args_and_git_config_with_custom_env(
 }
 
 pub fn make_options_from_args_and_git_config_honoring_env_var_with_custom_env(
-    env: DeltaEnv,
+    env: PrismEnv,
     args: &[&str],
     git_config_contents: Option<&[u8]>,
     git_config_path: Option<&str>,
@@ -50,7 +50,7 @@ pub fn make_options_from_args_and_git_config_honoring_env_var_with_custom_env(
 }
 
 fn _make_options_from_args_and_git_config(
-    env: DeltaEnv,
+    env: PrismEnv,
     args: &[&str],
     git_config_contents: Option<&[u8]>,
     git_config_path: Option<&str>,
@@ -91,7 +91,7 @@ pub fn make_config_from_args(args: &[&str]) -> config::Config {
 }
 
 pub fn make_git_config(
-    env: &DeltaEnv,
+    env: &PrismEnv,
     contents: &[u8],
     path: &str,
     honor_env_var: bool,
@@ -171,13 +171,13 @@ pub fn delineated_string(txt: &str) -> String {
     top + &nl + txt + &nl + &btm
 }
 
-pub struct DeltaTest<'a> {
+pub struct PrismTest<'a> {
     config: Cow<'a, config::Config>,
     calling_process: Option<String>,
     explain_ansi_: bool,
 }
 
-impl<'a> DeltaTest<'a> {
+impl<'a> PrismTest<'a> {
     pub fn with_args(args: &[&str]) -> Self {
         Self {
             config: Cow::Owned(make_config_from_args(args)),
@@ -214,7 +214,7 @@ impl<'a> DeltaTest<'a> {
         self
     }
 
-    pub fn with_input(&self, input: &str) -> DeltaTestOutput {
+    pub fn with_input(&self, input: &str) -> PrismTestOutput {
         let _args = FakeParentArgs::for_scope(self.calling_process.as_deref().unwrap_or(""));
         let raw = run_delta(input, &self.config);
         let cooked = if self.explain_ansi_ {
@@ -223,19 +223,19 @@ impl<'a> DeltaTest<'a> {
             ansi::strip_ansi_codes(&raw)
         };
 
-        DeltaTestOutput {
+        PrismTestOutput {
             raw_output: raw,
             output: cooked,
         }
     }
 }
 
-pub struct DeltaTestOutput {
+pub struct PrismTestOutput {
     pub raw_output: String,
     pub output: String,
 }
 
-impl DeltaTestOutput {
+impl PrismTestOutput {
     /// Print output, either without ANSI escape sequences or, if explain_ansi() has been called,
     /// with ASCII explanation of ANSI escape sequences.
     #[allow(unused)]
@@ -383,7 +383,7 @@ ignored!  2
     #[test]
     fn test_delta_test() {
         let input = "@@ -1,1 +1,1 @@ fn foo() {\n-1\n+2\n";
-        DeltaTest::with_args(&["--raw"])
+        PrismTest::with_args(&["--raw"])
             .set_config(|c| c.pager = None)
             .set_config(|c| c.line_numbers = true)
             .with_input(input)
@@ -395,7 +395,7 @@ ignored!  2
                      ⋮  1 │+2"#,
             );
 
-        DeltaTest::with_args(&[])
+        PrismTest::with_args(&[])
             .with_input(input)
             .expect_after_skip(
                 4,
@@ -404,7 +404,7 @@ ignored!  2
                 2"#,
             );
 
-        DeltaTest::with_args(&["--raw"])
+        PrismTest::with_args(&["--raw"])
             .explain_ansi()
             .with_input(input)
             .expect(

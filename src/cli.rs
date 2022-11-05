@@ -9,7 +9,7 @@ use syntect::highlighting::Theme as SyntaxTheme;
 use syntect::parsing::SyntaxSet;
 
 use crate::config::delta_unreachable;
-use crate::env::DeltaEnv;
+use crate::env::PrismEnv;
 use crate::git_config::{GitConfig, GitConfigEntry};
 use crate::options;
 use crate::utils;
@@ -563,7 +563,7 @@ pub struct Opt {
     /// Kill-switch for --color-moved support.
     ///
     /// Whether to examine ANSI color escape sequences in raw lines received from Git and handle
-    /// lines colored in certain ways specially. This is on by default: it is how Delta supports
+    /// lines colored in certain ways specially. This is on by default: it is how Prism supports
     /// Git's --color-moved feature. Set this to "false" to disable this behavior.
     pub inspect_raw_lines: String,
 
@@ -583,7 +583,7 @@ pub struct Opt {
     #[clap(long = "line-buffer-size", default_value = "32", value_name = "N")]
     /// Size of internal line buffer.
     ///
-    /// Delta compares the added and removed versions of nearby lines in order to detect and
+    /// Prism compares the added and removed versions of nearby lines in order to detect and
     /// highlight changes at the level of individual words/tokens. Therefore, nearby lines must be
     /// buffered internally before they are painted and emitted. Increasing this value might improve
     /// highlighting of some large diff hunks. However, setting this to a high value will adversely
@@ -921,7 +921,7 @@ pub struct Opt {
     pub show_colors: bool,
 
     #[clap(long = "show-config")]
-    /// Display the active values for all Delta options.
+    /// Display the active values for all Prism options.
     ///
     /// Style string options are displayed with foreground and background colors. This can be used to
     /// experiment with colors by combining this option with other options such as --minus-style,
@@ -1085,7 +1085,7 @@ pub struct Opt {
     pub git_config_entries: HashMap<String, GitConfigEntry>,
 
     #[clap(skip)]
-    pub env: DeltaEnv,
+    pub env: PrismEnv,
 }
 
 #[derive(Default, Clone, Debug)]
@@ -1134,7 +1134,7 @@ impl Default for PagingMode {
 
 impl Opt {
     pub fn from_args_and_git_config(
-        env: DeltaEnv,
+        env: PrismEnv,
         git_config: Option<GitConfig>,
         assets: HighlightingAssets,
     ) -> Self {
@@ -1142,7 +1142,7 @@ impl Opt {
     }
 
     pub fn from_iter_and_git_config<I>(
-        env: DeltaEnv,
+        env: PrismEnv,
         iter: I,
         git_config: Option<GitConfig>,
     ) -> Self
@@ -1160,7 +1160,7 @@ impl Opt {
     }
 
     fn from_clap_and_git_config(
-        env: DeltaEnv,
+        env: PrismEnv,
         arg_matches: clap::ArgMatches,
         mut git_config: Option<GitConfig>,
         assets: HighlightingAssets,

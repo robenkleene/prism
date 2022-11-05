@@ -37,7 +37,7 @@
     colorMoved = default
 ```
 
-Delta has many features and is very customizable; please see the [user manual](https://dandavison.github.io/delta/).
+Prism has many features and is very customizable; please see the [user manual](https://dandavison.github.io/delta/).
 
 ## Features
 
@@ -60,7 +60,7 @@ Delta has many features and is very customizable; please see the [user manual](h
 
 ## A syntax-highlighting pager for git, diff, and grep output
 
-Code evolves, and we all spend time studying diffs. Delta aims to make this both efficient and enjoyable: it allows you to make extensive changes to the layout and styling of diffs, as well as allowing you to stay arbitrarily close to the default git/diff output.
+Code evolves, and we all spend time studying diffs. Prism aims to make this both efficient and enjoyable: it allows you to make extensive changes to the layout and styling of diffs, as well as allowing you to stay arbitrarily close to the default git/diff output.
 
 <table>
   <tr>

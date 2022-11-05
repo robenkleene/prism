@@ -1,4 +1,4 @@
-class GitDelta < Formula
+class GitPrism < Formula
   version "0.14.0"
   desc "A viewer for git and diff output"
   homepage "https://github.com/dandavison/delta"

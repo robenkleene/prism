@@ -13,7 +13,7 @@ const BAT_PAGER: &str = "BAT_PAGER";
 const PAGER: &str = "PAGER";
 
 #[derive(Default, Clone)]
-pub struct DeltaEnv {
+pub struct PrismEnv {
     pub bat_theme: Option<String>,
     pub colorterm: Option<String>,
     pub current_dir: Option<std::path::PathBuf>,
@@ -25,7 +25,7 @@ pub struct DeltaEnv {
     pub pagers: (Option<String>, Option<String>, Option<String>),
 }
 
-impl DeltaEnv {
+impl PrismEnv {
     /// Create a structure with current environment variable
     pub fn init() -> Self {
         let bat_theme = env::var(BAT_THEME).ok();
@@ -60,14 +60,14 @@ impl DeltaEnv {
 
 #[cfg(test)]
 pub mod tests {
-    use super::DeltaEnv;
+    use super::PrismEnv;
     use std::env;
 
     #[test]
     fn test_env_parsing() {
         let feature = "Awesome Feature";
         env::set_var("DELTA_FEATURES", feature);
-        let env = DeltaEnv::init();
+        let env = PrismEnv::init();
         assert_eq!(env.features, Some(feature.into()));
     }
 }

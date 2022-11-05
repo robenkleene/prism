@@ -594,11 +594,11 @@ pub mod ansifill {
 pub mod tests {
     use crate::ansi::strip_ansi_codes;
     use crate::features::line_numbers::tests::*;
-    use crate::tests::integration_test_utils::{make_config_from_args, run_delta, DeltaTest};
+    use crate::tests::integration_test_utils::{make_config_from_args, run_delta, PrismTest};
 
     #[test]
     fn test_two_minus_lines() {
-        DeltaTest::with_args(&["--side-by-side", "--width", "40"])
+        PrismTest::with_args(&["--side-by-side", "--width", "40"])
             .with_input(TWO_MINUS_LINES_DIFF)
             .expect_after_header(
                 r#"
@@ -609,7 +609,7 @@ pub mod tests {
 
     #[test]
     fn test_two_minus_lines_truncated() {
-        DeltaTest::with_args(&[
+        PrismTest::with_args(&[
             "--side-by-side",
             "--wrap-max-lines",
             "0",
@@ -628,7 +628,7 @@ pub mod tests {
 
     #[test]
     fn test_two_plus_lines() {
-        DeltaTest::with_args(&[
+        PrismTest::with_args(&[
             "--side-by-side",
             "--width",
             "41",
@@ -644,7 +644,7 @@ pub mod tests {
 
     #[test]
     fn test_two_plus_lines_spaces_and_ansi() {
-        DeltaTest::with_args(&[
+        PrismTest::with_args(&[
             "--side-by-side",
             "--width",
             "41",
@@ -656,7 +656,7 @@ pub mod tests {
         (blue)│(88)    (blue)│(normal)              (blue)│(28)  1 (blue)│(231 22)a (203)=(231) (141)1(normal 22)         (normal)
         (blue)│(88)    (blue)│(normal)              (blue)│(28)  2 (blue)│(231 22)b (203)=(231) (141)234567(normal 22)    (normal)"#);
 
-        DeltaTest::with_args(&[
+        PrismTest::with_args(&[
             "--side-by-side",
             "--width",
             "41",
@@ -702,7 +702,7 @@ pub mod tests {
 
     #[test]
     fn test_one_minus_one_plus_line() {
-        DeltaTest::with_args(&[
+        PrismTest::with_args(&[
             "--side-by-side",
             "--width",
             "40",

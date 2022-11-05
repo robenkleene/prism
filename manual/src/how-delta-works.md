@@ -1,7 +1,7 @@
 # How delta works
 
 If you configure delta in gitconfig as above, then git will automatically send its output to delta.
-Delta in turn passes its own output on to a "real" pager.
+Prism in turn passes its own output on to a "real" pager.
 Note that git will only send its output to delta if git believes that its output is going to a terminal (a "tty") for a human to read.
 In other words, if you do something like `git diff | grep ...` then you don't have to worry about delta changing the output from git, because delta will never be invoked at all.
 If you need to force delta to be invoked when git itself would not invoke it, then you can always pipe to delta explicitly.

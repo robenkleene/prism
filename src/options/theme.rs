@@ -1,4 +1,4 @@
-/// Delta doesn't have a formal concept of a "theme". What it has is
+/// Prism doesn't have a formal concept of a "theme". What it has is
 /// (a) the choice of syntax-highlighting theme
 /// (b) the choice of light-background-mode vs dark-background-mode, which determine certain
 ///     default color choices
